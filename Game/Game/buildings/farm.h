@@ -1,5 +1,5 @@
-#ifndef City_H
-#define City_H
+#ifndef Farm_H
+#define Farm_H
 
 #include "buildings/buildingbase.h"
 #include "Game/core/resources.h"
@@ -7,21 +7,23 @@
 
 namespace Course {
 
+
 /**
- * @brief The City class represents a player's City-building.
+ * @brief The Farm class represents a player's Farm-building.
  *
- * It can be constructed on any tile that has not been claimed by any other
- * player. \n
- * Effects: Claims surrounding unclaimed tiles. \n
- * Radius: 3 tiles.
+ * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
+ * Production:
+ * 5 food
+ * 1 money
+ *
  */
-class City : public BuildingBase
+class Farm : public BuildingBase
 {
 public:
     /**
      * @brief Disabled parameterless constructor.
      */
-    City() = delete;
+    Farm() = delete;
 
     /**
      * @brief Constructor for the class.
@@ -34,19 +36,19 @@ public:
      * @exception OwnerConflict - if the building conflicts with tile's
      * ownership.
      */
-    explicit City(
+    explicit Farm(
             const std::shared_ptr<iGameEventHandler>& eventhandler,
             const std::shared_ptr<iObjectManager>& objectmanager,
             const std::shared_ptr<PlayerBase>& owner,
             const int& tilespaces = 1,
-            const ResourceMap& buildcost = ConstResources::CITY_BUILD_COST,
-            const ResourceMap& production = ConstResources::CITY_PRODUCTION
+            const ResourceMap& buildcost = ConstResources::FARM_BUILD_COST,
+            const ResourceMap& production = ConstResources::FARM_PRODUCTION
             );
 
     /**
      * @brief Default destructor.
      */
-    virtual ~City() = default;
+    virtual ~Farm() = default;
 
     /**
      * @copydoc GameObject::getType()
@@ -55,14 +57,20 @@ public:
 
     /**
      * @brief Sets neighbouring Tiles' ownership to this building's
-     * ownership in 3 tile-radius, if the Tiles don't already have an owner.
+     * ownership in 1 tile-radius, if the Tiles don't already have an owner.
      * @post Exception guarantee: Basic
      */
     virtual void onBuildAction() override;
 
-}; // class City
+    /**
+     * @brief Farm can only be built on a grass based hex
+     */
+    virtual bool canBePlacedOnTile(
+            const std::shared_ptr<TileBase> &target) const override;
+
+}; // class Farm
 
 } // namespace Course
 
 
-#endif // City_H
+#endif // Farm_H

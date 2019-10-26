@@ -2,23 +2,18 @@
 #define Colony_H
 
 #include "buildings/buildingbase.h"
-#include "core/resources.h"
+#include "Game/core/resources.h"
 
 
 namespace Course {
 
-static const ResourceMap Colony_PRODUCTIONMAP = {
-  {BasicResource::MONEY, -10}
-};
 
 /**
  * @brief The Colony class represents a player's Colony-building.
  *
- * It can be constructed on any tile that has not been claimed by any other
- * player. \n
+ * It can be constructed on any claimed tile with a free space. \n
  * Effects: Claims surrounding unclaimed tiles. \n
  * Radius: 2 tiles\n
- * Production: -10 money (upkeep)\n
  *
  */
 class Colony : public BuildingBase
@@ -66,12 +61,6 @@ public:
      */
     virtual void onBuildAction() override;
 
-    /**
-     * @brief getProduction
-     * @return
-     * @post Exception guarantee: Basic
-     */
-    virtual ResourceMap getProduction() override;
 
 }; // class Colony
 

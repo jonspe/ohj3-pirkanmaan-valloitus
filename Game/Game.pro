@@ -6,8 +6,10 @@ QT += core gui widgets
 CONFIG += c++14
 
 SOURCES += \
+    Game/buildings/farm.cpp \
+    Game/buildings/mine.cpp \
     Game/tiles/animals.cpp \
-    Game/tiles/birch_copy.cpp \
+    Game/tiles/evergreen.cpp \
     main.cpp \
     mapwindow.cc \
     Game/tiles/birch.cpp \
@@ -21,6 +23,8 @@ SOURCES += \
     Game/buildings/colony.cpp
 
 HEADERS += \
+    Game/buildings/farm.h \
+    Game/buildings/mine.h \
     Game/tiles/animals.h \
     Game/tiles/evergreen.h \
     mapwindow.hh \

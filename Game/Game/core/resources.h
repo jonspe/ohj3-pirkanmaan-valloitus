@@ -9,16 +9,6 @@ namespace ConstResources {
 
 const ResourceMap EMPTY = {};
 
-// Building - Farm
-const ResourceMap FARM_BUILD_COST = {
-    {BasicResource::MONEY, 50},
-    {BasicResource::FOOD, 100},
-    {BasicResource::WOOD, 25}
-};
-const ResourceMap FARM_PRODUCTION = {
-    {BasicResource::MONEY, 1},
-    {BasicResource::FOOD, 5}
-};
 
 
 // Building - City
@@ -45,6 +35,28 @@ const ResourceMap COLONY_BUILD_COST = {
 const ResourceMap COLONY_PRODUCTION = {
     {BasicResource::MONEY, 5},
     {BasicResource::FOOD, -2}
+};
+
+// Building - Farm
+const ResourceMap FARM_BUILD_COST = {
+    {BasicResource::MONEY, 50},
+    {BasicResource::FOOD, 100},
+    {BasicResource::WOOD, 25}
+};
+const ResourceMap FARM_PRODUCTION = {
+    {BasicResource::MONEY, 1},
+    {BasicResource::FOOD, 5}
+};
+
+// Building - Mine
+const ResourceMap MINE_BUILD_COST = {
+    {BasicResource::MONEY, 50},
+    {BasicResource::FOOD, 100},
+    {BasicResource::WOOD, 25}
+};
+const ResourceMap MINE_PRODUCTION = {
+    {BasicResource::STONE, 5},
+    {BasicResource::ORE, 2}
 };
 
 

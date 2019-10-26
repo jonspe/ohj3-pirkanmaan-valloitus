@@ -1,10 +1,10 @@
-#include "colony.h"
+#include "farm.h"
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
 
 namespace Course {
 
-Colony::Colony(
+Farm::Farm(
         const std::shared_ptr<iGameEventHandler>& eventhandler,
         const std::shared_ptr<iObjectManager>& objectmanager,
         const std::shared_ptr<PlayerBase>& owner,
@@ -21,12 +21,12 @@ Colony::Colony(
 {
 }
 
-std::string Colony::getType() const
+std::string Farm::getType() const
 {
-    return "Colony";
+    return "Farm";
 }
 
-void Colony::onBuildAction()
+void Farm::onBuildAction()
 {
     std::vector< std::shared_ptr<TileBase> > neighbours;
 
@@ -40,6 +40,14 @@ void Colony::onBuildAction()
             (*it)->setOwner(getOwner());
         }
     }
+}
+
+bool Farm::canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const
+{
+    return PlaceableGameObject::canBePlacedOnTile(target) and
+            target->hasSpaceForBuildings(spacesInTileCapacity()) and(
+            target->getType() == "Grass" or
+            target->getType() == "Animals");
 }
 
 } // namespace Course
