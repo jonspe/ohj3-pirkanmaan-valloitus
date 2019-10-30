@@ -8,6 +8,7 @@ CONFIG += c++14
 SOURCES += \
     Game/buildings/farm.cpp \
     Game/buildings/mine.cpp \
+    Game/core/objectmanager.cpp \
     Game/tiles/animals.cpp \
     Game/tiles/evergreen.cpp \
     main.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     Game/buildings/farm.h \
     Game/buildings/mine.h \
+    Game/core/objectmanager.h \
     Game/tiles/animals.h \
     Game/tiles/evergreen.h \
     mapwindow.hh \
