@@ -17,7 +17,7 @@ public:
      * Exception Guarantee: Basic
      *
      */
-    void addTiles(const std::vector<std::shared_ptr<TileBase>>& tiles) = 0;
+    void addTiles(const std::vector<std::shared_ptr<TileBase>>& tiles) override;
 
     /**
      * @brief Returns a shared pointer to a Tile that has specified coordinate.
@@ -26,7 +26,7 @@ public:
      * If no for the coordinate exists, return empty pointer.
      * @post Exception Guarantee: Basic
      */
-    std::shared_ptr<TileBase> getTile(const Coordinate& coordinate) = 0;
+    std::shared_ptr<TileBase> getTile(const Coordinate& coordinate) override;
 
     /**
      * @brief Returns a shared pointer to a Tile that has specified ID
@@ -35,7 +35,7 @@ public:
      * If no for the id exists, return empty pointer.
      * @post Exception Guarantee: Basic
      */
-    std::shared_ptr<TileBase> getTile(const ObjectId& id) = 0;
+     std::shared_ptr<TileBase> getTile(const ObjectId& id) override;
 
     /**
      * @brief Returns a vector of shared pointers to Tiles specified by
@@ -45,7 +45,7 @@ public:
      * the coordinates. The vector is empty if no matches were made.
      * @post Exception Guarantee: Basic
      */
-    std::vector<std::shared_ptr<TileBase>> getTiles(const std::vector<Coordinate>& coordinates) = 0;
+    std::vector<std::shared_ptr<TileBase>> getTiles(const std::vector<Coordinate>& coordinates) override;
 
 
 private:
