@@ -1,16 +1,13 @@
 #include "city.h"
 #include "tiles/tilebase.h"
 
-
-namespace Course {
-
 City::City(
-        const std::shared_ptr<iGameEventHandler>& eventhandler,
-        const std::shared_ptr<iObjectManager>& objectmanager,
-        const std::shared_ptr<PlayerBase>& owner,
+        const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+        const std::shared_ptr<Course::iObjectManager>& objectmanager,
+        const std::shared_ptr<Course::PlayerBase>& owner,
         const int& tilespaces,
-        const ResourceMap& buildcost,
-        const ResourceMap& production):
+        const Course::ResourceMap& buildcost,
+        const Course::ResourceMap& production):
     BuildingBase(
         eventhandler,
         objectmanager,
@@ -28,7 +25,7 @@ std::string City::getType() const
 
 void City::onBuildAction()
 {
-    std::vector< std::shared_ptr<TileBase> > neighbours;
+    std::vector< std::shared_ptr<Course::TileBase> > neighbours;
 
     lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(3));
 
@@ -42,5 +39,3 @@ void City::onBuildAction()
     }
 }
 
-
-} // namespace Course

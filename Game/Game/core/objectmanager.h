@@ -4,8 +4,7 @@
 #include <vector>
 
 
-namespace Course{
-class ObjectManager : public iObjectManager
+class ObjectManager : public Course::iObjectManager
 {
 public:
     ObjectManager();
@@ -17,7 +16,7 @@ public:
      * Exception Guarantee: Basic
      *
      */
-    void addTiles(const std::vector<std::shared_ptr<TileBase>>& tiles) override;
+    void addTiles(const std::vector<std::shared_ptr<Course::TileBase>>& tiles) override;
 
     /**
      * @brief Returns a shared pointer to a Tile that has specified coordinate.
@@ -26,7 +25,7 @@ public:
      * If no for the coordinate exists, return empty pointer.
      * @post Exception Guarantee: Basic
      */
-    std::shared_ptr<TileBase> getTile(const Coordinate& coordinate) override;
+    std::shared_ptr<Course::TileBase> getTile(const Course::Coordinate& coordinate) override;
 
     /**
      * @brief Returns a shared pointer to a Tile that has specified ID
@@ -35,7 +34,7 @@ public:
      * If no for the id exists, return empty pointer.
      * @post Exception Guarantee: Basic
      */
-     std::shared_ptr<TileBase> getTile(const ObjectId& id) override;
+     std::shared_ptr<Course::TileBase> getTile(const Course::ObjectId& id) override;
 
     /**
      * @brief Returns a vector of shared pointers to Tiles specified by
@@ -45,7 +44,7 @@ public:
      * the coordinates. The vector is empty if no matches were made.
      * @post Exception Guarantee: Basic
      */
-    std::vector<std::shared_ptr<TileBase>> getTiles(const std::vector<Coordinate>& coordinates) override;
+    std::vector<std::shared_ptr<Course::TileBase>> getTiles(const std::vector<Course::Coordinate>& coordinates) override;
 
 
 private:
@@ -53,5 +52,4 @@ private:
    std::vector<std::shared_ptr<Course::TileBase>> wanted_tiles; // used in GetTiles, always cleared before calling
 };
 
-}
 #endif // OBJECTMANAGER_H

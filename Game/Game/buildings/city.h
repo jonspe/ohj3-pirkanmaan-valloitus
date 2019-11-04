@@ -5,8 +5,6 @@
 #include "Game/core/resources.h"
 
 
-namespace Course {
-
 /**
  * @brief The City class represents a player's City-building.
  *
@@ -15,7 +13,7 @@ namespace Course {
  * Effects: Claims surrounding unclaimed tiles. \n
  * Radius: 3 tiles.
  */
-class City : public BuildingBase
+class City : public Course::BuildingBase
 {
 public:
     /**
@@ -35,12 +33,12 @@ public:
      * ownership.
      */
     explicit City(
-            const std::shared_ptr<iGameEventHandler>& eventhandler,
-            const std::shared_ptr<iObjectManager>& objectmanager,
-            const std::shared_ptr<PlayerBase>& owner,
+            const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+            const std::shared_ptr<Course::iObjectManager>& objectmanager,
+            const std::shared_ptr<Course::PlayerBase>& owner,
             const int& tilespaces = 1,
-            const ResourceMap& buildcost = ConstResources::CITY_BUILD_COST,
-            const ResourceMap& production = ConstResources::CITY_PRODUCTION
+            const Course::ResourceMap& buildcost = ConstResources::CITY_BUILD_COST,
+            const Course::ResourceMap& production = ConstResources::CITY_PRODUCTION
             );
 
     /**
@@ -62,7 +60,6 @@ public:
 
 }; // class City
 
-} // namespace Course
 
 
 #endif // City_H

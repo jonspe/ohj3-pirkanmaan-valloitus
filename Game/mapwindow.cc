@@ -27,20 +27,20 @@ MapWindow::MapWindow(QWidget *parent,
 
     m_ui->graphicsView->setScene(dynamic_cast<QGraphicsScene*>(sgs_rawptr));
 
-   std::shared_ptr<Course::ObjectManager> object_manager(new Course::ObjectManager);
+   std::shared_ptr<ObjectManager> object_manager(new ObjectManager);
    std::shared_ptr<Course::iGameEventHandler> event_handler = nullptr;
 
    Course::WorldGenerator& map_generator = Course::WorldGenerator::getInstance();
 
-   map_generator.addConstructor<Course::Animals>(20);
-   map_generator.addConstructor<Course::Birch>(60);
-   map_generator.addConstructor<Course::Diamond>(5);
-   map_generator.addConstructor<Course::Evergreen>(60);
-   map_generator.addConstructor<Course::Grass>(100);
-   map_generator.addConstructor<Course::Lake>(30);
-   map_generator.addConstructor<Course::Ore>(15);
-   map_generator.addConstructor<Course::Sand>(15);
-   map_generator.addConstructor<Course::Stone>(30);
+   map_generator.addConstructor<Animals>(20);
+   map_generator.addConstructor<Birch>(60);
+   map_generator.addConstructor<Diamond>(5);
+   map_generator.addConstructor<Evergreen>(60);
+   map_generator.addConstructor<Grass>(100);
+   map_generator.addConstructor<Lake>(30);
+   map_generator.addConstructor<Ore>(15);
+   map_generator.addConstructor<Sand>(15);
+   map_generator.addConstructor<Stone>(30);
 
    map_generator.generateMap(100,100,1337, object_manager, event_handler);
 

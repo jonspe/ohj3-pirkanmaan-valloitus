@@ -4,8 +4,6 @@
 #include "tiles/tilebase.h"
 #include "Game/core/resources.h"
 
-namespace Course {
-
 /**
  * @brief The Birch class represents Birch in the gameworld.
  *
@@ -19,7 +17,7 @@ namespace Course {
  *
  * Tile supports 2 buildings.
  */
-class Birch : public TileBase
+class Birch : public Course::TileBase
 {
 public:
     /**
@@ -33,12 +31,12 @@ public:
      * @param location is the Coordinate where the Tile is located in the game.
      * @param eventhandler points to the student's GameEventHandler.
      */
-    Birch(const Coordinate& location,
-           const std::shared_ptr<iGameEventHandler>& eventhandler,
-           const std::shared_ptr<iObjectManager>& objectmanager,
+    Birch(const Course::Coordinate& location,
+           const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+           const std::shared_ptr<Course::iObjectManager>& objectmanager,
            const unsigned int& max_build = 1,
            const unsigned int& max_work = 13,
-           const ResourceMap& production = ConstResources::BIRCH_BP);
+           const Course::ResourceMap& production = ConstResources::BIRCH_BP);
 
     /**
      * @brief Default destructor.
@@ -68,7 +66,6 @@ public:
 
 }; // class Birch
 
-} // namespace Course
 
 
 #endif // BIRCH_H

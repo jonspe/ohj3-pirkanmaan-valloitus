@@ -2,15 +2,13 @@
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
 
-namespace Course {
-
 Mine::Mine(
-        const std::shared_ptr<iGameEventHandler>& eventhandler,
-        const std::shared_ptr<iObjectManager>& objectmanager,
-        const std::shared_ptr<PlayerBase>& owner,
+        const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+        const std::shared_ptr<Course::iObjectManager>& objectmanager,
+        const std::shared_ptr<Course::PlayerBase>& owner,
         const int& tilespaces,
-        const ResourceMap& buildcost,
-        const ResourceMap& production
+        const Course::ResourceMap& buildcost,
+        const Course::ResourceMap& production
         ):
     BuildingBase(eventhandler,
                  objectmanager,
@@ -26,23 +24,8 @@ std::string Mine::getType() const
     return "Mine";
 }
 
-void Mine::onBuildAction()
-{
-    std::vector< std::shared_ptr<TileBase> > neighbours;
 
-    lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(2));
-
-    for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
-    {
-        // If the Tile doesn't have owner, set it's owner to buildings owner.
-        if( not (*it)->getOwner() )
-        {
-            (*it)->setOwner(getOwner());
-        }
-    }
-}
-
-bool Mine::canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const
+bool Mine::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &target) const
 {
     return PlaceableGameObject::canBePlacedOnTile(target) and
             target->hasSpaceForBuildings(spacesInTileCapacity()) and(
@@ -51,4 +34,3 @@ bool Mine::canBePlacedOnTile(const std::shared_ptr<TileBase> &target) const
             target->getType() == "Diamonds");
 }
 
-} // namespace Course
