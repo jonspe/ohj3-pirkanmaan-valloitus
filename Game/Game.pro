@@ -67,3 +67,6 @@ else:unix: PRE_TARGETDEPS += \
 
 FORMS += \
     mapwindow.ui
+
+RESOURCES += \
+    resources.qrc
