@@ -4,8 +4,6 @@
 #include "tiles/tilebase.h"
 #include "Game/core/resources.h"
 
-namespace Course {
-
 /**
  * @brief The Evergreen class represents Evergreen in the gameworld.
  *
@@ -19,7 +17,7 @@ namespace Course {
  *
  * Tile supports 2 buildings.
  */
-class Evergreen : public TileBase
+class Evergreen : public Course::TileBase
 {
 public:
     /**
@@ -33,12 +31,12 @@ public:
      * @param location is the Coordinate where the Tile is located in the game.
      * @param eventhandler points to the student's GameEventHandler.
      */
-    Evergreen(const Coordinate& location,
-           const std::shared_ptr<iGameEventHandler>& eventhandler,
-           const std::shared_ptr<iObjectManager>& objectmanager,
+    Evergreen(const Course::Coordinate& location,
+           const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+           const std::shared_ptr<Course::iObjectManager>& objectmanager,
            const unsigned int& max_build = 1,
            const unsigned int& max_work = 13,
-           const ResourceMap& production = ConstResources::EVERGREEN_BP);
+           const Course::ResourceMap& production = ConstResources::EVERGREEN_BP);
 
     /**
      * @brief Default destructor.
@@ -67,8 +65,6 @@ public:
      */
 
 }; // class Evergreen
-
-} // namespace Course
 
 
 #endif // Evergreen_H

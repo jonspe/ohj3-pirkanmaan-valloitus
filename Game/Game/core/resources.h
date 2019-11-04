@@ -3,150 +3,148 @@
 
 #include "core\basicresources.h"
 
-namespace Course {
-
 namespace ConstResources {
 
-const ResourceMap EMPTY = {};
+const Course::ResourceMap EMPTY = {};
 
 
 
 // Building - City
-const ResourceMap CITY_BUILD_COST = {
-    {BasicResource::MONEY, 750},
-    {BasicResource::FOOD, 1000},
-    {BasicResource::WOOD, 500},
-    {BasicResource::STONE, 250}
+const Course::ResourceMap CITY_BUILD_COST = {
+    {Course::BasicResource::MONEY, 750},
+    {Course::BasicResource::FOOD, 1000},
+    {Course::BasicResource::WOOD, 500},
+    {Course::BasicResource::STONE, 250}
 };
-const ResourceMap CITY_PRODUCTION = {
-    {BasicResource::MONEY, 10},
-    {BasicResource::FOOD, -4},
+const Course::ResourceMap CITY_PRODUCTION = {
+    {Course::BasicResource::MONEY, 10},
+    {Course::BasicResource::FOOD, -4},
 };
 
 
 // Building - COLONY
-const ResourceMap COLONY_BUILD_COST = {
-    {BasicResource::MONEY, 150},
-    {BasicResource::FOOD, 400},
-    {BasicResource::WOOD, 200},
-    {BasicResource::STONE, 25}
+const Course::ResourceMap COLONY_BUILD_COST = {
+    {Course::BasicResource::MONEY, 150},
+    {Course::BasicResource::FOOD, 400},
+    {Course::BasicResource::WOOD, 200},
+    {Course::BasicResource::STONE, 25}
 };
 
-const ResourceMap COLONY_PRODUCTION = {
-    {BasicResource::MONEY, 5},
-    {BasicResource::FOOD, -2}
+const Course::ResourceMap COLONY_PRODUCTION = {
+    {Course::BasicResource::MONEY, 5},
+    {Course::BasicResource::FOOD, -2}
 };
 
 // Building - Farm
-const ResourceMap FARM_BUILD_COST = {
-    {BasicResource::MONEY, 50},
-    {BasicResource::FOOD, 100},
-    {BasicResource::WOOD, 25}
+const Course::ResourceMap FARM_BUILD_COST = {
+    {Course::BasicResource::MONEY, 50},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 25}
 };
-const ResourceMap FARM_PRODUCTION = {
-    {BasicResource::MONEY, 1},
-    {BasicResource::FOOD, 5}
+const Course::ResourceMap FARM_PRODUCTION = {
+    {Course::BasicResource::MONEY, 1},
+    {Course::BasicResource::FOOD, 5}
 };
 
 // Building - Mine
-const ResourceMap MINE_BUILD_COST = {
-    {BasicResource::MONEY, 50},
-    {BasicResource::FOOD, 100},
-    {BasicResource::WOOD, 25}
+const Course::ResourceMap MINE_BUILD_COST = {
+    {Course::BasicResource::MONEY, 50},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 25}
 };
-const ResourceMap MINE_PRODUCTION = {
-    {BasicResource::STONE, 5},
-    {BasicResource::ORE, 2}
+const Course::ResourceMap MINE_PRODUCTION = {
+    {Course::BasicResource::STONE, 5},
+    {Course::BasicResource::ORE, 2}
 };
 
 
 // Worker - BasicWorker
-const ResourceMapDouble BW_WORKER_EFFICIENCY = {
-    {MONEY, 0.25},
-    {FOOD, 1.00},
-    {WOOD, 0.75},
-    {STONE, 0.50},
-    {ORE, 0.50}
+const Course::ResourceMapDouble BW_WORKER_EFFICIENCY = {
+    {Course::MONEY, 0.25},
+    {Course::FOOD, 1.00},
+    {Course::WOOD, 0.75},
+    {Course::STONE, 0.50},
+    {Course::ORE, 0.50}
 };
 
-const ResourceMap BW_RECRUITMENT_COST = {
-    {MONEY, 10},
-    {FOOD, 25}
+const Course::ResourceMap BW_RECRUITMENT_COST = {
+    {Course::MONEY, 10},
+    {Course::FOOD, 25}
 };
 
 
-const ResourceMap BIRCH_BP = {
-    {MONEY, 1},
-    {FOOD, 3},
-    {WOOD, 5},
-    {STONE, 1},
-    {ORE, 0},
+const Course::ResourceMap BIRCH_BP = {
+    {Course::MONEY, 1},
+    {Course::FOOD, 3},
+    {Course::WOOD, 5},
+    {Course::STONE, 1},
+    {Course::ORE, 0},
 };
 
-const ResourceMap EVERGREEN_BP = {
-    {MONEY, 1},
-    {FOOD, 2},
-    {WOOD, 6},
-    {STONE, 1},
-    {ORE, 0},
+const Course::ResourceMap EVERGREEN_BP = {
+    {Course::MONEY, 1},
+    {Course::FOOD, 2},
+    {Course::WOOD, 6},
+    {Course::STONE, 1},
+    {Course::ORE, 0},
 };
 
-const ResourceMap GRASS_BP = {
-    {MONEY, 2},
-    {FOOD, 5},
-    {WOOD, 1},
-    {STONE, 1},
-    {ORE, 0},
+const Course::ResourceMap GRASS_BP = {
+    {Course::MONEY, 2},
+    {Course::FOOD, 5},
+    {Course::WOOD, 1},
+    {Course::STONE, 1},
+    {Course::ORE, 0},
 };
 
-const ResourceMap ANIMALS_BP = {
-    {MONEY, 4},
-    {FOOD, 9},
-    {WOOD, 1},
-    {STONE, 1},
-    {ORE, 0},
+const Course::ResourceMap ANIMALS_BP = {
+    {Course::MONEY, 4},
+    {Course::FOOD, 9},
+    {Course::WOOD, 1},
+    {Course::STONE, 1},
+    {Course::ORE, 0},
 };
 
-const ResourceMap STONE_BP = {
-    {MONEY, 1},
-    {FOOD, 0},
-    {WOOD, 0},
-    {STONE, 5},
-    {ORE, 1},
+const Course::ResourceMap STONE_BP = {
+    {Course::MONEY, 1},
+    {Course::FOOD, 0},
+    {Course::WOOD, 0},
+    {Course::STONE, 5},
+    {Course::ORE, 1},
 };
 
-const ResourceMap SAND_BP = {
-    {MONEY, 3},
-    {FOOD, 2},
-    {WOOD, 0},
-    {STONE, 2},
-    {ORE, 0},
+const Course::ResourceMap SAND_BP = {
+    {Course::MONEY, 3},
+    {Course::FOOD, 2},
+    {Course::WOOD, 0},
+    {Course::STONE, 2},
+    {Course::ORE, 0},
 };
 
-const ResourceMap DIAMOND_BP = {
-    {MONEY, 15},
-    {FOOD, 0},
-    {WOOD, 0},
-    {STONE, 5},
-    {ORE, 1},
+const Course::ResourceMap DIAMOND_BP = {
+    {Course::MONEY, 15},
+    {Course::FOOD, 0},
+    {Course::WOOD, 0},
+    {Course::STONE, 5},
+    {Course::ORE, 1},
 };
 
-const ResourceMap ORE_BP = {
-    {MONEY, 0},
-    {FOOD, 0},
-    {WOOD, 0},
-    {STONE, 5},
-    {ORE, 5},
+const Course::ResourceMap ORE_BP = {
+    {Course::MONEY, 0},
+    {Course::FOOD, 0},
+    {Course::WOOD, 0},
+    {Course::STONE, 5},
+    {Course::ORE, 5},
 };
 
-const ResourceMap LAKE_BP = {
-    {MONEY, 5},
-    {FOOD, 5},
-    {WOOD, 0},
-    {STONE, 0},
-    {ORE, 0},
+const Course::ResourceMap LAKE_BP = {
+    {Course::MONEY, 5},
+    {Course::FOOD, 5},
+    {Course::WOOD, 0},
+    {Course::STONE, 0},
+    {Course::ORE, 0},
 };
 
 }
-}
+
 #endif // RESOURCES_H

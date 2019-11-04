@@ -5,8 +5,6 @@
 #include "Game/core/resources.h"
 
 
-namespace Course {
-
 
 /**
  * @brief The Colony class represents a player's Colony-building.
@@ -16,7 +14,7 @@ namespace Course {
  * Radius: 2 tiles\n
  *
  */
-class Colony : public BuildingBase
+class Colony : public Course::BuildingBase
 {
 public:
     /**
@@ -36,12 +34,12 @@ public:
      * ownership.
      */
     explicit Colony(
-            const std::shared_ptr<iGameEventHandler>& eventhandler,
-            const std::shared_ptr<iObjectManager>& objectmanager,
-            const std::shared_ptr<PlayerBase>& owner,
+            const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+            const std::shared_ptr<Course::iObjectManager>& objectmanager,
+            const std::shared_ptr<Course::PlayerBase>& owner,
             const int& tilespaces = 1,
-            const ResourceMap& buildcost = ConstResources::COLONY_BUILD_COST,
-            const ResourceMap& production = ConstResources::COLONY_PRODUCTION
+            const Course::ResourceMap& buildcost = ConstResources::COLONY_BUILD_COST,
+            const Course::ResourceMap& production = ConstResources::COLONY_PRODUCTION
             );
 
     /**
@@ -64,7 +62,6 @@ public:
 
 }; // class Colony
 
-} // namespace Course
 
 
 #endif // Colony_H

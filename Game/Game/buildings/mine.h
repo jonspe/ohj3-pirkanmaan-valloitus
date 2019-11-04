@@ -4,10 +4,6 @@
 #include "buildings/buildingbase.h"
 #include "Game/core/resources.h"
 
-
-namespace Course {
-
-
 /**
  * @brief The Mine class represents a player's Mine-building.
  *
@@ -17,7 +13,7 @@ namespace Course {
  * 2 ore
  *
  */
-class Mine : public BuildingBase
+class Mine : public Course::BuildingBase
 {
 public:
     /**
@@ -37,12 +33,12 @@ public:
      * ownership.
      */
     explicit Mine(
-            const std::shared_ptr<iGameEventHandler>& eventhandler,
-            const std::shared_ptr<iObjectManager>& objectmanager,
-            const std::shared_ptr<PlayerBase>& owner,
+            const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+            const std::shared_ptr<Course::iObjectManager>& objectmanager,
+            const std::shared_ptr<Course::PlayerBase>& owner,
             const int& tilespaces = 1,
-            const ResourceMap& buildcost = ConstResources::MINE_BUILD_COST,
-            const ResourceMap& production = ConstResources::MINE_PRODUCTION
+            const Course::ResourceMap& buildcost = ConstResources::MINE_BUILD_COST,
+            const Course::ResourceMap& production = ConstResources::MINE_PRODUCTION
             );
 
     /**
@@ -56,21 +52,12 @@ public:
     virtual std::string getType() const override;
 
     /**
-     * @brief Sets neighbouring Tiles' ownership to this building's
-     * ownership in 1 tile-radius, if the Tiles don't already have an owner.
-     * @post Exception guarantee: Basic
-     */
-    virtual void onBuildAction() override;
-
-    /**
      * @brief Mine can only be built on a grass based hex
      */
     virtual bool canBePlacedOnTile(
-            const std::shared_ptr<TileBase> &target) const override;
+            const std::shared_ptr<Course::TileBase> &target) const override;
 
 }; // class Mine
-
-} // namespace Course
 
 
 #endif // Mine_H

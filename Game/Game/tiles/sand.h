@@ -3,7 +3,6 @@
 
 #include "tiles/tilebase.h"
 #include "Game/core/resources.h"
-namespace Course {
 
 /**
  * @brief The Sand class represents Sand in the gameworld.
@@ -19,12 +18,12 @@ namespace Course {
  *
  * Tile supports 3 buildings.
  */
-class Sand : public TileBase
+class Sand : public Course::TileBase
 {
 public:
     static const unsigned int MAX_BUILDINGS;
     static const unsigned int MAX_WORKERS;
-    static const ResourceMap BASE_PRODUCTION;
+    static const Course::ResourceMap BASE_PRODUCTION;
     /**
      * @brief Disabled parameterless constructor.
      */
@@ -36,12 +35,12 @@ public:
      * @param location is the Coordinate where the Tile is located in the game.
      * @param eventhandler points to the student's GameEventHandler.
      */
-    Sand(const Coordinate& location,
-              const std::shared_ptr<iGameEventHandler>& eventhandler,
-              const std::shared_ptr<iObjectManager>& objectmanager,
+    Sand(const Course::Coordinate& location,
+              const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
+              const std::shared_ptr<Course::iObjectManager>& objectmanager,
               const unsigned int& max_build = 1,
               const unsigned int& max_work = 1,
-              const ResourceMap& production = ConstResources::SAND_BP);
+              const Course::ResourceMap& production = ConstResources::SAND_BP);
 
     /**
      * @brief Default destructor.
@@ -54,8 +53,6 @@ public:
     virtual std::string getType() const override;
 
 }; // class Sand
-
-} // namespace Course
 
 
 #endif // SAND_H

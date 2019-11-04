@@ -2,19 +2,19 @@
 #include <vector>
 #include "tiles/tilebase.h"
 
-Course::ObjectManager::ObjectManager()
+ObjectManager::ObjectManager()
 {
 
 }
 
-void Course::ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase>> &tiles)
+void ObjectManager::addTiles(const std::vector<std::shared_ptr<Course::TileBase>> &tiles)
 {
     for (auto it = tiles.begin(); it != tiles.end(); it++){
         managed_tiles.push_back(*it);
     }
 }
 
-std::shared_ptr<Course::TileBase> Course::ObjectManager::getTile(const Course::Coordinate &coordinate)
+std::shared_ptr<Course::TileBase>ObjectManager::getTile(const Course::Coordinate &coordinate)
 {
     for (auto it = managed_tiles.begin(); it != managed_tiles.end(); it++){
         if (it->get()->getCoordinate() == coordinate){
@@ -24,7 +24,7 @@ std::shared_ptr<Course::TileBase> Course::ObjectManager::getTile(const Course::C
     return nullptr;
 }
 
-std::shared_ptr<Course::TileBase> Course::ObjectManager::getTile(const Course::ObjectId &id)
+std::shared_ptr<Course::TileBase> ObjectManager::getTile(const Course::ObjectId &id)
 {
     for (auto it = managed_tiles.begin(); it != managed_tiles.end(); it++){
         if (it->get()->ID == id){
@@ -34,7 +34,7 @@ std::shared_ptr<Course::TileBase> Course::ObjectManager::getTile(const Course::O
     return nullptr;
 }
 
-std::vector<std::shared_ptr<Course::TileBase> > Course::ObjectManager::getTiles(const std::vector<Course::Coordinate> &coordinates)
+std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const std::vector<Course::Coordinate> &coordinates)
 {
     wanted_tiles.clear();
 
