@@ -21,7 +21,8 @@ SOURCES += \
     Game/tiles/sand.cpp \
     Game/tiles/stone.cpp \
     Game/buildings/city.cpp \
-    Game/buildings/colony.cpp
+    Game/buildings/colony.cpp \
+    setupdialog.cpp
 
 HEADERS += \
     Game/buildings/farm.h \
@@ -39,7 +40,8 @@ HEADERS += \
     Game/tiles/sand.h \
     Game/tiles/stone.h \
     Game/buildings/city.h \
-    Game/buildings/colony.h
+    Game/buildings/colony.h \
+    setupdialog.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -66,7 +68,8 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 FORMS += \
-    mapwindow.ui
+    mapwindow.ui \
+    setupdialog.ui
 
 RESOURCES += \
     resources.qrc

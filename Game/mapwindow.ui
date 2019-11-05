@@ -206,7 +206,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/wood.png</pixmap>
         </property>
        </widget>
       </item>
@@ -250,7 +250,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/gold.png</pixmap>
         </property>
        </widget>
       </item>
