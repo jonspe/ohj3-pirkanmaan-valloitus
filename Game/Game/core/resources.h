@@ -57,6 +57,50 @@ const Course::ResourceMap MINE_PRODUCTION = {
     {Course::BasicResource::ORE, 2}
 };
 
+// Building - Lumber Camp
+const Course::ResourceMap LUMBERCAMP_BUILD_COST = {
+    {Course::BasicResource::MONEY, 50},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 40}
+};
+const Course::ResourceMap LUMBERCAMP_PRODUCTION = {
+    {Course::BasicResource::WOOD, 9},
+};
+
+// Building - University
+const Course::ResourceMap UNIVERSITY_BUILD_COST = {
+    {Course::BasicResource::MONEY, 550},
+    {Course::BasicResource::FOOD, 200},
+    {Course::BasicResource::STONE, 300},
+    {Course::BasicResource::ORE, 100}
+};
+const Course::ResourceMap UNIVERSITY_PRODUCTION = {
+    {Course::BasicResource::MONEY, -15},
+};
+
+// Building - Victory Monument
+const Course::ResourceMap VICTORYMONUMENT_BUILD_COST = {
+    {Course::BasicResource::MONEY, 3000},
+    {Course::BasicResource::FOOD, 3000},
+    {Course::BasicResource::WOOD, 3000},
+    {Course::BasicResource::STONE, 2000},
+    {Course::BasicResource::ORE, 1000}
+};
+const Course::ResourceMap VICTORYMONUMENT_PRODUCTION = {
+    {Course::BasicResource::MONEY, -15},
+};
+
+// Building - Marketplace
+const Course::ResourceMap MARKETPLACE_BUILD_COST = {
+    {Course::BasicResource::MONEY, 200},
+    {Course::BasicResource::FOOD, 100},
+    {Course::BasicResource::WOOD, 250},
+};
+const Course::ResourceMap MARKETPLACE_PRODUCTION = {
+    {Course::BasicResource::MONEY, 5},
+};
+
+
 
 // Worker - BasicWorker
 const Course::ResourceMapDouble BW_WORKER_EFFICIENCY = {

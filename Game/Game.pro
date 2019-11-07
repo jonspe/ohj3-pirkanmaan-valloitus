@@ -7,7 +7,11 @@ CONFIG += c++14
 
 SOURCES += \
     Game/buildings/farm.cpp \
+    Game/buildings/lumbercamp.cpp \
+    Game/buildings/marketplace.cpp \
     Game/buildings/mine.cpp \
+    Game/buildings/university.cpp \
+    Game/buildings/victorymonument.cpp \
     Game/core/objectmanager.cpp \
     Game/tiles/animals.cpp \
     Game/tiles/evergreen.cpp \
@@ -26,7 +30,11 @@ SOURCES += \
 
 HEADERS += \
     Game/buildings/farm.h \
+    Game/buildings/lumbercamp.h \
+    Game/buildings/marketplace.h \
     Game/buildings/mine.h \
+    Game/buildings/university.h \
+    Game/buildings/victorymonument.h \
     Game/core/objectmanager.h \
     Game/tiles/animals.h \
     Game/tiles/evergreen.h \
