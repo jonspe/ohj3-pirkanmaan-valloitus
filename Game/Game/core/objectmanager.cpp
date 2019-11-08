@@ -36,7 +36,7 @@ std::shared_ptr<Course::TileBase> ObjectManager::getTile(const Course::ObjectId 
 
 std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const std::vector<Course::Coordinate> &coordinates)
 {
-    wanted_tiles.clear();
+    std::vector<std::shared_ptr<Course::TileBase>> wanted_tiles;
 
     for (auto it = managed_tiles.begin(); it != managed_tiles.end(); it++){ // iterate through tiles, then coordinates to find wanted tiles
         for (auto coord_it = coordinates.begin(); coord_it != coordinates.end(); it++){

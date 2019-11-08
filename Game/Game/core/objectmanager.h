@@ -49,7 +49,6 @@ public:
 
 private:
    std::vector<std::shared_ptr<Course::TileBase>> managed_tiles; // stores all currently managed tiles
-   std::vector<std::shared_ptr<Course::TileBase>> wanted_tiles; // used in GetTiles, always cleared before calling
 };
 
 #endif // OBJECTMANAGER_H
