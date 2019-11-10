@@ -52,4 +52,9 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getTiles(const st
     return wanted_tiles;
 }
 
+std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles()
+{
+    return managed_tiles;
+}
+
 

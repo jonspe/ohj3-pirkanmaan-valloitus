@@ -46,6 +46,14 @@ public:
      */
     std::vector<std::shared_ptr<Course::TileBase>> getTiles(const std::vector<Course::Coordinate>& coordinates) override;
 
+    /**
+     * @brief Returns a vector of shared pointers to all Tiles
+     * @param coordinates a vector of Coordinates for the requested Tiles
+     * @return Vector that contains pointers to all Tiles
+     * @post Exception Guarantee: Basic
+     */
+    std::vector<std::shared_ptr<Course::TileBase>> getAllTiles();
+
 
 private:
    std::vector<std::shared_ptr<Course::TileBase>> managed_tiles; // stores all currently managed tiles
