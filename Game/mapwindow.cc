@@ -12,6 +12,7 @@
 #include "Game/tiles/stone.h"
 #include "Game/core/objectmanager.h"
 #include "Game/graphics/gamescene.h"
+#include "setupdialog.h"
 #include <math.h>
 
 MapWindow::MapWindow(QWidget *parent,
@@ -26,6 +27,13 @@ MapWindow::MapWindow(QWidget *parent,
 
     GameView* gv_rawptr = m_gameview.get();
     GameScene* gs_rawptr = m_gamescene.get();
+
+    SetupDialog* setup_dialog = new SetupDialog();
+    setup_dialog->exec();
+
+    unsigned int map_size = setup_dialog->map_size;
+    unsigned int player_amount = setup_dialog->player_amount;
+    unsigned int seed = setup_dialog->seed;
 
     m_ui->horizontalLayout_2->insertWidget(0, gv_rawptr);
     m_gameview->setScene(gs_rawptr);
@@ -44,7 +52,7 @@ MapWindow::MapWindow(QWidget *parent,
     map_generator.addConstructor<Ore>(15);
     map_generator.addConstructor<Stone>(30);
 
-    map_generator.generateMap(100,100,1337, object_manager, event_handler);
+   map_generator.generateMap(map_size,map_size,seed, object_manager, event_handler);
 
     std::vector<std::shared_ptr<Course::TileBase>> tiles = object_manager->getAllTiles();
     std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());

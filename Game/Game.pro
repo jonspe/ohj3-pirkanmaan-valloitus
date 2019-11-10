@@ -7,7 +7,11 @@ CONFIG += c++14
 
 SOURCES += \
     Game/buildings/farm.cpp \
+    Game/buildings/lumbercamp.cpp \
+    Game/buildings/marketplace.cpp \
     Game/buildings/mine.cpp \
+    Game/buildings/university.cpp \
+    Game/buildings/victorymonument.cpp \
     Game/core/objectmanager.cpp \
     Game/core/player.cpp \
     Game/graphics/gamescene.cpp \
@@ -25,11 +29,16 @@ SOURCES += \
     Game/tiles/sand.cpp \
     Game/tiles/stone.cpp \
     Game/buildings/city.cpp \
-    Game/buildings/colony.cpp
+    Game/buildings/colony.cpp \
+    setupdialog.cpp
 
 HEADERS += \
     Game/buildings/farm.h \
+    Game/buildings/lumbercamp.h \
+    Game/buildings/marketplace.h \
     Game/buildings/mine.h \
+    Game/buildings/university.h \
+    Game/buildings/victorymonument.h \
     Game/core/objectmanager.h \
     Game/core/player.h \
     Game/graphics/gamescene.h \
@@ -47,7 +56,8 @@ HEADERS += \
     Game/tiles/sand.h \
     Game/tiles/stone.h \
     Game/buildings/city.h \
-    Game/buildings/colony.h
+    Game/buildings/colony.h \
+    setupdialog.h
 
 win32:CONFIG(release, debug|release): LIBS += \
     -L$$OUT_PWD/../Course/CourseLib/release/ -lCourseLib
@@ -74,7 +84,8 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 FORMS += \
-    mapwindow.ui
+    mapwindow.ui \
+    setupdialog.ui
 
 RESOURCES += \
     resources.qrc
