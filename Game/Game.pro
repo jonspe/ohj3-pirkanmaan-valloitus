@@ -9,6 +9,10 @@ SOURCES += \
     Game/buildings/farm.cpp \
     Game/buildings/mine.cpp \
     Game/core/objectmanager.cpp \
+    Game/core/player.cpp \
+    Game/graphics/gamescene.cpp \
+    Game/graphics/gameview.cpp \
+    Game/graphics/sprite.cpp \
     Game/tiles/animals.cpp \
     Game/tiles/evergreen.cpp \
     main.cpp \
@@ -27,6 +31,10 @@ HEADERS += \
     Game/buildings/farm.h \
     Game/buildings/mine.h \
     Game/core/objectmanager.h \
+    Game/core/player.h \
+    Game/graphics/gamescene.h \
+    Game/graphics/gameview.h \
+    Game/graphics/sprite.h \
     Game/tiles/animals.h \
     Game/tiles/evergreen.h \
     mapwindow.hh \

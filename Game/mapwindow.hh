@@ -11,7 +11,8 @@
 #include <map>
 
 #include "interfaces/igameeventhandler.h"
-#include "graphics/simplegamescene.h"
+#include "Game/graphics/gamescene.h"
+#include "Game/graphics/gameview.h"
 
 namespace Ui {
 class MapWindow;
@@ -22,7 +23,7 @@ class MapWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MapWindow(QWidget *parent = 0,
+    explicit MapWindow(QWidget *parent = nullptr,
                        std::shared_ptr<Course::iGameEventHandler> GEHandler = {}
                        );
     ~MapWindow();
@@ -31,7 +32,6 @@ public:
 
     void setSize(int width, int height);
     void setScale(int scale);
-    void resize();
 
     void drawItem( std::shared_ptr<Course::GameObject> obj);
     void removeItem( std::shared_ptr<Course::GameObject> obj);
@@ -41,7 +41,8 @@ public:
 private:
     Ui::MapWindow* m_ui;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
-    std::shared_ptr<Course::SimpleGameScene> m_simplescene = nullptr;
+    std::shared_ptr<GameScene> m_gamescene = nullptr;
+    std::shared_ptr<GameView> m_gameview = nullptr;
 
 };
 
