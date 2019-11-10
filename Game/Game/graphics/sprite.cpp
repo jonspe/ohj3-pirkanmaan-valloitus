@@ -13,10 +13,10 @@ namespace {
         {"Evergreen",   QRect(1 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
         {"Birch",       QRect(2 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
         {"Animals",     QRect(3 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Stone",       QRect(5 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Ore",         QRect(6 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Diamond",     QRect(7 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Lake",        QRect(8 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
+        {"Stone",       QRect(4 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
+        {"Ore",         QRect(5 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
+        {"Diamond",     QRect(6 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
+        {"Lake",        QRect(7 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
     };
 }
 
