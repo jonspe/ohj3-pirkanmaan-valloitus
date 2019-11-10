@@ -131,7 +131,7 @@ background-color: 0x00;</string>
          <enum>Qt::AutoText</enum>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/gold.png</pixmap>
         </property>
        </widget>
       </item>
@@ -159,7 +159,7 @@ background-color: 0x00;</string>
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>3424 +44</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -181,7 +181,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/wood.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
         </property>
        </widget>
       </item>
@@ -203,7 +203,7 @@ background-color: 0x00;</string>
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>457 +12</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -225,7 +225,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/gold.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/wood.png</pixmap>
         </property>
        </widget>
       </item>
@@ -247,7 +247,7 @@ background-color: 0x00;</string>
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>177 +78</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -269,7 +269,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/stone.png</pixmap>
         </property>
        </widget>
       </item>
@@ -291,7 +291,7 @@ background-color: 0x00;</string>
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>343 +89</string>
+         <string>0</string>
         </property>
        </widget>
       </item>
@@ -313,7 +313,7 @@ background-color: 0x00;</string>
          <string/>
         </property>
         <property name="pixmap">
-         <pixmap resource="resources.qrc">:/images/food.png</pixmap>
+         <pixmap resource="resources.qrc">:/images/ore.png</pixmap>
         </property>
        </widget>
       </item>
@@ -335,7 +335,7 @@ background-color: 0x00;</string>
          <string notr="true">color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
-         <string>1008 +433</string>
+         <string>0</string>
         </property>
        </widget>
       </item>

@@ -4,5 +4,7 @@
         <file>images/sprites.png</file>
         <file>images/wood.png</file>
         <file>images/gold.png</file>
+        <file>images/ore.png</file>
+        <file>images/stone.png</file>
     </qresource>
 </RCC>
