@@ -12,13 +12,19 @@ Course::ResourceMap Player::getResources()
     return resource_stockpile;
 }
 
-void Player::modifyResources(Course::ResourceMap modified_resources)
+void Player::modifyResources(Course::ResourceMap modified_resources, std::string sign)
 {
-    resource_stockpile.at(Course::BasicResource::MONEY) = modified_resources.at(Course::BasicResource::MONEY);
-    resource_stockpile.at(Course::BasicResource::FOOD) = modified_resources.at(Course::BasicResource::FOOD);
-    resource_stockpile.at(Course::BasicResource::WOOD) = modified_resources.at(Course::BasicResource::WOOD);
-    resource_stockpile.at(Course::BasicResource::STONE) = modified_resources.at(Course::BasicResource::STONE);
-    resource_stockpile.at(Course::BasicResource::ORE) = modified_resources.at(Course::BasicResource::ORE);
+    if (sign == "+"){
+        for (auto it = modified_resources.begin(); it != modified_resources.end(); it++){
+            resource_stockpile.at(it->first) += modified_resources.at(it->first);
+        }
+    }
+
+    else if(sign == "-"){
+        for (auto it = modified_resources.begin(); it != modified_resources.end(); it++){
+            resource_stockpile.at(it->first) -= modified_resources.at(it->first);
+        }
+    }
 }
 
 int Player::getHappiness()
