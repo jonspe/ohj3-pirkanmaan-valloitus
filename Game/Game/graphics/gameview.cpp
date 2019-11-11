@@ -21,6 +21,8 @@ GameView::GameView(QWidget* qt_parent) :
 
     setSizePolicy(policy);
     setMouseTracking(true);
+
+    setTransformationAnchor(ViewportAnchor::NoAnchor);
 }
 
 void GameView::mousePressEvent(QMouseEvent *event)
@@ -50,10 +52,10 @@ void GameView::mouseMoveEvent(QMouseEvent *event)
     if (event->buttons().testFlag(Qt::LeftButton))
     {
         QPointF delta = pos - m_lastMousePos;
-        qreal zoom = viewportTransform().determinant();
+        qreal zoom = m_viewTransform.m22();
 
-        setTransformationAnchor(ViewportAnchor::NoAnchor);
-        translate(delta.x()/(qSqrt(zoom)), delta.y()/(qSqrt(zoom)));
+        m_viewTransform.translate(delta.x()/zoom, delta.y()/zoom);
+        setTransform(m_viewTransform);
     }
 
     m_lastMousePos = pos;
@@ -61,17 +63,14 @@ void GameView::mouseMoveEvent(QMouseEvent *event)
 
 void GameView::wheelEvent(QWheelEvent *event)
 {
-    setTransformationAnchor(ViewportAnchor::NoAnchor);
+    qreal scaleFactor = 1.2;
 
-    // determine scroll direction
+    // determine scroll direction and scale direction
     if (event->delta() < 0)
-    {
-        scale(.5, .5);
-    }
-    else
-    {
-        scale(2, 2);
-    }
+        scaleFactor = 1/scaleFactor;
+
+    m_viewTransform.scale(scaleFactor, scaleFactor);
+    setTransform(m_viewTransform);
 }
 
 

@@ -35,6 +35,7 @@ public:
 
 private:
     QPointF m_lastMousePos;
+    QTransform m_viewTransform;
 };
 
 #endif // GAMEVIEW_H
