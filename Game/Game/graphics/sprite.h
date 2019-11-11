@@ -23,7 +23,7 @@ public:
      * @param size of the created item in pixels.
      * @pre obj must have a valid Coordinate.
      */
-    Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSheet);
+    Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSheet, int height_offset = 0);
 
     /**
      * @brief boundingRect
@@ -67,6 +67,8 @@ private:
     const std::shared_ptr<Course::GameObject> m_gameobject;
     QPoint m_scenelocation;
     QPixmap* m_spriteSheet;
+
+    int m_height_offset;
 };
 
 #endif // SPRITE_H

@@ -11,7 +11,6 @@
 #include <map>
 
 #include "interfaces/igameeventhandler.h"
-#include "Game/graphics/gamescene.h"
 #include "Game/graphics/gameview.h"
 
 namespace Ui {
@@ -41,7 +40,6 @@ public:
 private:
     Ui::MapWindow* m_ui;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
-    std::shared_ptr<GameScene> m_gamescene = nullptr;
     std::shared_ptr<GameView> m_gameview = nullptr;
 
 };

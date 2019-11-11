@@ -72,11 +72,11 @@ class MapGenerator
         /**
          * @brief Default constructor.
          */
-        MapGenerator();
+        MapGenerator() = default;
         /**
          * @brief Default destructor.
          */
-        ~MapGenerator();
+        ~MapGenerator() = default;
 
         /**
          * @brief Find the Tile ctor matching the random number.

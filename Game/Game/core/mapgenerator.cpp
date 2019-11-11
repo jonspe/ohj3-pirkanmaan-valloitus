@@ -5,6 +5,14 @@
 #include <stdlib.h>
 #include <time.h>
 #include <QTime>
+#include <QDebug>
+
+namespace{
+    int roundToNearestMultiple(int value, int multiple)
+    {
+        return ((value + multiple/2) / multiple) * multiple;
+    }
+}
 
 MapGenerator& MapGenerator::getInstance()
 {
@@ -38,7 +46,6 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
     // invoke the gods
     average(size_x,size_y);
     average(size_x,size_y);
-    average(size_x,size_y);
 
     srand(seed);
     std::vector<std::shared_ptr<Course::TileBase>> tiles;
@@ -47,10 +54,15 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
         for (unsigned int y = 0; y < size_y; ++y)
         {
             Course::TileConstructorPointer ctor;
-            if(averaged_tile_noise[Course::Coordinate(x,y)] < 45){
+            Course::Coordinate coord = Course::Coordinate(x,y);
+
+            if(averaged_tile_noise[coord] < 45){
                     ctor = all_ctors["Lake"];
 
-            }else if(averaged_stone_noise[Course::Coordinate(x,y)] > 56){
+                    // is lake, so set height to 0
+                    averaged_tile_height[coord] = 0;
+
+            }else if(averaged_stone_noise[coord] > 56){
                     int ore_roll = rand() %100+1;
                     if (ore_roll > 96){
                         ctor = all_ctors["Diamond"];
@@ -60,9 +72,9 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
                         ctor = all_ctors["Stone"];
                     }
 
-            }else if(averaged_forest_noise[Course::Coordinate(x,y)] > 54){
+            }else if(averaged_forest_noise[coord] > 54){
                     ctor = all_ctors["Birch"];
-            }else if(averaged_forest_noise[Course::Coordinate(x,y)] < 46){
+            }else if(averaged_forest_noise[coord] < 46){
                     ctor = all_ctors["Evergreen"];
 
             }else{
@@ -73,8 +85,15 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
                         ctor = all_ctors["Grass"];
             }
 
+            // if not lake, increase intensity of height and step it up yo
+            int height = averaged_tile_height[coord];
+            if (height > 5)
+            {
+                averaged_tile_height[coord] = roundToNearestMultiple((height-35) * 4, 40);
+            }
 
-        } tiles.push_back(ctor(Course::Coordinate(x, y), eventhandler, objectmanager));
+
+        } tiles.push_back(ctor(coord, eventhandler, objectmanager));
       }
     }
     objectmanager->addTiles(tiles);
@@ -194,17 +213,6 @@ std::map<Course::Coordinate, int> MapGenerator::getHeight()
 {
     return averaged_tile_height;
 }
-
-MapGenerator::MapGenerator()
-{
-
-}
-
-MapGenerator::~MapGenerator()
-{
-
-}
-
 
 template<typename T>
 void MapGenerator::addConstructor(std::string tile_type)

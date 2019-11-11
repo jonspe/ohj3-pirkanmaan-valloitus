@@ -1,13 +1,17 @@
 #include "gameview.h"
 #include "sprite.h"
+#include "Game/core/mapgenerator.h"
+#include "tiles/tilebase.h"
+#include "core/gameobject.h"
 
 #include <QtMath>
 #include <QEvent>
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
+#include <QDebug>
 
 
-GameView::GameView(QWidget* qt_parent, GameScene* gs_ptr) :
+GameView::GameView(QWidget* qt_parent) :
     QGraphicsView(qt_parent)
 {
     setMinimumSize(QSize(640, 480));
@@ -24,8 +28,28 @@ GameView::GameView(QWidget* qt_parent, GameScene* gs_ptr) :
 
     setTransformationAnchor(ViewportAnchor::NoAnchor);
 
-    m_gs_ptr = gs_ptr;
+    m_gs_ptr = new QGraphicsScene(this);
+    setScene(m_gs_ptr);
+
+    m_spriteSheet = new QPixmap(":/images/sprites.png");
 }
+
+
+void GameView::drawItem( std::shared_ptr<Course::GameObject> obj)
+{
+    MapGenerator& mapgen = MapGenerator::getInstance();
+    std::map<Course::Coordinate, int> tileheights = mapgen.getHeight();
+
+    Sprite* nItem = new Sprite(obj, m_spriteSheet, tileheights.at(obj->getCoordinate()));
+    m_gs_ptr->addItem(nItem);
+}
+
+void GameView::drawMultipleItems(std::vector<std::shared_ptr<Course::GameObject>> objs)
+{
+    for ( auto obj: objs)
+        drawItem(obj);
+}
+
 
 Course::Coordinate GameView::screenToCoordinate(QPoint screenPos)
 {

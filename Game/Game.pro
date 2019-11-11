@@ -15,7 +15,6 @@ SOURCES += \
     Game/core/mapgenerator.cpp \
     Game/core/objectmanager.cpp \
     Game/core/player.cpp \
-    Game/graphics/gamescene.cpp \
     Game/graphics/gameview.cpp \
     Game/graphics/sprite.cpp \
     Game/tiles/animals.cpp \
@@ -43,7 +42,6 @@ HEADERS += \
     Game/core/mapgenerator.h \
     Game/core/objectmanager.h \
     Game/core/player.h \
-    Game/graphics/gamescene.h \
     Game/graphics/gameview.h \
     Game/graphics/sprite.h \
     Game/tiles/animals.h \

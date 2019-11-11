@@ -2,7 +2,8 @@
 #define GAMEVIEW_H
 
 #include "core/coordinate.h"
-#include "gamescene.h"
+#include "core/gameobject.h"
+#include <memory>
 #include <QGraphicsView>
 #include <QTransform>
 
@@ -14,7 +15,19 @@ public:
      * @brief Constructor for the class.
      * @param qt_parent points to the parent object per Qt's parent-child-system.
      */
-    GameView(QWidget* qt_parent = nullptr, GameScene* gs_ptr = nullptr);
+    GameView(QWidget* qt_parent = nullptr);
+
+    /**
+     * @brief Draws a GameObject on the screen as Sprite
+     * @param obj shared_ptr<GameObject>
+     */
+    void drawItem(std::shared_ptr<Course::GameObject> obj);
+
+    /**
+     * @brief Draws multiple GameObjects on the screen as Sprites
+     * @param obj vector<shared_ptr<GameObject>>
+     */
+    void drawMultipleItems(std::vector<std::shared_ptr<Course::GameObject>> objs);
 
     /**
      * @brief Function for mapping view coordinates to tile coordinates
@@ -42,10 +55,12 @@ public:
     virtual void wheelEvent(QWheelEvent *event) override;
 
 private:
-    GameScene* m_gs_ptr;
+    QGraphicsScene* m_gs_ptr;
 
     QPointF m_lastMousePos;
     QTransform m_viewTransform;
+
+    QPixmap* m_spriteSheet;
 };
 
 #endif // GAMEVIEW_H

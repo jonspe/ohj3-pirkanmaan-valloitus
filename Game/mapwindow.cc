@@ -12,7 +12,6 @@
 #include "Game/tiles/stone.h"
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
-#include "Game/graphics/gamescene.h"
 #include "Game/core/resources.h"
 #include "Game/core/mapgenerator.h"
 #include "setupdialog.h"
@@ -23,14 +22,11 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     m_GEHandler(handler),
-    m_gamescene(new GameScene(this))
+    m_gameview(new GameView())
 {
     m_ui->setupUi(this);
-
-    GameScene* gs_rawptr = m_gamescene.get();
-    m_gameview = std::make_shared<GameView>(new GameView(nullptr, gs_rawptr));
-
     GameView* gv_rawptr = m_gameview.get();
+    m_ui->horizontalLayout_2->insertWidget(0, gv_rawptr);
 
     SetupDialog* setup_dialog = new SetupDialog();
     setup_dialog->exec();
@@ -39,8 +35,6 @@ MapWindow::MapWindow(QWidget *parent,
     unsigned int player_amount = setup_dialog->player_amount;
     unsigned int seed = setup_dialog->seed;
 
-    m_ui->horizontalLayout_2->insertWidget(0, gv_rawptr);
-    m_gameview->setScene(gs_rawptr);
 
     std::shared_ptr<ObjectManager> object_manager(new ObjectManager);
     std::shared_ptr<Course::iGameEventHandler> event_handler = nullptr;
@@ -62,7 +56,7 @@ MapWindow::MapWindow(QWidget *parent,
     std::vector<std::shared_ptr<Course::TileBase>> tiles = object_manager->getAllTiles();
     std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());
 
-    gs_rawptr->drawMultipleItems(objs);
+    gv_rawptr->drawMultipleItems(objs);
 
     Course::ResourceMap resource_stockpile = players["1"]->getResources();
     int gold_count = resource_stockpile.at(Course::BasicResource::MONEY);
@@ -118,5 +112,5 @@ void MapWindow::setGEHandler(
 
 void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
 {
-    m_gamescene->drawItem(obj);
+    m_gameview->drawItem(obj);
 }

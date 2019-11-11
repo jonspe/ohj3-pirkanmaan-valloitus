@@ -18,10 +18,12 @@ namespace {
     };
 }
 
-Sprite::Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSheet):
+Sprite::Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSheet, int height_offset):
     m_gameobject(obj), m_scenelocation(m_gameobject->getCoordinatePtr()->asQpoint()),
-    m_spriteSheet(spriteSheet)
-{}
+    m_spriteSheet(spriteSheet), m_height_offset(height_offset)
+{
+    qDebug() << height_offset;
+}
 
 void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
@@ -44,7 +46,7 @@ QRectF Sprite::boundingRect() const
 {
     QPoint pos = calculateIsometricPos();
 
-    return QRectF(pos.x() - SPRITE_SIZE/2, pos.y(), SPRITE_SIZE, SPRITE_SIZE);
+    return QRectF(pos.x() - SPRITE_SIZE/2, pos.y() - m_height_offset, SPRITE_SIZE, SPRITE_SIZE);
 }
 
 const std::shared_ptr<Course::GameObject> &Sprite::getBoundObject()
