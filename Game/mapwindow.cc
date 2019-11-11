@@ -14,6 +14,7 @@
 #include "Game/core/player.h"
 #include "Game/graphics/gamescene.h"
 #include "Game/core/resources.h"
+#include "Game/core/mapgenerator.h"
 #include "setupdialog.h"
 #include <math.h>
 
@@ -53,16 +54,7 @@ MapWindow::MapWindow(QWidget *parent,
         i++;
     }
 
-    Course::WorldGenerator& map_generator = Course::WorldGenerator::getInstance();
-
-    map_generator.addConstructor<Animals>(200);
-    map_generator.addConstructor<Birch>(600);
-    map_generator.addConstructor<Diamond>(10);
-    map_generator.addConstructor<Evergreen>(600);
-    map_generator.addConstructor<Grass>(1000);
-    map_generator.addConstructor<Lake>(300);
-    map_generator.addConstructor<Ore>(20);
-    map_generator.addConstructor<Stone>(100);
+    MapGenerator& map_generator = MapGenerator::getInstance();
 
     map_generator.generateMap(map_size,map_size,seed, object_manager, event_handler);
 
@@ -107,6 +99,8 @@ MapWindow::MapWindow(QWidget *parent,
     QString ore_change_qstring =  QString::number(ore_change);
     QString ore_text = QString("%1 + %2").arg(ore_qstring, ore_change_qstring);
     m_ui->ore_label->setText(ore_text);
+
+
 
 }
 

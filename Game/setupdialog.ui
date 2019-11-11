@@ -18,7 +18,7 @@
     <rect>
      <x>100</x>
      <y>20</y>
-     <width>72</width>
+     <width>81</width>
      <height>22</height>
     </rect>
    </property>
@@ -61,7 +61,7 @@
     <rect>
      <x>100</x>
      <y>50</y>
-     <width>72</width>
+     <width>81</width>
      <height>22</height>
     </rect>
    </property>
@@ -102,7 +102,7 @@
   <widget class="QLineEdit" name="SeedInput">
    <property name="geometry">
     <rect>
-     <x>90</x>
+     <x>100</x>
      <y>80</y>
      <width>81</width>
      <height>21</height>
