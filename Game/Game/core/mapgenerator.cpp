@@ -7,7 +7,7 @@
 #include <QTime>
 #include <QDebug>
 
-namespace{
+namespace {
     int roundToNearestMultiple(int value, int multiple)
     {
         return ((value + multiple/2) / multiple) * multiple;
@@ -32,61 +32,70 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
     addConstructor<Ore>("Ore");
     addConstructor<Stone>("Stone");
 
-   srand(seed);
+    srand(seed);
+
     for (int x = 0; x < size_x; x++){
         for (int y = 0; y < size_y; y++){
-
            auto tile_coord = Course::Coordinate(x, y);
+
            tile_noise[tile_coord] = rand() % 100 + 1;
            forest_noise[tile_coord] = rand() % 100 + 1;
            stone_noise[tile_coord] = rand() % 100 + 1;
            tile_height[tile_coord] = rand() % 100 + 1;
         }
     }
+
     // invoke the gods
     average(size_x,size_y);
     average(size_x,size_y);
 
     srand(seed);
+
     std::vector<std::shared_ptr<Course::TileBase>> tiles;
     for (unsigned int x = 0; x < size_x; ++x)
     {
         for (unsigned int y = 0; y < size_y; ++y)
         {
             Course::TileConstructorPointer ctor;
-            Course::Coordinate coord = Course::Coordinate(x,y);
+            Course::Coordinate coord = Course::Coordinate(x, y);
 
-            if(averaged_tile_noise[coord] < 45){
+            if (averaged_tile_noise[coord] < 45)
+            {
                     ctor = all_ctors["Lake"];
-
                     // is lake, so set height to 0
                     averaged_tile_height[coord] = 0;
-
-            }else if(averaged_stone_noise[coord] > 56){
-                    int ore_roll = rand() %100+1;
-                    if (ore_roll > 96){
-                        ctor = all_ctors["Diamond"];
-                    }else if(ore_roll > 80){
-                        ctor = all_ctors["Ore"];
-                    }else{
-                        ctor = all_ctors["Stone"];
-                    }
-
-            }else if(averaged_forest_noise[coord] > 54){
+            }
+            else if (averaged_stone_noise[coord] > 56)
+            {
+                int ore_roll = rand() %100+1;
+                if (ore_roll > 96) {
+                    ctor = all_ctors["Diamond"];
+                } else if(ore_roll > 80) {
+                    ctor = all_ctors["Ore"];
+                } else {
+                    ctor = all_ctors["Stone"];
+                }
+            }
+            else if (averaged_forest_noise[coord] > 54)
+            {
                     ctor = all_ctors["Birch"];
-            }else if(averaged_forest_noise[coord] < 46){
+            }
+            else if (averaged_forest_noise[coord] < 46)
+            {
                     ctor = all_ctors["Evergreen"];
-
-            }else{
-                    int animal_roll = rand() %100+1;
-                    if (animal_roll > 85){
-                        ctor = all_ctors["Animals"];
-                    }else{
-                        ctor = all_ctors["Grass"];
+            }
+            else
+            {
+                int animal_roll = rand() %100+1;
+                if (animal_roll > 85){
+                    ctor = all_ctors["Animals"];
+                }
+                else
+                {
+                    ctor = all_ctors["Grass"];
+                }
             }
 
-
-        }
             // if not lake, increase intensity of height and step it up yo
             int height = averaged_tile_height[coord];
             if (height > 5)
@@ -95,7 +104,7 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
             }
 
             tiles.push_back(ctor(coord, eventhandler, objectmanager));
-      }
+        }
     }
     objectmanager->addTiles(tiles);
 }
@@ -169,33 +178,29 @@ void MapGenerator::average(int size_x, int size_y)
             int forest_sum = 0;
             int stone_sum = 0;
             int height_sum = 0;
+
             std::set<Course::Coordinate>::iterator it = nearby_tiles.begin();
+
             for (it ; it != nearby_tiles.end(); it++){
                 if ( tile_noise.find(*it) != tile_noise.end() && tile_average_count < 3) {
-                       sum += tile_noise.at(*it);
-                 }
+                    sum += tile_noise.at(*it);
+                }
                 if ( forest_noise.find(*it) != forest_noise.end()  && forest_average_count < 3) {
-                       forest_sum += forest_noise.at(*it);
-                 }
+                    forest_sum += forest_noise.at(*it);
+                }
                 if ( stone_noise.find(*it) != stone_noise.end()  && stone_average_count < 4) {
-                       stone_sum += stone_noise.at(*it);
-
-                 }
+                    stone_sum += stone_noise.at(*it);
+                }
                 if ( tile_height.find(*it) != tile_height.end()  && tile_height_average_count < 3) {
-                       height_sum += tile_height.at(*it);
-
-                 }
-
+                    height_sum += tile_height.at(*it);
+                }
             }
 
-
-           averaged_tile_noise[Course::Coordinate(x,y)] = int(sum / nearby_tiles.size());
-           averaged_forest_noise[Course::Coordinate(x,y)] = int(forest_sum / nearby_tiles.size());
-           averaged_stone_noise[Course::Coordinate(x,y)] = int(stone_sum / nearby_tiles.size());
-           averaged_tile_height[Course::Coordinate(x,y)] = int(height_sum / nearby_tiles.size());
-
+            averaged_tile_noise[Course::Coordinate(x,y)] = int(sum / nearby_tiles.size());
+            averaged_forest_noise[Course::Coordinate(x,y)] = int(forest_sum / nearby_tiles.size());
+            averaged_stone_noise[Course::Coordinate(x,y)] = int(stone_sum / nearby_tiles.size());
+            averaged_tile_height[Course::Coordinate(x,y)] = int(height_sum / nearby_tiles.size());
         }
-
     }
 
     tile_noise = averaged_tile_noise;
