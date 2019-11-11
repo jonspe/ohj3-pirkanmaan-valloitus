@@ -13,6 +13,7 @@
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
 #include "Game/graphics/gamescene.h"
+#include "Game/core/resources.h"
 #include "setupdialog.h"
 #include <math.h>
 

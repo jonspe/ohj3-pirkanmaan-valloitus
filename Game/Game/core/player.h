@@ -22,7 +22,7 @@ public:
     virtual ~Player() = default;
 
     Course::ResourceMap getResources();
-    void modifyResources(Course::ResourceMap modified_resources);
+    void modifyResources(Course::ResourceMap modified_resources, std::string sign);
     int getHappiness();
     void modifyHappiness(int happiness_change);
 
