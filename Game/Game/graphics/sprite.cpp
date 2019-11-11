@@ -2,21 +2,19 @@
 #include <QDebug>
 #include <QtMath>
 
-namespace {
-    int const SIZE = 256;
-    qreal const SQUASH = 0.406;
 
+namespace {
     using SpriteMap = std::map<std::string, QRect>;
 
     const SpriteMap SPRITE_MAP = {
-        {"Grass",       QRect(0 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Evergreen",   QRect(1 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Birch",       QRect(2 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Animals",     QRect(3 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Stone",       QRect(4 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Ore",         QRect(5 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Diamond",     QRect(6 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
-        {"Lake",        QRect(7 * SIZE, 0 * SIZE, 1 * SIZE, 1 * SIZE)},
+        {"Grass",       QRect(0 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Evergreen",   QRect(1 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Birch",       QRect(2 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Animals",     QRect(3 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Stone",       QRect(4 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Ore",         QRect(5 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Diamond",     QRect(6 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"Lake",        QRect(7 * SPRITE_SIZE, 0 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
     };
 }
 
@@ -35,20 +33,19 @@ void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     // if object has corresponding type -> spritepos mapping
     if ( it != SPRITE_MAP.end() )
     {
-        QPoint pos = calculateRotatedPos();
-
         painter->drawPixmap(
-                    QRect(pos.x(), pos.y(), SIZE, SIZE),
+                    boundingRect(),
                     *m_spriteSheet,
                     SPRITE_MAP.at(objType));
+        painter->drawRect(boundingRect());
     }
 }
 
 QRectF Sprite::boundingRect() const
 {
-    QPoint pos = calculateRotatedPos();
+    QPoint pos = calculateIsometricPos();
 
-    return QRectF(pos.x(), pos.y(), SIZE, SIZE);
+    return QRectF(pos.x() - SPRITE_SIZE/2, pos.y(), SPRITE_SIZE, SPRITE_SIZE);
 }
 
 const std::shared_ptr<Course::GameObject> &Sprite::getBoundObject()
@@ -71,19 +68,15 @@ bool Sprite::isSameObj(std::shared_ptr<Course::GameObject> obj)
     return obj == m_gameobject;
 }
 
-QPoint Sprite::calculateRotatedPos() const
+QPoint Sprite::calculateIsometricPos() const
 {
-    // optimization for 45 deg angles so don't have to sin/cos
-    const qreal sqr2inv = 0.70710678;
-
     qreal x = static_cast<qreal>(m_scenelocation.x());
     qreal y = static_cast<qreal>(m_scenelocation.y());
 
-    // rotate around origin by 45 deg
-    qreal newX = x*sqr2inv*sqr2inv - y*sqr2inv*sqr2inv;
-    qreal newY = y*sqr2inv + x*sqr2inv;
+    qreal newX = (x - y) * (SPRITE_SIZE/2);
+    qreal newY = (x + y) * (SPRITE_SIZE*SPRITE_SQUASH/2);
 
-    return QPoint(qRound(SIZE * newX), qRound(SIZE * newY * SQUASH));
+    return QPoint(qRound(newX), qRound(newY));
 }
 
 

@@ -7,7 +7,7 @@
 #include <QGraphicsSceneMouseEvent>
 
 
-GameView::GameView(QWidget* qt_parent) :
+GameView::GameView(QWidget* qt_parent, GameScene* gs_ptr) :
     QGraphicsView(qt_parent)
 {
     setMinimumSize(QSize(640, 480));
@@ -23,26 +23,25 @@ GameView::GameView(QWidget* qt_parent) :
     setMouseTracking(true);
 
     setTransformationAnchor(ViewportAnchor::NoAnchor);
+
+    m_gs_ptr = gs_ptr;
+}
+
+Course::Coordinate GameView::screenToCoordinate(QPoint screenPos)
+{
+    QPointF scenePos = mapToScene(screenPos);
+
+    qreal tileX = (scenePos.x()/(SPRITE_SIZE/2) + scenePos.y()/(SPRITE_SIZE*SPRITE_SQUASH/2)) / 2;
+    qreal tileY = (scenePos.y()/(SPRITE_SIZE*SPRITE_SQUASH/2) - scenePos.x()/(SPRITE_SIZE/2)) / 2;
+
+    return Course::Coordinate(qFloor(tileX), qFloor(tileY));
 }
 
 void GameView::mousePressEvent(QMouseEvent *event)
 {
-    QPointF point = mapToScene(event->pos());
+    Course::Coordinate point = screenToCoordinate(event->pos());
 
-    point.rx() = floor(point.rx());
-    point.ry() = floor(point.ry());
-
-    qDebug() << point;
-
-    // graphicsitem detection in graphicsscene, should do math to check tile instead
-    // TODO: use math to detect tile
-    // TODO: add function to translate pixel pos to tile coordinate
-
-    // QGraphicsItem* pressed = itemAt(point, QTransform());
-    // qDebug() << "ObjID: " <<
-    //   static_cast<Sprite*>(pressed)
-    //   ->getBoundObject()->ID  << " pressed.";
-
+    qDebug() << point.asQpoint();
 }
 
 void GameView::mouseMoveEvent(QMouseEvent *event)

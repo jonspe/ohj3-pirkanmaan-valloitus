@@ -10,6 +10,10 @@
 #include "core/gameobject.h"
 
 
+int const SPRITE_SIZE = 256;
+qreal const SPRITE_SQUASH = 0.5771;
+
+
 class Sprite : public QGraphicsItem
 {
 public:
@@ -58,7 +62,7 @@ public:
     bool isSameObj(std::shared_ptr<Course::GameObject> obj);
 
 private:
-    QPoint calculateRotatedPos() const;
+    QPoint calculateIsometricPos() const;
 
     const std::shared_ptr<Course::GameObject> m_gameobject;
     QPoint m_scenelocation;

@@ -50,21 +50,6 @@ public:
      */
     void drawMultipleItems( std::vector<std::shared_ptr<Course::GameObject>> objs);
 
-    /**
-     * @brief tries to remove drawn object at the location obj points to.
-     * If there's multiple objects, will remove the one that matches obj.
-     * @param obj shared ptr to the object being deleted.
-     * @post Exception guarantee: None
-     *
-     */
-    void removeItem( std::shared_ptr<Course::GameObject> obj);
-
-    /**
-     * @brief updates the position of obj.
-     * @param obj shared ptr to the obj being updated.
-     */
-    void updateItem( std::shared_ptr<Course::GameObject> obj);
-
 private:
     QPixmap* m_spriteSheet;
 };

@@ -23,13 +23,14 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     m_GEHandler(handler),
-    m_gamescene(new GameScene(this)),
-    m_gameview(new GameView())
+    m_gamescene(new GameScene(this))
 {
     m_ui->setupUi(this);
 
-    GameView* gv_rawptr = m_gameview.get();
     GameScene* gs_rawptr = m_gamescene.get();
+    m_gameview = std::make_shared<GameView>(new GameView(nullptr, gs_rawptr));
+
+    GameView* gv_rawptr = m_gameview.get();
 
     SetupDialog* setup_dialog = new SetupDialog();
     setup_dialog->exec();
@@ -113,16 +114,6 @@ void MapWindow::setGEHandler(
         std::shared_ptr<Course::iGameEventHandler> nHandler)
 {
     m_GEHandler = nHandler;
-}
-
-void MapWindow::updateItem(std::shared_ptr<Course::GameObject> obj)
-{
-    m_gamescene->updateItem(obj);
-}
-
-void MapWindow::removeItem(std::shared_ptr<Course::GameObject> obj)
-{
-    m_gamescene->removeItem(obj);
 }
 
 void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
