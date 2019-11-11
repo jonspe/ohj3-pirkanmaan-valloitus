@@ -22,7 +22,7 @@ Sprite::Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSh
     m_gameobject(obj), m_scenelocation(m_gameobject->getCoordinatePtr()->asQpoint()),
     m_spriteSheet(spriteSheet), m_height_offset(height_offset)
 {
-    qDebug() << height_offset;
+
 }
 
 void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
