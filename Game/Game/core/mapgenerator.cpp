@@ -91,7 +91,7 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
             int height = averaged_tile_height[coord];
             if (height > 5)
             {
-                averaged_tile_height[coord] = roundToNearestMultiple((height-35) * 4, 40);
+                averaged_tile_height[coord] = roundToNearestMultiple((height-35) * 3, 30);
             }
 
             tiles.push_back(ctor(coord, eventhandler, objectmanager));
