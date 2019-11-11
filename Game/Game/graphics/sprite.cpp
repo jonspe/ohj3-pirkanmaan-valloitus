@@ -37,7 +37,6 @@ void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
                     boundingRect(),
                     *m_spriteSheet,
                     SPRITE_MAP.at(objType));
-        painter->drawRect(boundingRect());
     }
 }
 
