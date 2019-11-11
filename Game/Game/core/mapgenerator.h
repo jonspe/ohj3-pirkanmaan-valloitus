@@ -65,6 +65,8 @@ class MapGenerator
 
         void average(int size_x, int size_y);
 
+        std::map<Course::Coordinate, int> getHeight();
+
 
     private:
         /**
@@ -85,8 +87,19 @@ class MapGenerator
         // For mapping constructors.
         std::map<std::string, Course::TileConstructorPointer> all_ctors;
         std::map<Course::Coordinate, int> averaged_tile_noise;
-        std::map<Course::Coordinate, int> tile_noise;
+        std::map<Course::Coordinate, int> averaged_forest_noise;
+        std::map<Course::Coordinate, int> averaged_stone_noise;
+        std::map<Course::Coordinate, int> averaged_tile_height;
 
+        std::map<Course::Coordinate, int> tile_noise;
+        std::map<Course::Coordinate, int> forest_noise;
+        std::map<Course::Coordinate, int> stone_noise;
+        std::map<Course::Coordinate, int> tile_height;
+
+        int tile_average_count = 0;
+        int forest_average_count = 0;
+        int stone_average_count = 0;
+        int tile_height_average_count = 0;
  }; // class MapGenerator
 
 
