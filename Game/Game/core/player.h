@@ -22,26 +22,9 @@ public:
     virtual ~Player() = default;
 
     /**
-     * @brief Returns a ResourceMap with all of the player's resources
-     */
-    Course::ResourceMap getResources();
-
-    /**
-     * @brief Adds or subtracts from player's resources
-     * @param modified_resources ResourceMap containing changed (positive) resource values
-     * @param sign + or -, depending on if resources are being added or subtracted
-     *
-     * Example calls: players["1"]->modifyResources(ConstResources::FARM_BUILD_COST, "-");
-     *                players["1"]->modifyResources(ConstResources::FARM_PRODUCTION, "+");
-     */
-    void modifyResources(Course::ResourceMap modified_resources, std::string sign);
-
-
-    /**
      * @brief Returns player's happiness value
      */
     int getHappiness();
-
 
     /**
      * @brief Modifies player's happiness value
@@ -52,15 +35,6 @@ public:
 private:
     std::string m_name;
     std::vector<std::weak_ptr<Course::GameObject> > m_objects;
-
-    Course::ResourceMap resource_stockpile = {
-        {Course::BasicResource::MONEY, 200},
-        {Course::BasicResource::FOOD, 200},
-        {Course::BasicResource::WOOD, 200},
-        {Course::BasicResource::STONE, 100},
-        {Course::BasicResource::ORE, 0}
-
-    };
 
     int happiness = 3;
 

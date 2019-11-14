@@ -14,6 +14,7 @@
 #include "Game/core/player.h"
 #include "Game/core/resources.h"
 #include "Game/core/mapgenerator.h"
+#include "Game/core/gameeventhandler.h"
 #include "setupdialog.h"
 #include <math.h>
 
@@ -37,7 +38,7 @@ MapWindow::MapWindow(QWidget *parent,
 
 
     std::shared_ptr<ObjectManager> object_manager(new ObjectManager);
-    std::shared_ptr<Course::iGameEventHandler> event_handler = nullptr;
+    std::shared_ptr<GameEventHandler> event_handler(new GameEventHandler);
 
     std::map<std::string, std::shared_ptr<Player>> players;
 
@@ -58,7 +59,19 @@ MapWindow::MapWindow(QWidget *parent,
 
     gv_rawptr->drawMultipleItems(objs);
 
-    Course::ResourceMap resource_stockpile = players["1"]->getResources();
+
+    i = 1; // set player resources to default at start of game
+    while (i <= player_amount){
+        event_handler->setPresetResources(players[std::to_string(i)]);
+        i++;
+    }
+
+    int current_player = 1;
+    int turn = 1;
+
+
+    Course::ResourceMap resource_stockpile = event_handler->getResources(players[std::to_string(current_player)]);
+
     int gold_count = resource_stockpile.at(Course::BasicResource::MONEY);
     int gold_change = 15;
     int food_count = resource_stockpile.at(Course::BasicResource::FOOD);
@@ -94,7 +107,6 @@ MapWindow::MapWindow(QWidget *parent,
     QString ore_change_qstring =  QString::number(ore_change);
     QString ore_text = QString("%1 + %2").arg(ore_qstring, ore_change_qstring);
     m_ui->ore_label->setText(ore_text);
-
 
 
 }
