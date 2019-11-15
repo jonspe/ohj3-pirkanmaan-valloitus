@@ -12,6 +12,7 @@
 
 #include "interfaces/igameeventhandler.h"
 #include "Game/graphics/gameview.h"
+#include "Game/core/gameeventhandler.h"
 
 namespace Ui {
 class MapWindow;
@@ -35,6 +36,8 @@ public:
     void drawItem( std::shared_ptr<Course::GameObject> obj);
     void removeItem( std::shared_ptr<Course::GameObject> obj);
     void updateItem( std::shared_ptr<Course::GameObject> obj);
+
+    void updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, int current_player);
 
 
 private:

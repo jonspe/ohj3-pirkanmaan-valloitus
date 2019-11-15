@@ -91,7 +91,7 @@ background-color: 0x00;</string>
      </layout>
     </item>
     <item row="0" column="0">
-     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,0,0,0,0,0,0,0">
+     <layout class="QHBoxLayout" name="horizontalLayout_3" stretch="0,0,0,0,0,0,0,0,0,0,0,0,0">
       <property name="spacing">
        <number>10</number>
       </property>
@@ -351,6 +351,26 @@ background-color: 0x00;</string>
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="player_label">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Player 1</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="turn_label">
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Turn 1</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
