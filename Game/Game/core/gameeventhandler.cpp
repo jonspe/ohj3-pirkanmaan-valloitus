@@ -52,18 +52,16 @@ Course::ResourceMap GameEventHandler::getResources(std::shared_ptr<Course::Playe
     return player_resources[player];
 }
 
-void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::WorkerBase> worker_type)
+void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager,  std::shared_ptr<Course::WorkerBase> worker_type)
 {
     auto tile = object_manager->getTile(location);
-    std::shared_ptr<GameEventHandler> event_handler(this);
-
+    tile->addWorker(worker_type);
 }
 
-void GameEventHandler::addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::BuildingBase> building_type)
+void GameEventHandler::addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type)
 {
     auto tile = object_manager->getTile(location);
-    std::shared_ptr<GameEventHandler> event_handler(this);
-
+    tile->addBuilding(building_type);
 }
 
 

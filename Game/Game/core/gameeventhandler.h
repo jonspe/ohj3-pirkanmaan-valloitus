@@ -50,9 +50,9 @@ public:
 
     Course::ResourceMap getResources(std::shared_ptr<Course::PlayerBase> player);
 
-    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::WorkerBase> worker_type);
+    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
 
-    void addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::BuildingBase> building_type);
+    void addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type);
 
 private:
 
