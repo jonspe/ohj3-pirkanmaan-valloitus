@@ -61,29 +61,29 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles()
 }
 
 
-std::shared_ptr<ElevatedTileBase> ObjectManager::getElevatedTile(const Course::Coordinate &coordinate)
-{
-    return std::dynamic_pointer_cast<ElevatedTileBase>(getTile(coordinate));
-}
+//std::shared_ptr<ElevatedTileBase> ObjectManager::getElevatedTile(const Course::Coordinate &coordinate)
+//{
+//    return std::dynamic_pointer_cast<ElevatedTileBase>(getTile(coordinate));
+//}
 
-std::shared_ptr<ElevatedTileBase> ObjectManager::getElevatedTile(const Course::ObjectId &id)
-{
-    return std::dynamic_pointer_cast<ElevatedTileBase>(getTile(id));
-}
+//std::shared_ptr<ElevatedTileBase> ObjectManager::getElevatedTile(const Course::ObjectId &id)
+//{
+//    return std::dynamic_pointer_cast<ElevatedTileBase>(getTile(id));
+//}
 
-std::vector<std::shared_ptr<ElevatedTileBase>> ObjectManager::getElevatedTiles(const std::vector<Course::Coordinate> &coordinates)
-{
-    std::vector<std::shared_ptr<Course::TileBase>> tiles = getTiles(coordinates);
-    std::vector<std::shared_ptr<ElevatedTileBase>> elevatedTiles(tiles.begin(), tiles.end());
+//std::vector<std::shared_ptr<ElevatedTileBase>> ObjectManager::getElevatedTiles(const std::vector<Course::Coordinate> &coordinates)
+//{
+//    std::vector<std::shared_ptr<Course::TileBase>> tiles = getTiles(coordinates);
+//    std::vector<std::shared_ptr<ElevatedTileBase>> elevatedTiles(tiles.begin(), tiles.end());
 
-    return elevatedTiles;
-}
+//    return elevatedTiles;
+//}
 
-std::vector<std::shared_ptr<ElevatedTileBase>> ObjectManager::getAllElevatedTiles()
-{
-    std::vector<std::shared_ptr<ElevatedTileBase>> elevatedTiles(tile_data.begin(), tile_data.end());
-    return elevatedTiles;
-}
+//std::vector<std::shared_ptr<ElevatedTileBase>> ObjectManager::getAllElevatedTiles()
+//{
+//    std::vector<std::shared_ptr<ElevatedTileBase>> elevatedTiles(tile_data.begin(), tile_data.end());
+//    return elevatedTiles;
+//}
 
 
 
