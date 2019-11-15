@@ -1,6 +1,8 @@
 #ifndef OBJECTMANAGER_H
 #define OBJECTMANAGER_H
 #include "interfaces/iobjectmanager.h"
+#include "Game/tiles/elevatedtilebase.h"
+
 #include <vector>
 
 
@@ -55,8 +57,15 @@ public:
     std::vector<std::shared_ptr<Course::TileBase>> getAllTiles();
 
 
+    std::shared_ptr<ElevatedTileBase> getElevatedTile(const Course::Coordinate& coordinate);
+    std::shared_ptr<ElevatedTileBase> getElevatedTile(const Course::ObjectId& id);
+    std::vector<std::shared_ptr<ElevatedTileBase>> getElevatedTiles(const std::vector<Course::Coordinate>& coordinates);
+    std::vector<std::shared_ptr<ElevatedTileBase>> getAllElevatedTiles();
+
+
 private:
-   std::vector<std::shared_ptr<Course::TileBase>> managed_tiles; // stores all currently managed tiles
+
+    std::vector<std::shared_ptr<Course::TileBase>> tile_data; // stores all currently managed tiles
 };
 
 #endif // OBJECTMANAGER_H
