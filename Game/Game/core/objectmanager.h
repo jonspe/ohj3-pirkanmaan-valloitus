@@ -1,6 +1,7 @@
 #ifndef OBJECTMANAGER_H
 #define OBJECTMANAGER_H
 #include "interfaces/iobjectmanager.h"
+#include "Game/tiles/elevatedtilebase.h"
 #include <vector>
 
 

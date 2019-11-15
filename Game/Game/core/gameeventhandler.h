@@ -2,6 +2,9 @@
 #define GAMEEVENTHANDLER_H
 #include "interfaces/igameeventhandler.h"
 #include "Game/core/player.h"
+#include "Game/workers/citizen.h"
+#include "Game/workers/educatedcitizen.h"
+#include "Game/core/objectmanager.h"
 #include <map>
 
 class GameEventHandler : public Course::iGameEventHandler
@@ -15,6 +18,7 @@ public:
      * @param resources ResourceMap containing change amounts.
      * @return
      * True - Modification was succesful.
+     * False - Modification was succesful.
      */
     bool modifyResources(std::shared_ptr<Course::PlayerBase> player,
                                  Course::ResourceMap resources);
@@ -26,6 +30,7 @@ public:
      * @param amount int of amount to change
      * @return
      * True - Modification was succesful.
+     * False - Modification was succesful.
      */
     bool modifyResource(std::shared_ptr<Course::PlayerBase> player,
                                 Course::BasicResource resource,
@@ -44,6 +49,10 @@ public:
      */
 
     Course::ResourceMap getResources(std::shared_ptr<Course::PlayerBase> player);
+
+    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::WorkerBase> worker_type);
+
+    void addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::PlayerBase> player, std::shared_ptr<Course::BuildingBase> building_type);
 
 private:
 

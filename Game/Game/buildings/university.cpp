@@ -1,6 +1,9 @@
 #include "university.h"
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
+#include "Game/workers/educatedcitizen.h"
+#include "Game/core/gameeventhandler.h"
+#include <memory>
 
 University::University(
         const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
@@ -22,6 +25,12 @@ University::University(
 std::string University::getType() const
 {
     return "University";
+}
+
+void University::doSpecialAction()
+{
+    std::shared_ptr<EducatedCitizen> educated_citizen(new EducatedCitizen(lockEventHandler(),lockObjectManager(), getOwner()));
+    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
 }
 
 

@@ -32,6 +32,7 @@ public:
      */
     void modifyHappiness(int happiness_change);
 
+
 private:
     std::string m_name;
     std::vector<std::weak_ptr<Course::GameObject> > m_objects;
