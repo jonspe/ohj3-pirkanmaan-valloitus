@@ -1,7 +1,7 @@
 #ifndef BIRCH_H
 #define BIRCH_H
 
-#include "tiles/tilebase.h"
+#include "Game/tiles/elevatedtilebase.h"
 #include "Game/core/resources.h"
 
 /**
@@ -17,7 +17,7 @@
  *
  * Tile supports 2 buildings.
  */
-class Birch : public Course::TileBase
+class Birch : public ElevatedTileBase
 {
 public:
     /**
@@ -32,6 +32,7 @@ public:
      * @param eventhandler points to the student's GameEventHandler.
      */
     Birch(const Course::Coordinate& location,
+           const int& height,
            const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
            const std::shared_ptr<Course::iObjectManager>& objectmanager,
            const unsigned int& max_build = 1,

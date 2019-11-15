@@ -12,6 +12,7 @@ SOURCES += \
     Game/buildings/mine.cpp \
     Game/buildings/university.cpp \
     Game/buildings/victorymonument.cpp \
+    Game/tiles/elevatedtilebase.cpp \
     Game/core/gameeventhandler.cpp \
     Game/core/mapgenerator.cpp \
     Game/core/objectmanager.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     Game/buildings/mine.h \
     Game/buildings/university.h \
     Game/buildings/victorymonument.h \
+    Game/tiles/elevatedtilebase.h \
     Game/core/gameeventhandler.h \
     Game/core/mapgenerator.h \
     Game/core/objectmanager.h \

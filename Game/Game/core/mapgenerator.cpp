@@ -1,4 +1,5 @@
 #include "mapgenerator.h"
+#include "Game/tiles/elevatedtilebase.h"
 #include <iostream>
 #include <set>
 #include <stdio.h>
@@ -13,6 +14,9 @@ namespace {
         return ((value + multiple/2) / multiple) * multiple;
     }
 }
+
+
+
 
 MapGenerator& MapGenerator::getInstance()
 {
@@ -56,7 +60,7 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
     {
         for (unsigned int y = 0; y < size_y; ++y)
         {
-            Course::TileConstructorPointer ctor;
+            ElevatedTileConstructorPointer ctor;
             Course::Coordinate coord = Course::Coordinate(x, y);
 
             if (averaged_tile_noise[coord] < 45)
@@ -103,7 +107,7 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
                 averaged_tile_height[coord] = roundToNearestMultiple((height-35) * 3, 30);
             }
 
-            tiles.push_back(ctor(coord, eventhandler, objectmanager));
+            tiles.push_back(ctor(coord, averaged_tile_height[coord], eventhandler, objectmanager));
         }
     }
     objectmanager->addTiles(tiles);
@@ -212,22 +216,15 @@ void MapGenerator::average(int size_x, int size_y)
     forest_average_count++;
     stone_average_count++;
     tile_height_average_count++;
-
-}
-
-std::map<Course::Coordinate, int> MapGenerator::getHeight()
-{
-    return averaged_tile_height;
 }
 
 template<typename T>
 void MapGenerator::addConstructor(std::string tile_type)
 {
-    Course::TileConstructorPointer ctor = std::make_shared<T, Course::Coordinate,
+    ElevatedTileConstructorPointer ctor = std::make_shared<T, Course::Coordinate,
+            int,
             std::shared_ptr<Course::iGameEventHandler>,
             std::shared_ptr<Course::iObjectManager> >;
 
     all_ctors[tile_type] = ctor;
-
-
 }

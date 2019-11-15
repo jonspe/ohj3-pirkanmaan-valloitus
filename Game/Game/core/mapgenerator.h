@@ -12,6 +12,12 @@
 #include "Game/tiles/stone.h"
 
 
+using ElevatedTileConstructorPointer = std::function<std::shared_ptr<ElevatedTileBase>(
+    Course::Coordinate,
+    int,
+    std::shared_ptr<Course::iGameEventHandler>,
+    std::shared_ptr<Course::iObjectManager>)>;
+
 class MapGenerator
 {
     /**
@@ -63,10 +69,6 @@ class MapGenerator
                          const std::shared_ptr<Course::iObjectManager>& objectmanager,
                          const std::shared_ptr<Course::iGameEventHandler>& eventhandler);
 
-        void average(int size_x, int size_y);
-
-        std::map<Course::Coordinate, int> getHeight();
-
 
     private:
         /**
@@ -79,13 +81,14 @@ class MapGenerator
         ~MapGenerator() = default;
 
         /**
-         * @brief Find the Tile ctor matching the random number.
-         * @param random is the random number being matched to a Tile.
-         * @return The constructor matching the random number.
+         * @brief averages tile properties of world gen map
+         * @param size_x
+         * @param size_y
          */
+        void average(int size_x, int size_y);
 
         // For mapping constructors.
-        std::map<std::string, Course::TileConstructorPointer> all_ctors;
+        std::map<std::string, ElevatedTileConstructorPointer> all_ctors;
         std::map<Course::Coordinate, int> averaged_tile_noise;
         std::map<Course::Coordinate, int> averaged_forest_noise;
         std::map<Course::Coordinate, int> averaged_stone_noise;

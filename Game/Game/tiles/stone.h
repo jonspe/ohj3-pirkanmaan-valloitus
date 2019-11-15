@@ -1,7 +1,7 @@
 #ifndef Stone_H
 #define Stone_H
 
-#include "tiles/tilebase.h"
+#include "Game/tiles/elevatedtilebase.h"
 #include "Game/core/resources.h"
 
 /**
@@ -18,7 +18,7 @@
  *
  * Tile supports 3 buildings.
  */
-class Stone : public Course::TileBase
+class Stone : public ElevatedTileBase
 {
 public:
     static const unsigned int MAX_BUILDINGS;
@@ -36,6 +36,7 @@ public:
      * @param eventhandler points to the student's GameEventHandler.
      */
     Stone(const Course::Coordinate& location,
+              const int& height,
               const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
               const std::shared_ptr<Course::iObjectManager>& objectmanager,
               const unsigned int& max_build = 1,

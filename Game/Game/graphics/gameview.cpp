@@ -1,7 +1,7 @@
 #include "gameview.h"
 #include "sprite.h"
 #include "Game/core/mapgenerator.h"
-#include "tiles/tilebase.h"
+#include "Game/tiles/elevatedtilebase.h"
 #include "core/gameobject.h"
 
 #include <QtMath>
@@ -37,10 +37,15 @@ GameView::GameView(QWidget* qt_parent) :
 
 void GameView::drawItem( std::shared_ptr<Course::GameObject> obj)
 {
-    MapGenerator& mapgen = MapGenerator::getInstance();
-    std::map<Course::Coordinate, int> tileheights = mapgen.getHeight();
+    int height = 0;
+    ElevatedTileBase* tile = dynamic_cast<ElevatedTileBase*>(obj.get());
 
-    Sprite* nItem = new Sprite(obj, m_spriteSheet, tileheights.at(obj->getCoordinate()));
+    if (tile != nullptr)
+    {
+        height = tile->getHeight();
+    }
+
+    Sprite* nItem = new Sprite(obj, m_spriteSheet, height);
     m_gs_ptr->addItem(nItem);
 }
 
