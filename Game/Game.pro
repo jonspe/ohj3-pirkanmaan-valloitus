@@ -22,6 +22,8 @@ SOURCES += \
     Game/graphics/sprite.cpp \
     Game/tiles/animals.cpp \
     Game/tiles/evergreen.cpp \
+    Game/workers/citizen.cpp \
+    Game/workers/educatedcitizen.cpp \
     main.cpp \
     mapwindow.cc \
     Game/tiles/birch.cpp \
@@ -52,6 +54,8 @@ HEADERS += \
     Game/graphics/sprite.h \
     Game/tiles/animals.h \
     Game/tiles/evergreen.h \
+    Game/workers/citizen.h \
+    Game/workers/educatedcitizen.h \
     mapwindow.hh \
     Game/core/resources.h \
     Game/tiles/birch.h \

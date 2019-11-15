@@ -1,7 +1,6 @@
 #ifndef UNIVERSITY_H
 #define UNIVERSITY_H
 
-
 #include "buildings/buildingbase.h"
 #include "Game/core/resources.h"
 
@@ -9,11 +8,12 @@
  * @brief The University class represents a player's University-building.
  *
  * Can be constructed on any open land tile. \n
- * Can be used to train educated workers
+ * Can be used to train educated workers§
  *
  */
 class University : public Course::BuildingBase
-{
+{    
+
 public:
     /**
      * @brief Disabled parameterless constructor.
@@ -51,10 +51,16 @@ public:
     virtual std::string getType() const override;
 
     /**
+     * @brief Trains an EducatedCitizen
+     */
+    virtual void doSpecialAction() override;
+
+    /**
      * @brief University can only be built on a grass based hex
      */
     virtual bool canBePlacedOnTile(
             const std::shared_ptr<Course::TileBase> &target) const override;
+
 
 }; // class University
 

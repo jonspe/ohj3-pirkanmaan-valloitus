@@ -17,3 +17,4 @@ void Player::modifyHappiness(int happiness_change)
 {
     happiness += happiness_change;
 }
+

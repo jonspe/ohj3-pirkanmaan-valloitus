@@ -117,8 +117,6 @@ MapWindow::MapWindow(QWidget *parent,
 
         updateStatusBar(event_handler,players,current_player);
 
-
-
     }
 
 
