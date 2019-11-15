@@ -3,6 +3,7 @@
 
 #include <QGraphicsItem>
 #include <QPainter>
+#include <QGraphicsColorizeEffect>
 
 #include <memory>
 #include <map>

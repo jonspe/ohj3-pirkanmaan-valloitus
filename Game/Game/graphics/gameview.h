@@ -3,6 +3,9 @@
 
 #include "core/coordinate.h"
 #include "core/gameobject.h"
+#include "Game/graphics/sprite.h"
+#include "Game/graphics/gamescene.h"
+
 #include <memory>
 #include <QGraphicsView>
 #include <QTransform>
@@ -55,12 +58,16 @@ public:
     virtual void wheelEvent(QWheelEvent *event) override;
 
 private:
-    QGraphicsScene* m_gs_ptr;
+    void setupFrameProperties();
 
-    QPointF m_lastMousePos;
+    GameScene* m_gs_ptr;
+
+    QPoint m_lastMousePos;
     QTransform m_viewTransform;
 
     QPixmap* m_spriteSheet;
+
+    QGraphicsColorizeEffect m_highlight_effect;
 };
 
 #endif // GAMEVIEW_H
