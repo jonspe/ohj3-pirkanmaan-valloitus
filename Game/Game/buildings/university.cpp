@@ -30,7 +30,11 @@ std::string University::getType() const
 void University::doSpecialAction()
 {
     std::shared_ptr<EducatedCitizen> educated_citizen(new EducatedCitizen(lockEventHandler(),lockObjectManager(), getOwner()));
-    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+    event_handler->addWorker(getCoordinate(),object_manager,educated_citizen);
+    object_manager->addWorker(educated_citizen);
+
 }
 
 

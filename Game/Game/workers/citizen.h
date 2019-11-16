@@ -4,6 +4,7 @@
 #include "tiles/tilebase.h"
 #include "interfaces/igameeventhandler.h"
 #include "interfaces/iobjectmanager.h"
+#include "Game/core/resources.h"
 
 
 class Citizen : public Course::WorkerBase
@@ -26,9 +27,9 @@ public:
                 const std::shared_ptr<Course::PlayerBase>& owner,
                 const int& tilespaces = 1,
                 const Course::ResourceMap& cost =
-                    Course::ConstResourceMaps::BW_RECRUITMENT_COST,
+                    ConstResources::CITIZEN_RECRUITMENT_COST,
                 const Course::ResourceMapDouble& efficiency =
-                    Course::ConstResourceMaps::BW_WORKER_EFFICIENCY
+                    ConstResources::CITIZEN_EFFICIENCY
                 );
 
     /**

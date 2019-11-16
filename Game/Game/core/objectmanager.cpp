@@ -60,6 +60,15 @@ std::vector<std::shared_ptr<Course::TileBase> > ObjectManager::getAllTiles()
     return tile_data;
 }
 
+void ObjectManager::addBuilding(std::shared_ptr<Course::BuildingBase> building)
+{
+    buildings.push_back(building);
+}
+
+void ObjectManager::addWorker(std::shared_ptr<Course::WorkerBase> worker)
+{
+    workers.push_back(worker);
+}
 
 //std::shared_ptr<ElevatedTileBase> ObjectManager::getElevatedTile(const Course::Coordinate &coordinate)
 //{
