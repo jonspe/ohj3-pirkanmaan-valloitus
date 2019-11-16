@@ -4,6 +4,8 @@
 #include "workers/workerbase.h"
 #include "Game/buildings/city.h"
 
+#include <QDebug>
+
 GameEventHandler::GameEventHandler()
 {
 
@@ -28,11 +30,14 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 
 bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount)
 {
-
     Course::ResourceMap resource_in_map;
     resource_in_map[resource] = amount;
     return modifyResources(player, resource_in_map);
+}
 
+void GameEventHandler::tilePressed(std::shared_ptr<Course::TileBase> &tile)
+{
+    qDebug() << tile->getCoordinate().asQpoint();
 }
 
 void GameEventHandler::setPresetResources(std::shared_ptr<Course::PlayerBase> player)

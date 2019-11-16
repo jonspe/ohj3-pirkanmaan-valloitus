@@ -5,6 +5,8 @@
 #include "core/gameobject.h"
 #include "Game/graphics/sprite.h"
 #include "Game/graphics/gamescene.h"
+#include "Game/core/gameeventhandler.h"
+#include "Game/core/objectmanager.h"
 
 #include <memory>
 #include <QGraphicsView>
@@ -18,7 +20,9 @@ public:
      * @brief Constructor for the class.
      * @param qt_parent points to the parent object per Qt's parent-child-system.
      */
-    GameView(QWidget* qt_parent = nullptr);
+    GameView(QWidget* qt_parent = nullptr,
+             const std::shared_ptr<GameEventHandler>& eventhandler = nullptr,
+             const std::shared_ptr<ObjectManager>& objectmanager = nullptr);
 
     /**
      * @brief Draws a GameObject on the screen as Sprite
@@ -58,6 +62,9 @@ public:
     virtual void wheelEvent(QWheelEvent *event) override;
 
 private:
+    const std::shared_ptr<GameEventHandler> EVENTHANDLER;
+    const std::shared_ptr<ObjectManager> OBJECTMANAGER;
+
     void setupFrameProperties();
 
     GameScene* m_gs_ptr;

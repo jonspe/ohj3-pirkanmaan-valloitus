@@ -24,13 +24,8 @@ MapWindow::MapWindow(QWidget *parent,
                      std::shared_ptr<Course::iGameEventHandler> handler):
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
-    m_GEHandler(handler),
-    m_gameview(new GameView())
+    m_GEHandler(handler)
 {
-    m_ui->setupUi(this);
-    GameView* gv_rawptr = m_gameview.get();
-    m_ui->horizontalLayout_2->insertWidget(0, gv_rawptr);
-
     SetupDialog* setup_dialog = new SetupDialog();
     setup_dialog->exec();
 
@@ -41,6 +36,12 @@ MapWindow::MapWindow(QWidget *parent,
 
     std::shared_ptr<ObjectManager> object_manager(new ObjectManager);
     std::shared_ptr<GameEventHandler> event_handler(new GameEventHandler);
+
+
+    m_ui->setupUi(this);
+    m_gameview = std::shared_ptr<GameView>(new GameView(nullptr, event_handler, object_manager));
+    m_ui->horizontalLayout_2->insertWidget(0, m_gameview.get());
+
 
     std::map<std::string, std::shared_ptr<Player>> players;
 
@@ -59,7 +60,7 @@ MapWindow::MapWindow(QWidget *parent,
     std::vector<std::shared_ptr<Course::TileBase>> tiles = object_manager->getAllTiles();
     std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());
 
-    gv_rawptr->drawMultipleItems(objs);
+    m_gameview->drawMultipleItems(objs);
 
 
     i = 1; // set player resources to default at start of game

@@ -37,6 +37,8 @@ public:
                                 int amount);
 
 
+    void tilePressed(std::shared_ptr<Course::TileBase> &tile);
+
     /**
      * @brief set player's resources to default values
      * @param player Pointer to the Player whose resources are being modified
@@ -90,6 +92,8 @@ public:
     void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
 
     void generateResources(std::shared_ptr<Player> player, std::shared_ptr<ObjectManager> object_manager);
+
+
 
 private:
 

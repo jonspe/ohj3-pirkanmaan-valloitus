@@ -10,8 +10,10 @@
 #include <QDebug>
 
 
-GameView::GameView(QWidget* qt_parent) :
-    QGraphicsView(qt_parent)
+GameView::GameView(QWidget* qt_parent,
+                   const std::shared_ptr<GameEventHandler>& eventhandler,
+                   const std::shared_ptr<ObjectManager>& objectmanager) :
+    QGraphicsView(qt_parent), EVENTHANDLER(eventhandler), OBJECTMANAGER(objectmanager)
 {
     setupFrameProperties();
 
@@ -58,8 +60,12 @@ Course::Coordinate GameView::screenToCoordinate(QPoint screenPos)
 void GameView::mousePressEvent(QMouseEvent *event)
 {
     Course::Coordinate point = screenToCoordinate(event->pos());
+    std::shared_ptr<Course::TileBase> tile = OBJECTMANAGER->getTile(point);
 
-    qDebug() << point.asQpoint();
+    if (tile != nullptr)
+    {
+        EVENTHANDLER->tilePressed(tile);
+    }
 }
 
 void GameView::mouseMoveEvent(QMouseEvent *event)
