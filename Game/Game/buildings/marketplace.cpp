@@ -31,7 +31,11 @@ bool Marketplace::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &tar
             target->hasSpaceForBuildings(spacesInTileCapacity()) and(
             target->getType() == "Stone" or
             target->getType() == "Grass" or
-            target->getType() == "Sand" or
-            target->getType() == "Animals");
+            target->getType() == "Sand");
+}
+
+void Marketplace::doSpecialAction()
+{
+
 }
 

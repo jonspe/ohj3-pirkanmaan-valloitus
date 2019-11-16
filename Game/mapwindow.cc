@@ -10,6 +10,8 @@
 #include "Game/tiles/ores.h"
 #include "Game/tiles/sand.h"
 #include "Game/tiles/stone.h"
+#include "Game/buildings/city.h"
+#include "Game/buildings/university.h"
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
 #include "Game/core/resources.h"
@@ -17,7 +19,7 @@
 #include "Game/core/gameeventhandler.h"
 #include "setupdialog.h"
 #include <math.h>
-#include <iostream>
+
 MapWindow::MapWindow(QWidget *parent,
                      std::shared_ptr<Course::iGameEventHandler> handler):
     QMainWindow(parent),
@@ -72,50 +74,20 @@ MapWindow::MapWindow(QWidget *parent,
     while(turn < 5){ // something to end the loop, replace later
 
         current_player++;
-        if (current_player == player_amount + 1){
+        if (current_player == player_amount + 1)
+        {
             turn++;
             current_player = 1;
+        }       
 
-            QString turn_number_qstring =  QString::number(turn);
-            QString turn_text = QString("Turn %1").arg(turn_number_qstring);
-            m_ui->turn_label->setText(turn_text);
+        if (turn == 1) // randomly place city for player
+        {
+            std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
+            event_handler->firstTurn(map_size,current_player,object_manager,players, new_city);
         }
+        event_handler->generateResources(players[std::to_string(current_player)], object_manager);
+        updateStatusBar(event_handler,players,current_player, turn);
 
-        if (turn == 1){ // randomly place city for player
-
-           bool looking_for_tile = true;
-           std::shared_ptr<Course::TileBase> city_tile;
-           while (looking_for_tile){
-               int x = rand() % map_size/2;
-               if (current_player % 2){
-                   x = x + map_size/2;
-               }
-               int y = rand() % map_size/2;
-               if (current_player > 2){
-                   y = y + map_size/2;
-               }
-               Course::Coordinate city_location = Course::Coordinate(x,y);
-               city_tile = object_manager->getTile(city_location);
-               if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch" ){
-                   city_tile->setOwner(players[std::to_string(current_player)]);
-                   players[std::to_string(current_player)]->addObject(city_tile);
-                   looking_for_tile = false;
-               }
-           }
-
-          // city_tile->addBuilding();
-        }
-
-        // generate resources from all owned tiles
-        std::vector<std::shared_ptr<Course::GameObject>> owned_tiles = players[std::to_string(current_player)]->getObjects();
-        for(auto tile : owned_tiles){
-            Course::Coordinate tile_coord = tile->getCoordinate();
-            std::shared_ptr<Course::TileBase> owned_tile = object_manager->getTile(tile_coord);
-            owned_tile->generateResources();
-
-        }
-
-        updateStatusBar(event_handler,players,current_player);
 
     }
 
@@ -139,12 +111,16 @@ void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
     m_gameview->drawItem(obj);
 }
 
-void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, int current_player)
+void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, int current_player, int turn)
 {
 
     QString player_number_qstring =  QString::number(current_player);
     QString player_text = QString("Player %1").arg(player_number_qstring);
     m_ui->player_label->setText(player_text);
+
+    QString turn_number_qstring =  QString::number(turn);
+    QString turn_text = QString("Turn %1").arg(turn_number_qstring);
+    m_ui->turn_label->setText(turn_text);
 
     Course::ResourceMap resource_stockpile = event_handler->getResources(players[std::to_string(current_player)]);
 

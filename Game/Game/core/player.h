@@ -21,23 +21,10 @@ public:
      */
     virtual ~Player() = default;
 
-    /**
-     * @brief Returns player's happiness value
-     */
-    int getHappiness();
-
-    /**
-     * @brief Modifies player's happiness value
-     * @param happiness_change Amount of happiness being modified in Int
-     */
-    void modifyHappiness(int happiness_change);
-
-
 private:
     std::string m_name;
     std::vector<std::weak_ptr<Course::GameObject> > m_objects;
 
-    int happiness = 3;
 
 };
 

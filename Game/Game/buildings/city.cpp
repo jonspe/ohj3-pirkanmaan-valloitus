@@ -1,5 +1,10 @@
 #include "city.h"
 #include "tiles/tilebase.h"
+#include "interfaces/iobjectmanager.h"
+#include "tiles/tilebase.h"
+#include "Game/workers/educatedcitizen.h"
+#include "Game/core/gameeventhandler.h"
+#include <memory>
 
 City::City(
         const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
@@ -38,4 +43,12 @@ void City::onBuildAction()
         }
     }
 }
+
+void City::doSpecialAction()
+{
+    std::shared_ptr<Citizen> citizen(new Citizen(lockEventHandler(),lockObjectManager(), getOwner()));
+    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+}
+
+
 

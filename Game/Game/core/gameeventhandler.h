@@ -50,13 +50,50 @@ public:
 
     Course::ResourceMap getResources(std::shared_ptr<Course::PlayerBase> player);
 
-    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
+    /**
+     * @brief claims tile at given coordinate to given player
+     * @param location coordinate of tile where worker spawns
+     * @param object_manager pointer to main object manager
+     * @param worker_type pointer to type of worker being added (Citizen, EducatedCitizen)
+     */
+    void claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant);
 
+    /**
+     * @brief adds a new worker to tile at given coordinate
+     * @param location coordinate of tile where worker spawns
+     * @param object_manager pointer to main object manager
+     * @param claimant pointer to player claiming tile
+     */
+    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
+    /**
+     * @brief removes a worker from tile at given coordinate
+     * @param location coordinate of tile where worker is kill
+     * @param object_manager pointer to main object manager
+     * @param worker_type pointer to type of worker being removed (Citizen, EducatedCitizen)
+     */
+    void removeWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
+    /**
+     * @brief adds a new building to tile at given coordinate
+     * @param location coordinate of tile where building spawns
+     * @param object_manager pointer to main object manager
+     * @param building_type pointer to type of building being added (Mine, University etc)
+     */
     void addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type);
+    /**
+     * @brief removes a new building from tile at given coordinate
+     * @param location coordinate of tile where building is removed
+     * @param object_manager pointer to main object manager
+     * @param building_type pointer to type of building being removed (Mine, University etc)
+     */
+    void removeBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type);
+
+    void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
+
+    void generateResources(std::shared_ptr<Player> player, std::shared_ptr<ObjectManager> object_manager);
 
 private:
 
-    std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources;
+    std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources; // contains resources of every player
 
 };
 

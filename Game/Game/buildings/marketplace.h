@@ -58,6 +58,12 @@ public:
     virtual bool canBePlacedOnTile(
             const std::shared_ptr<Course::TileBase> &target) const override;
 
+
+    /**
+     * @brief Access resource marketplace
+     */
+    void doSpecialAction() override;
+
 }; // class Marketplace
 
 

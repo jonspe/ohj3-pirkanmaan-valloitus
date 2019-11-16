@@ -10,6 +10,7 @@
  *
  * It can be constructed on any tile that has not been claimed by any other
  * player. \n
+ * Can train Citizens.
  * Effects: Claims surrounding unclaimed tiles. \n
  * Radius: 3 tiles.
  */
@@ -57,6 +58,12 @@ public:
      * @post Exception guarantee: Basic
      */
     virtual void onBuildAction() override;
+
+    /**
+     * @brief Trains a normal citizen on the city tile
+     */
+    virtual void doSpecialAction() override;
+
 
 }; // class City
 
