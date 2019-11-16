@@ -8,7 +8,6 @@ namespace ConstResources {
 const Course::ResourceMap EMPTY = {};
 
 
-
 // Building - City
 const Course::ResourceMap CITY_BUILD_COST = {
     {Course::BasicResource::MONEY, 750},
@@ -101,9 +100,8 @@ const Course::ResourceMap MARKETPLACE_PRODUCTION = {
 };
 
 
-
-// Worker - BasicWorker
-const Course::ResourceMapDouble BW_WORKER_EFFICIENCY = {
+// Worker - Citizen
+const Course::ResourceMapDouble CITIZEN_EFFICIENCY = {
     {Course::MONEY, 0.25},
     {Course::FOOD, 1.00},
     {Course::WOOD, 0.75},
@@ -111,11 +109,24 @@ const Course::ResourceMapDouble BW_WORKER_EFFICIENCY = {
     {Course::ORE, 0.50}
 };
 
-const Course::ResourceMap BW_RECRUITMENT_COST = {
-    {Course::MONEY, 10},
-    {Course::FOOD, 25}
+const Course::ResourceMap CITIZEN_RECRUITMENT_COST = {
+    {Course::MONEY, 20},
+    {Course::FOOD, 30}
 };
 
+// Worker - EducatedCitizen
+const Course::ResourceMapDouble EDUCATEDCITIZEN_EFFICIENCY = {
+    {Course::MONEY, 0.50},
+    {Course::FOOD, 1.50},
+    {Course::WOOD, 1.50},
+    {Course::STONE, 1.00},
+    {Course::ORE, 1.00}
+};
+
+const Course::ResourceMap EDUCATEDCITIZEN_RECRUITMENT_COST = {
+    {Course::MONEY, 80},
+    {Course::FOOD, 50}
+};
 
 const Course::ResourceMap BIRCH_BP = {
     {Course::MONEY, 1},
