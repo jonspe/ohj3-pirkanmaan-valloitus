@@ -39,7 +39,11 @@ void City::onBuildAction()
         // If the Tile doesn't have owner, set it's owner to buildings owner.
         if( not (*it)->getOwner() )
         {
-            (*it)->setOwner(getOwner());
+            auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+            auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+            auto owner = std::dynamic_pointer_cast<Player>(getOwner());
+
+            event_handler->claimTile(getCoordinate(), object_manager, owner);
         }
     }
 }
@@ -47,7 +51,11 @@ void City::onBuildAction()
 void City::doSpecialAction()
 {
     std::shared_ptr<Citizen> citizen(new Citizen(lockEventHandler(),lockObjectManager(), getOwner()));
-    std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+    event_handler->addWorker(getCoordinate(),object_manager,citizen);
+
+   object_manager->addWorker(citizen);
 }
 
 

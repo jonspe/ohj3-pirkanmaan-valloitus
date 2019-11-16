@@ -56,6 +56,17 @@ public:
      */
     std::vector<std::shared_ptr<Course::TileBase>> getAllTiles();
 
+    /**
+     * @brief stores pointer to building in a vector so the weak_ptr doesnt commit seppuku
+     * @param building pointer to newly built building
+     */
+    void addBuilding(std::shared_ptr<Course::BuildingBase> building);
+    /**
+     * @brief stores pointer to worker in a vector so the weak_ptr doesnt commit seppuku
+     * @param building pointer to newly built worker
+     */
+    void addWorker(std::shared_ptr<Course::WorkerBase> worker);
+
     //std::shared_ptr<ElevatedTileBase> getElevatedTile(const Course::Coordinate& coordinate);
     //std::shared_ptr<ElevatedTileBase> getElevatedTile(const Course::ObjectId& id);
     //std::vector<std::shared_ptr<ElevatedTileBase>> getElevatedTiles(const std::vector<Course::Coordinate>& coordinates);
@@ -63,7 +74,8 @@ public:
 
 private:
     std::vector<std::shared_ptr<Course::TileBase>> tile_data; // stores all currently managed tiles
-
+    std::vector<std::shared_ptr<Course::BuildingBase>> buildings; // stores weak pointers so they dont kill themselves
+    std::vector<std::shared_ptr<Course::WorkerBase>> workers; // stores weak pointers so they dont kill themselves
 };
 
 #endif // OBJECTMANAGER_H
