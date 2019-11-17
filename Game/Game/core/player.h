@@ -30,13 +30,6 @@ public:
 
     void generateResources(std::shared_ptr<ObjectManager> object_manager);
 
-    /**
-     * @brief claims tile at given coordinate
-     * @param location coordinate of tile where worker spawns
-     * @param object_manager pointer to main object manager
-     *
-     */
-    void claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager);
 
 private:
     std::string m_name;

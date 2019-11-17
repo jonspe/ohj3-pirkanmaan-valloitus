@@ -83,6 +83,14 @@ void GameEventHandler::removeBuilding(Course::Coordinate location, std::shared_p
     tile->removeBuilding(building_type);
 }
 
+void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant)
+{
+    auto tile = object_manager->getTile(location);
+    tile->setOwner(claimant);
+    claimant->addObject(tile);
+}
+
+
 void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager, std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city)
 {
        bool looking_for_tile = true;
@@ -100,7 +108,7 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
            city_tile = object_manager->getTile(city_location);
            if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch" )
            {
-               players[std::to_string(current_player)]->claimTile(city_location,object_manager);
+               claimTile(city_location,object_manager,players[std::to_string(current_player)]);
                addBuilding(city_location, object_manager, new_city);
                new_city->doSpecialAction(); // train a citizen at the new city
                object_manager->addBuilding(new_city);

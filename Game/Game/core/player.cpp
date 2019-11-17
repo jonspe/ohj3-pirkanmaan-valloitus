@@ -17,10 +17,3 @@ void Player::generateResources(std::shared_ptr<ObjectManager> object_manager)
     }
 }
 
-void Player::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
-{
-    auto tile = object_manager->getTile(location);
-    std::shared_ptr<Player> player = std::make_shared<Player>(this);
-    tile->setOwner(player);
-    addObject(tile);
-}
