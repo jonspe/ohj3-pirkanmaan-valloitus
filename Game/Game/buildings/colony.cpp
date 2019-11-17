@@ -40,7 +40,7 @@ void Colony::onBuildAction()
             auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
             auto owner = std::dynamic_pointer_cast<Player>(getOwner());
 
-            event_handler->claimTile(getCoordinate(), object_manager, owner);
+            owner->claimTile(getCoordinate(), object_manager);
         }
     }
 }

@@ -59,13 +59,6 @@ Course::ResourceMap GameEventHandler::getResources(std::shared_ptr<Course::Playe
     return player_resources[player];
 }
 
-void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant)
-{
-    auto tile = object_manager->getTile(location);
-    tile->setOwner(claimant);
-    claimant->addObject(tile);
-}
-
 void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager,  std::shared_ptr<Course::WorkerBase> worker_type)
 {
     auto tile = object_manager->getTile(location);
@@ -107,7 +100,7 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
            city_tile = object_manager->getTile(city_location);
            if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch" )
            {
-               claimTile(city_location,object_manager,players[std::to_string(current_player)]);
+               players[std::to_string(current_player)]->claimTile(city_location,object_manager);
                addBuilding(city_location, object_manager, new_city);
                new_city->doSpecialAction(); // train a citizen at the new city
                object_manager->addBuilding(new_city);
@@ -117,14 +110,5 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
        }
 }
 
-void GameEventHandler::generateResources(std::shared_ptr<Player> player, std::shared_ptr<ObjectManager> object_manager)
-{
-    std::vector<std::shared_ptr<Course::GameObject>> owned_tiles = player->getObjects();
-    for(std::shared_ptr<Course::GameObject> tile : owned_tiles){
-        Course::Coordinate tile_coord = tile->getCoordinate();
-        std::shared_ptr<Course::TileBase> owned_tile = object_manager->getTile(tile_coord);
-        owned_tile->generateResources();
-    }
-}
 
 

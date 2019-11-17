@@ -86,7 +86,7 @@ MapWindow::MapWindow(QWidget *parent,
             std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
             event_handler->firstTurn(map_size,current_player,object_manager,players, new_city);
         }
-        event_handler->generateResources(players[std::to_string(current_player)], object_manager);
+        players[std::to_string(current_player)]->generateResources(object_manager);
         updateStatusBar(event_handler,players,current_player, turn);
 
 

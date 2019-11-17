@@ -49,22 +49,13 @@ public:
      * @brief return given player's resources in a map
      * @param player Pointer to the Player whose resources are being modified
      */
-
     Course::ResourceMap getResources(std::shared_ptr<Course::PlayerBase> player);
-
-    /**
-     * @brief claims tile at given coordinate to given player
-     * @param location coordinate of tile where worker spawns
-     * @param object_manager pointer to main object manager
-     * @param worker_type pointer to type of worker being added (Citizen, EducatedCitizen)
-     */
-    void claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant);
 
     /**
      * @brief adds a new worker to tile at given coordinate
      * @param location coordinate of tile where worker spawns
      * @param object_manager pointer to main object manager
-     * @param claimant pointer to player claiming tile
+     * @param worker_type pointer to type of worker being added (Citizen, EducatedCitizen)
      */
     void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
     /**
@@ -90,8 +81,6 @@ public:
     void removeBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type);
 
     void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
-
-    void generateResources(std::shared_ptr<Player> player, std::shared_ptr<ObjectManager> object_manager);
 
 
 
