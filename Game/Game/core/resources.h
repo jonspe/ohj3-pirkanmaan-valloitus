@@ -1,7 +1,7 @@
 #ifndef RESOURCES_H
 #define RESOURCES_H
 
-#include "core\basicresources.h"
+#include "core/basicresources.h"
 
 namespace ConstResources {
 
