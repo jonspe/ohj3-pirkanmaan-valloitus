@@ -48,7 +48,11 @@ void ObjectManagerTest::TilesTest()
 
     QCOMPARE(object_manager->getTile(first_tile_coordinate), first_tile);
     QCOMPARE(object_manager->getTile(first_tile_id), first_tile);
-    //QCOMPARE(object_manager->getTiles(tile_coordinates), tiles);
+
+    auto vector_with_same_tiles = object_manager->getTiles(tile_coordinates);
+    QCOMPARE(vector_with_same_tiles[0], first_tile);
+    QCOMPARE(vector_with_same_tiles[1], second_tile);
+
 }
 
 QTEST_APPLESS_MAIN(ObjectManagerTest)
