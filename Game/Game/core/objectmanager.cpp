@@ -41,7 +41,7 @@ std::vector<std::shared_ptr<Course::TileBase>> ObjectManager::getTiles(const std
     std::vector<std::shared_ptr<Course::TileBase>> wanted_tiles;
 
     for (auto it = tile_data.begin(); it != tile_data.end(); it++){ // iterate through tiles, then coordinates to find wanted tiles
-        for (auto coord_it = coordinates.begin(); coord_it != coordinates.end(); it++){
+        for (auto coord_it = coordinates.begin(); coord_it != coordinates.end(); coord_it++){
             if(it->get()->getCoordinate() == *coord_it){
                 wanted_tiles.push_back(*it);
             }
