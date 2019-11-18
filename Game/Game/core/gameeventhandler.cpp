@@ -3,7 +3,7 @@
 #include "Game/workers/educatedcitizen.h"
 #include "workers/workerbase.h"
 #include "Game/buildings/city.h"
-
+#include <iostream>
 #include <QDebug>
 
 GameEventHandler::GameEventHandler()
@@ -15,17 +15,19 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 {
 
     for (auto it = resources.begin(); it != resources.end(); it++){
-        if (player_resources[player].at(it->first) > 0){
-           player_resources[player].at(it->first) += resources.at(it->first);
+
+        auto player_resource = player_resources[player].at(it->first);
+        auto changed_resource = resources.at(it->first);
+
+        if ((player_resource + changed_resource) >= 0){
+             player_resource = player_resource + changed_resource;
         }else{
-           if (player_resources[player].at(it->first) - resources.at(it->first) >= 0){
-                player_resources[player].at(it->first) -= resources.at(it->first);
-           }else{
-               return false;
-           }
+            return false; // resources would go negative
         }
     }
     return true;
+
+
 }
 
 bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player, Course::BasicResource resource, int amount)
@@ -75,6 +77,8 @@ void GameEventHandler::addBuilding(Course::Coordinate location, std::shared_ptr<
 {
     auto tile = object_manager->getTile(location);
     tile->addBuilding(building_type);
+    building_type->onBuildAction();
+    object_manager->addBuilding(building_type);
 }
 
 void GameEventHandler::removeBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type)
@@ -111,8 +115,6 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
                claimTile(city_location,object_manager,players[std::to_string(current_player)]);
                addBuilding(city_location, object_manager, new_city);
                new_city->doSpecialAction(); // train a citizen at the new city
-               object_manager->addBuilding(new_city);
-
                looking_for_tile = false;
            }
        }
