@@ -72,7 +72,7 @@ MapWindow::MapWindow(QWidget *parent,
     int current_player = 0;
     int turn = 0;
 
-    while(turn < 5){ // something to end the loop, replace later
+    while(turn < 1){ // something to end the loop, replace later
 
         current_player++;
         if (current_player == player_amount + 1)
@@ -126,38 +126,28 @@ void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler,
     Course::ResourceMap resource_stockpile = event_handler->getResources(players[std::to_string(current_player)]);
 
     int gold_count = resource_stockpile.at(Course::BasicResource::MONEY);
-    int gold_change = 15;
     int food_count = resource_stockpile.at(Course::BasicResource::FOOD);
-    int food_change = 12;
     int wood_count = resource_stockpile.at(Course::BasicResource::WOOD);
-    int wood_change = 6;
     int stone_count = resource_stockpile.at(Course::BasicResource::STONE);
-    int stone_change = 3;
     int ore_count = resource_stockpile.at(Course::BasicResource::ORE);
-    int ore_change = 1;
 
     QString gold_qstring = QString::number(gold_count);
-    QString gold_change_qstring =  QString::number(gold_change);
-    QString gold_text = QString("%1 + %2").arg(gold_qstring, gold_change_qstring);
+    QString gold_text = QString("%1").arg(gold_qstring);
     m_ui->gold_label->setText(gold_text);
 
     QString food_qstring = QString::number(food_count);
-    QString food_change_qstring =  QString::number(food_change);
-    QString food_text = QString("%1 + %2").arg(food_qstring, food_change_qstring);
+    QString food_text = QString("%1").arg(food_qstring);
     m_ui->food_label->setText(food_text);
 
     QString wood_qstring = QString::number(wood_count);
-    QString wood_change_qstring =  QString::number(wood_change);
-    QString wood_text = QString("%1 + %2").arg(wood_qstring, wood_change_qstring);
+    QString wood_text = QString("%1").arg(wood_qstring);
     m_ui->wood_label->setText(wood_text);
 
     QString stone_qstring = QString::number(stone_count);
-    QString stone_change_qstring =  QString::number(stone_change);
-    QString stone_text = QString("%1 + %2").arg(stone_qstring, stone_change_qstring);
+    QString stone_text = QString("%1").arg(stone_qstring);
     m_ui->stone_label->setText(stone_text);
 
     QString ore_qstring = QString::number(ore_count);
-    QString ore_change_qstring =  QString::number(ore_change);
-    QString ore_text = QString("%1 + %2").arg(ore_qstring, ore_change_qstring);
+    QString ore_text = QString("%1").arg(ore_qstring);
     m_ui->ore_label->setText(ore_text);
 }

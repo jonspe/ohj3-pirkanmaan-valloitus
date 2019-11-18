@@ -3,7 +3,7 @@
 #include "Game/workers/educatedcitizen.h"
 #include "workers/workerbase.h"
 #include "Game/buildings/city.h"
-#include <iostream>
+#include "core/basicresources.h"
 #include <QDebug>
 
 GameEventHandler::GameEventHandler()
@@ -15,18 +15,18 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
 {
 
     for (auto it = resources.begin(); it != resources.end(); it++){
-
-        auto player_resource = player_resources[player].at(it->first);
-        auto changed_resource = resources.at(it->first);
-
-        if ((player_resource + changed_resource) >= 0){
-             player_resource = player_resource + changed_resource;
-        }else{
-            return false; // resources would go negative
+        for (auto player_it = resources.begin(); player_it != resources.end(); player_it++){
+             if (player_it->first == it->first){
+                if ((player_resources[player].at(player_it->first) + resources.at(it->first)) >= 0){
+                }else{
+                 return false; // resources would go negative
+                }
+            }
         }
-    }
-    return true;
+     }
 
+    player_resources[player] = mergeResourceMaps(player_resources[player], resources);
+    return true;
 
 }
 
@@ -76,9 +76,9 @@ void GameEventHandler::removeWorker(Course::Coordinate location, std::shared_ptr
 void GameEventHandler::addBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type)
 {
     auto tile = object_manager->getTile(location);
+    object_manager->addBuilding(building_type);
     tile->addBuilding(building_type);
     building_type->onBuildAction();
-    object_manager->addBuilding(building_type);
 }
 
 void GameEventHandler::removeBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type)
@@ -110,7 +110,7 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
            }
            Course::Coordinate city_location = Course::Coordinate(x,y);
            city_tile = object_manager->getTile(city_location);
-           if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch" )
+           if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch")
            {
                claimTile(city_location,object_manager,players[std::to_string(current_player)]);
                addBuilding(city_location, object_manager, new_city);
@@ -118,6 +118,55 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
                looking_for_tile = false;
            }
        }
+
+}
+
+void GameEventHandler::foodBought(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::FOOD, 100);
+    modifyResource(player, Course::BasicResource::MONEY, -100);
+}
+
+void GameEventHandler::woodBought(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::WOOD, 100);
+    modifyResource(player, Course::BasicResource::MONEY, -150);
+}
+
+void GameEventHandler::stoneBought(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::STONE, 100);
+    modifyResource(player, Course::BasicResource::MONEY, -300);
+}
+
+void GameEventHandler::oreBought(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::ORE, 100);
+    modifyResource(player, Course::BasicResource::MONEY, -700);
+}
+
+void GameEventHandler::foodSold(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::FOOD, -100);
+    modifyResource(player, Course::BasicResource::MONEY, 50);
+}
+
+void GameEventHandler::woodSold(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::WOOD, -100);
+    modifyResource(player, Course::BasicResource::MONEY, 75);
+}
+
+void GameEventHandler::stoneSold(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::STONE, -100);
+    modifyResource(player, Course::BasicResource::MONEY, 150);
+}
+
+void GameEventHandler::oreSold(std::shared_ptr<Player> player)
+{
+    modifyResource(player, Course::BasicResource::ORE, -100);
+    modifyResource(player, Course::BasicResource::MONEY, 500);
 }
 
 

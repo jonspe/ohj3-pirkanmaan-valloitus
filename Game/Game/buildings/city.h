@@ -12,7 +12,7 @@
  * player. \n
  * Can train Citizens.
  * Effects: Claims surrounding unclaimed tiles. \n
- * Radius: 3 tiles.
+ * Radius: 2 tiles.
  */
 class City : public Course::BuildingBase
 {

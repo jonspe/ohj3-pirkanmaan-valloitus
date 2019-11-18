@@ -102,6 +102,55 @@ public:
     void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
 
 
+    /**
+     * @brief player spends 100 gold to buy 100 food
+     * @param player pointer to player using marketplace
+     */
+    void foodBought(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player spends 150 gold to buy 100 wood
+     * @param player pointer to player using marketplace
+     */
+    void woodBought(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player spends 300 gold to buy 100 stone
+     * @param player pointer to player using marketplace
+     */
+    void stoneBought(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player spends 1000 gold to buy 100 ore
+     * @param player pointer to player using marketplace
+     */
+    void oreBought(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player sells 100 food for 50 gold
+     * @param player pointer to player using marketplace
+     */
+    void foodSold(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player sells 100 wood for 75 gold
+     * @param player pointer to player using marketplace
+     */
+    void woodSold(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player sells 100 stone for 150 gold
+     * @param player pointer to player using marketplace
+     */
+    void stoneSold(std::shared_ptr<Player> player);
+
+    /**
+     * @brief player sells 100 ore for 500 gold
+     * @param player pointer to player using marketplace
+     */
+    void oreSold(std::shared_ptr<Player> player);
+
+
 
 private:
 

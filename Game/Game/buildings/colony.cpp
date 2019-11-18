@@ -27,9 +27,7 @@ std::string Colony::getType() const
 
 void Colony::onBuildAction()
 {
-    std::vector< std::shared_ptr<Course::TileBase> > neighbours;
-
-    lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(2));
+    std::vector< std::shared_ptr<Course::TileBase> > neighbours = lockObjectManager()->getTiles(getCoordinatePtr()->neighbours(2));
 
     for(auto it = neighbours.begin(); it != neighbours.end(); ++it)
     {

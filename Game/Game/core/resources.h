@@ -10,14 +10,14 @@ const Course::ResourceMap EMPTY = {};
 
 // Building - City
 const Course::ResourceMap CITY_BUILD_COST = {
-    {Course::BasicResource::MONEY, 750},
-    {Course::BasicResource::FOOD, 1000},
-    {Course::BasicResource::WOOD, 500},
-    {Course::BasicResource::STONE, 250}
+    {Course::BasicResource::MONEY, 0},
+    {Course::BasicResource::FOOD, 0},
+    {Course::BasicResource::WOOD, 0},
+    {Course::BasicResource::STONE, 0}
 };
 const Course::ResourceMap CITY_PRODUCTION = {
-    {Course::BasicResource::MONEY, 10},
-    {Course::BasicResource::FOOD, -4},
+    {Course::BasicResource::MONEY, 5},
+
 };
 
 
@@ -102,11 +102,11 @@ const Course::ResourceMap MARKETPLACE_PRODUCTION = {
 
 // Worker - Citizen
 const Course::ResourceMapDouble CITIZEN_EFFICIENCY = {
-    {Course::MONEY, 0.25},
-    {Course::FOOD, 1.00},
-    {Course::WOOD, 0.75},
-    {Course::STONE, 0.50},
-    {Course::ORE, 0.50}
+    {Course::MONEY, 1.50},
+    {Course::FOOD, 1.50},
+    {Course::WOOD, 1.50},
+    {Course::STONE, 1.25},
+    {Course::ORE, 1.25}
 };
 
 const Course::ResourceMap CITIZEN_RECRUITMENT_COST = {
@@ -116,11 +116,11 @@ const Course::ResourceMap CITIZEN_RECRUITMENT_COST = {
 
 // Worker - EducatedCitizen
 const Course::ResourceMapDouble EDUCATEDCITIZEN_EFFICIENCY = {
-    {Course::MONEY, 0.50},
-    {Course::FOOD, 1.50},
-    {Course::WOOD, 1.50},
-    {Course::STONE, 1.00},
-    {Course::ORE, 1.00}
+    {Course::MONEY, 3.50},
+    {Course::FOOD, 3.50},
+    {Course::WOOD, 3.00},
+    {Course::STONE, 2.00},
+    {Course::ORE, 2.00}
 };
 
 const Course::ResourceMap EDUCATEDCITIZEN_RECRUITMENT_COST = {
