@@ -32,7 +32,8 @@ SOURCES += tst_objectmanagertest.cpp \
     ../../Game/Game/tiles/elevatedtilebase.cpp \
     ../../Game/Game/tiles/evergreen.cpp \
     ../../Game/Game/workers/citizen.cpp \
-    ../../Game/Game/workers/educatedcitizen.cpp
+    ../../Game/Game/workers/educatedcitizen.cpp \
+    ../../Game/Game/core/marketplacetrader.cpp
 
 DEFINES += SRCDIR=\\\"$$PWD/\\\"
 
@@ -74,4 +75,5 @@ HEADERS += \
     ../../Game/Game/tiles/elevatedtilebase.h \
     ../../Game/Game/tiles/evergreen.h \
     ../../Game/Game/workers/citizen.h \
-    ../../Game/Game/workers/educatedcitizen.h
+    ../../Game/Game/workers/educatedcitizen.h \
+    ../../Game/Game/core/marketplacetrader.h

@@ -5,6 +5,7 @@
 #include "Game/workers/citizen.h"
 #include "Game/workers/educatedcitizen.h"
 #include "Game/core/objectmanager.h"
+#include "Game/core/marketplacetrader.h"
 #include <map>
 
 class GameEventHandler : public Course::iGameEventHandler
@@ -103,58 +104,61 @@ public:
 
 
     /**
-     * @brief player spends 100 gold to buy 100 food
+     * @brief player buys 100 food
      * @param player pointer to player using marketplace
      */
     void foodBought(std::shared_ptr<Player> player);
 
     /**
-     * @brief player spends 150 gold to buy 100 wood
+     * @brief player buys 100 wood
      * @param player pointer to player using marketplace
      */
     void woodBought(std::shared_ptr<Player> player);
 
     /**
-     * @brief player spends 300 gold to buy 100 stone
+     * @brief player buys 100 stone
      * @param player pointer to player using marketplace
      */
     void stoneBought(std::shared_ptr<Player> player);
 
     /**
-     * @brief player spends 1000 gold to buy 100 ore
+     * @brief player buys 100 ore
      * @param player pointer to player using marketplace
      */
     void oreBought(std::shared_ptr<Player> player);
 
     /**
-     * @brief player sells 100 food for 50 gold
+     * @brief player sells 100 food
      * @param player pointer to player using marketplace
      */
     void foodSold(std::shared_ptr<Player> player);
 
     /**
-     * @brief player sells 100 wood for 75 gold
+     * @brief player sells 100 wood
      * @param player pointer to player using marketplace
      */
     void woodSold(std::shared_ptr<Player> player);
 
     /**
-     * @brief player sells 100 stone for 150 gold
+     * @brief player sells 100 stone
      * @param player pointer to player using marketplace
      */
     void stoneSold(std::shared_ptr<Player> player);
 
     /**
-     * @brief player sells 100 ore for 500 gold
+     * @brief player sells 100 ore
      * @param player pointer to player using marketplace
      */
     void oreSold(std::shared_ptr<Player> player);
 
-
+    /**
+     * @brief returns pointer to marketplace trader
+     */
 
 private:
 
     std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources; // contains resources of every player
+    MarketplaceTrader trader;
 
 };
 

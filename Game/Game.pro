@@ -12,6 +12,7 @@ SOURCES += \
     Game/buildings/mine.cpp \
     Game/buildings/university.cpp \
     Game/buildings/victorymonument.cpp \
+    Game/core/marketplacetrader.cpp \
     Game/graphics/gamescene.cpp \
     Game/tiles/elevatedtilebase.cpp \
     Game/core/gameeventhandler.cpp \
@@ -44,6 +45,7 @@ HEADERS += \
     Game/buildings/mine.h \
     Game/buildings/university.h \
     Game/buildings/victorymonument.h \
+    Game/core/marketplacetrader.h \
     Game/graphics/gamescene.h \
     Game/tiles/elevatedtilebase.h \
     Game/core/gameeventhandler.h \
