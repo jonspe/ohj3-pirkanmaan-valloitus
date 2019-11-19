@@ -29,29 +29,31 @@ MapWindow::MapWindow(QWidget *parent,
     SetupDialog* setup_dialog = new SetupDialog();
     setup_dialog->exec();
 
-    unsigned int map_size = setup_dialog->map_size;
-    unsigned int player_amount = setup_dialog->player_amount;
-    unsigned int seed = setup_dialog->seed;
+    map_size = setup_dialog->getSize();
+    player_amount = setup_dialog->getPlayers();
+    unsigned int seed = setup_dialog->getSeed();
 
-
-    std::shared_ptr<ObjectManager> object_manager(new ObjectManager);
-    std::shared_ptr<GameEventHandler> event_handler(new GameEventHandler);
-
+    std::shared_ptr<ObjectManager> new_manager(new ObjectManager);
+    std::shared_ptr<GameEventHandler> new_handler(new GameEventHandler);
+    object_manager = new_manager;
+    event_handler = new_handler;
 
     m_ui->setupUi(this);
     m_gameview = std::shared_ptr<GameView>(new GameView(nullptr, event_handler, object_manager));
     m_ui->horizontalLayout_2->insertWidget(0, m_gameview.get());
 
 
-    std::map<std::string, std::shared_ptr<Player>> players;
+    std::map<std::string, std::shared_ptr<Player>> new_players;
 
     unsigned int i = 1;
     while (i <= player_amount){
         std::string player_id = std::to_string(i);
         std::shared_ptr<Player> new_player(new Player(player_id));
-        players[player_id] = new_player;
+        new_players[player_id] = new_player;
         i++;
     }
+
+    players = new_players;
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -61,38 +63,9 @@ MapWindow::MapWindow(QWidget *parent,
     std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());
 
     m_gameview->drawMultipleItems(objs);
+    connect(m_ui->endTurnButton,SIGNAL(pressed()),this,SLOT(passTurn()));
 
-
-    i = 1; // set player resources to default at start of game
-    while (i <= player_amount){
-        event_handler->setPresetResources(players[std::to_string(i)]);
-        i++;
-    }
-
-    int current_player = 0;
-    int turn = 0;
-
-    while(turn < 1){ // something to end the loop, replace later
-
-        current_player++;
-        if (current_player == player_amount + 1)
-        {
-            turn++;
-            current_player = 1;
-        }       
-
-        if (turn == 1) // randomly place city for player
-        {
-            std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
-            event_handler->firstTurn(map_size,current_player,object_manager,players, new_city);
-        }
-        players[std::to_string(current_player)]->generateResources(object_manager);
-        updateStatusBar(event_handler,players,current_player, turn);
-
-
-    }
-
-
+    passTurn();
 
 }
 
@@ -112,7 +85,7 @@ void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
     m_gameview->drawItem(obj);
 }
 
-void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, int current_player, int turn)
+void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, unsigned int current_player, unsigned int turn)
 {
 
     QString player_number_qstring =  QString::number(current_player);
@@ -150,4 +123,66 @@ void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler,
     QString ore_qstring = QString::number(ore_count);
     QString ore_text = QString("%1").arg(ore_qstring);
     m_ui->ore_label->setText(ore_text);
+
+    QString buy_price_qstring = QString::number(-event_handler->getTrader().getBuyPrice(traded_resource));
+    QString buy_text = QString("Buy 100 for %1 gold").arg(buy_price_qstring);
+    m_ui->buyButton->setText(buy_text);
+
+    QString sell_price_qstring = QString::number(event_handler->getTrader().getSellPrice(traded_resource));
+    QString sell_text = QString("Sell 100 for %1 gold").arg(sell_price_qstring);
+    m_ui->sellButton->setText(sell_text);
+
+}
+
+void MapWindow::passTurn()
+{
+    std::tuple<unsigned int, unsigned int> turn_data = event_handler->passTurn(player_amount);
+    turn = std::get<0>(turn_data);
+    current_player = std::get<1>(turn_data);
+
+    if (turn == 1) // randomly place city for player
+    {
+        event_handler->setPresetResources(players[std::to_string(current_player)]);
+        std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
+        event_handler->firstTurn(map_size,object_manager,players, new_city);
+    }
+
+    players[std::to_string(current_player)]->generateResources(object_manager);
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_selectFoodButton_clicked()
+{
+    traded_resource = Course::BasicResource::FOOD;
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_selectWoodButton_clicked()
+{
+    traded_resource = Course::BasicResource::WOOD;
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_selectStoneButton_clicked()
+{
+    traded_resource = Course::BasicResource::STONE;
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_selectOreButton_clicked()
+{
+    traded_resource = Course::BasicResource::ORE;
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_buyButton_clicked()
+{
+    event_handler->resourceBought(players[std::to_string(current_player)], traded_resource);
+    updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::on_sellButton_clicked()
+{
+    event_handler->resourceSold(players[std::to_string(current_player)], traded_resource);
+    updateStatusBar(event_handler, players, current_player, turn);
 }

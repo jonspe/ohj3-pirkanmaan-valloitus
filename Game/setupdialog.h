@@ -15,10 +15,9 @@ public:
     explicit SetupDialog(QWidget *parent = nullptr);
     ~SetupDialog();
 
-    unsigned int map_size = 60;
-    unsigned int seed = 1337;
-    unsigned int player_amount = 1;
-
+    unsigned int getSize();
+    unsigned int getSeed();
+    unsigned int getPlayers();
 private slots:
     void on_AcceptButton_released();
 
@@ -30,6 +29,9 @@ private slots:
 
 private:
     Ui::SetupDialog *ui;
+    unsigned int map_size = 60;
+    unsigned int seed = 1337;
+    unsigned int player_amount = 1;
 };
 
 #endif // SETUPDIALOG_H

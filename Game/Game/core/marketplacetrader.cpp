@@ -7,15 +7,15 @@ MarketplaceTrader::MarketplaceTrader()
     multiplier_map[Course::BasicResource::STONE] = 1.00;
     multiplier_map[Course::BasicResource::ORE] = 1.00;
 
-    sell_price_map[Course::BasicResource::FOOD] = -100;
-    sell_price_map[Course::BasicResource::WOOD] = -150;
-    sell_price_map[Course::BasicResource::STONE] = -300;
-    sell_price_map[Course::BasicResource::ORE] = -1000;
+    sell_price_map[Course::BasicResource::FOOD] = 50;
+    sell_price_map[Course::BasicResource::WOOD] = 75;
+    sell_price_map[Course::BasicResource::STONE] = 150;
+    sell_price_map[Course::BasicResource::ORE] = 500;
 
-    buy_price_map[Course::BasicResource::FOOD] = 50;
-    buy_price_map[Course::BasicResource::WOOD] = 75;
-    buy_price_map[Course::BasicResource::STONE] = 150;
-    buy_price_map[Course::BasicResource::ORE] = 500;
+    buy_price_map[Course::BasicResource::FOOD] = -100;
+    buy_price_map[Course::BasicResource::WOOD] = -150;
+    buy_price_map[Course::BasicResource::STONE] = -300;
+    buy_price_map[Course::BasicResource::ORE] = -1000;
 }
 
 

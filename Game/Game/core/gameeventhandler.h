@@ -80,7 +80,6 @@ public:
      * @param building_type pointer to type of building being removed (Mine, University etc)
      */
 
-
     void removeBuilding(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> building_type);
 
     /**
@@ -100,7 +99,12 @@ public:
      * @param new_city pointer to City building)
      */
 
-    void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
+    void firstTurn(unsigned int map_size, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
+
+
+    std::tuple<unsigned int, unsigned int> passTurn(unsigned int player_amount);
+
+
 
     /**
      * @brief returns MarketplaceTrader object
@@ -108,61 +112,28 @@ public:
     MarketplaceTrader getTrader();
 
     /**
-     * @brief player buys 100 food
+     * @brief player buys 100 of resource
+     * @param resource resource being bought
      * @param player pointer to player using marketplace
      */
-    void foodBought(std::shared_ptr<Player> player);
+    void resourceBought(std::shared_ptr<Player> player, Course::BasicResource resource);
+
 
     /**
-     * @brief player buys 100 wood
+     * @brief player sells 100 of resource
+     * @param resource resource being sold
      * @param player pointer to player using marketplace
      */
-    void woodBought(std::shared_ptr<Player> player);
+    void resourceSold(std::shared_ptr<Player> player, Course::BasicResource resource);
 
-    /**
-     * @brief player buys 100 stone
-     * @param player pointer to player using marketplace
-     */
-    void stoneBought(std::shared_ptr<Player> player);
-
-    /**
-     * @brief player buys 100 ore
-     * @param player pointer to player using marketplace
-     */
-    void oreBought(std::shared_ptr<Player> player);
-
-    /**
-     * @brief player sells 100 food
-     * @param player pointer to player using marketplace
-     */
-    void foodSold(std::shared_ptr<Player> player);
-
-    /**
-     * @brief player sells 100 wood
-     * @param player pointer to player using marketplace
-     */
-    void woodSold(std::shared_ptr<Player> player);
-
-    /**
-     * @brief player sells 100 stone
-     * @param player pointer to player using marketplace
-     */
-    void stoneSold(std::shared_ptr<Player> player);
-
-    /**
-     * @brief player sells 100 ore
-     * @param player pointer to player using marketplace
-     */
-    void oreSold(std::shared_ptr<Player> player);
-
-    /**
-     * @brief returns pointer to marketplace trader
-     */
 
 private:
 
     std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources; // contains resources of every player
     MarketplaceTrader trader;
+
+    unsigned int turn = 1;
+    unsigned int current_player = 0;
 
 };
 

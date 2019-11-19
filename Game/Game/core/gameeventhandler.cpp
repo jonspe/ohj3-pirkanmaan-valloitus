@@ -97,7 +97,7 @@ void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<Ob
 }
 
 
-void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager, std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city)
+void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectManager> object_manager, std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city)
 {
        bool looking_for_tile = true;
        std::shared_ptr<Course::TileBase> city_tile;
@@ -124,78 +124,40 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
 
 }
 
+std::tuple<unsigned int, unsigned int> GameEventHandler::passTurn(unsigned int player_amount)
+{
+    current_player++;
+    if (current_player == player_amount + 1)
+    {
+        turn++;
+        current_player = 1;
+    }
+   auto turn_data = std::make_tuple(turn, current_player);
+   return turn_data;
+
+}
+
 MarketplaceTrader GameEventHandler::getTrader()
 {
     return trader;
 }
 
 
-void GameEventHandler::foodBought(std::shared_ptr<Player> player)
+void GameEventHandler::resourceBought(std::shared_ptr<Player> player, Course::BasicResource resource)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::FOOD))){
-         modifyResource(player, Course::BasicResource::FOOD, 100);
-         trader.changeMultiplier(Course::BasicResource::FOOD, "+");
+    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(resource))){
+         modifyResource(player, resource, 100);
+         trader.changeMultiplier(resource, "+");
     }
 
 }
 
-void GameEventHandler::woodBought(std::shared_ptr<Player> player)
+void GameEventHandler::resourceSold(std::shared_ptr<Player> player, Course::BasicResource resource)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::WOOD))){
-         modifyResource(player, Course::BasicResource::WOOD, 100);
-         trader.changeMultiplier(Course::BasicResource::WOOD,"+");
-    }
-
-}
-
-void GameEventHandler::stoneBought(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::STONE))){
-         modifyResource(player, Course::BasicResource::STONE, 100);
-         trader.changeMultiplier(Course::BasicResource::STONE, "+");
-    }
-
-}
-
-void GameEventHandler::oreBought(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::ORE))){
-         modifyResource(player, Course::BasicResource::ORE, 100);
-         trader.changeMultiplier(Course::BasicResource::ORE,"+");
-    }
-}
-
-void GameEventHandler::foodSold(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::FOOD, -100))
+    if(modifyResource(player, resource, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::FOOD));
-        trader.changeMultiplier(Course::BasicResource::FOOD, "-");
+        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(resource));
+        trader.changeMultiplier(resource, "-");
     }
 }
 
-void GameEventHandler::woodSold(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::WOOD, -100))
-    {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::WOOD));
-        trader.changeMultiplier(Course::BasicResource::WOOD, "-");
-    }
-}
-void GameEventHandler::stoneSold(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::STONE, -100))
-    {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::STONE));
-        trader.changeMultiplier(Course::BasicResource::STONE, "-");
-    }
-}
-
-void GameEventHandler::oreSold(std::shared_ptr<Player> player)
-{
-    if(modifyResource(player, Course::BasicResource::ORE, -100))
-    {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::ORE));
-        trader.changeMultiplier(Course::BasicResource::ORE, "-");
-    }
-}

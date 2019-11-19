@@ -19,6 +19,21 @@ SetupDialog::~SetupDialog()
     delete ui;
 }
 
+unsigned int SetupDialog::getSize()
+{
+    return map_size;
+}
+
+unsigned int SetupDialog::getSeed()
+{
+    return seed;
+}
+
+unsigned int SetupDialog::getPlayers()
+{
+    return player_amount;
+}
+
 void SetupDialog::on_AcceptButton_released()
 {
     accept();
