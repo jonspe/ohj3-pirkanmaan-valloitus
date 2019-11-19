@@ -24,7 +24,7 @@ MapGenerator& MapGenerator::getInstance()
     return instance;
 }
 
-void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigned int seed, const std::shared_ptr<Course::iObjectManager> &objectmanager, const std::shared_ptr<Course::iGameEventHandler> &eventhandler)
+void MapGenerator::generateMap(int size_x, int size_y, unsigned int seed, const std::shared_ptr<Course::iObjectManager> &objectmanager, const std::shared_ptr<Course::iGameEventHandler> &eventhandler)
 {
     // add constructors for every tile
     addConstructor<Animals>("Animals");
@@ -50,18 +50,22 @@ void MapGenerator::generateMap(unsigned int size_x, unsigned int size_y, unsigne
     }
 
     // invoke the gods
-    average(size_x,size_y);
-    average(size_x,size_y);
+    for (int i = 0; i < 2; i++)
+    {
+        average(size_x, size_y);
+    }
 
     srand(seed);
 
     std::vector<std::shared_ptr<Course::TileBase>> tiles;
-    for (unsigned int x = 0; x < size_x; ++x)
+    for (int x = 0; x < size_x; ++x)
     {
-        for (unsigned int y = 0; y < size_y; ++y)
+        for (int y = 0; y < size_y; ++y)
         {
             ElevatedTileConstructorPointer ctor;
-            Course::Coordinate coord = Course::Coordinate(x, y);
+            Course::Coordinate coord(
+                        static_cast<int>(x),
+                        static_cast<int>(y));
 
             if (averaged_tile_noise[coord] < 45)
             {
@@ -183,9 +187,7 @@ void MapGenerator::average(int size_x, int size_y)
             int stone_sum = 0;
             int height_sum = 0;
 
-            std::set<Course::Coordinate>::iterator it = nearby_tiles.begin();
-
-            for (it ; it != nearby_tiles.end(); it++){
+            for (auto it = nearby_tiles.begin(); it != nearby_tiles.end(); it++){
                 if ( tile_noise.find(*it) != tile_noise.end() && tile_average_count < 3) {
                     sum += tile_noise.at(*it);
                 }
@@ -200,10 +202,11 @@ void MapGenerator::average(int size_x, int size_y)
                 }
             }
 
-            averaged_tile_noise[Course::Coordinate(x,y)] = int(sum / nearby_tiles.size());
-            averaged_forest_noise[Course::Coordinate(x,y)] = int(forest_sum / nearby_tiles.size());
-            averaged_stone_noise[Course::Coordinate(x,y)] = int(stone_sum / nearby_tiles.size());
-            averaged_tile_height[Course::Coordinate(x,y)] = int(height_sum / nearby_tiles.size());
+            int size = static_cast<int>(nearby_tiles.size());
+            averaged_tile_noise[Course::Coordinate(x,y)] = int(sum / size);
+            averaged_forest_noise[Course::Coordinate(x,y)] = int(forest_sum / size);
+            averaged_stone_noise[Course::Coordinate(x,y)] = int(stone_sum / size);
+            averaged_tile_height[Course::Coordinate(x,y)] = int(height_sum / size);
         }
     }
 

@@ -104,25 +104,11 @@ void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler,
     int stone_count = resource_stockpile.at(Course::BasicResource::STONE);
     int ore_count = resource_stockpile.at(Course::BasicResource::ORE);
 
-    QString gold_qstring = QString::number(gold_count);
-    QString gold_text = QString("%1").arg(gold_qstring);
-    m_ui->gold_label->setText(gold_text);
-
-    QString food_qstring = QString::number(food_count);
-    QString food_text = QString("%1").arg(food_qstring);
-    m_ui->food_label->setText(food_text);
-
-    QString wood_qstring = QString::number(wood_count);
-    QString wood_text = QString("%1").arg(wood_qstring);
-    m_ui->wood_label->setText(wood_text);
-
-    QString stone_qstring = QString::number(stone_count);
-    QString stone_text = QString("%1").arg(stone_qstring);
-    m_ui->stone_label->setText(stone_text);
-
-    QString ore_qstring = QString::number(ore_count);
-    QString ore_text = QString("%1").arg(ore_qstring);
-    m_ui->ore_label->setText(ore_text);
+    m_ui->gold_label->setText(QString::number(gold_count));
+    m_ui->food_label->setText(QString::number(food_count));
+    m_ui->wood_label->setText(QString::number(wood_count));
+    m_ui->stone_label->setText(QString::number(stone_count));
+    m_ui->ore_label->setText(QString::number(ore_count));
 
     QString buy_price_qstring = QString::number(-event_handler->getTrader().getBuyPrice(traded_resource));
     QString buy_text = QString("Buy 100 for %1 gold").arg(buy_price_qstring);

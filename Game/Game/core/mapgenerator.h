@@ -63,8 +63,8 @@ class MapGenerator
          * @param eventhandler points to the student's GameEventHandler.
          * @post Exception guarantee: No-throw
          */
-        void generateMap(unsigned int size_x,
-                         unsigned int size_y,
+        void generateMap(int size_x,
+                         int size_y,
                          unsigned int seed,
                          const std::shared_ptr<Course::iObjectManager>& objectmanager,
                          const std::shared_ptr<Course::iGameEventHandler>& eventhandler);
