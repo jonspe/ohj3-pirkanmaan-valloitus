@@ -102,6 +102,10 @@ public:
 
     void firstTurn(int map_size, int current_player, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
 
+    /**
+     * @brief returns MarketplaceTrader object
+     */
+    MarketplaceTrader getTrader();
 
     /**
      * @brief player buys 100 food

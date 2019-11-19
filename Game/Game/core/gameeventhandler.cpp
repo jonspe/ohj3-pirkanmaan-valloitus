@@ -124,38 +124,44 @@ void GameEventHandler::firstTurn(int map_size, int current_player, std::shared_p
 
 }
 
+MarketplaceTrader GameEventHandler::getTrader()
+{
+    return trader;
+}
+
+
 void GameEventHandler::foodBought(std::shared_ptr<Player> player)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getFoodBuyPrice())){
+    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::FOOD))){
          modifyResource(player, Course::BasicResource::FOOD, 100);
-         trader.changeFoodMultiplier("+");
+         trader.changeMultiplier(Course::BasicResource::FOOD, "+");
     }
 
 }
 
 void GameEventHandler::woodBought(std::shared_ptr<Player> player)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getWoodBuyPrice())){
+    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::WOOD))){
          modifyResource(player, Course::BasicResource::WOOD, 100);
-         trader.changeWoodMultiplier("+");
+         trader.changeMultiplier(Course::BasicResource::WOOD,"+");
     }
 
 }
 
 void GameEventHandler::stoneBought(std::shared_ptr<Player> player)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getStoneBuyPrice())){
+    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::STONE))){
          modifyResource(player, Course::BasicResource::STONE, 100);
-         trader.changeStoneMultiplier("+");
+         trader.changeMultiplier(Course::BasicResource::STONE, "+");
     }
 
 }
 
 void GameEventHandler::oreBought(std::shared_ptr<Player> player)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getOreBuyPrice())){
+    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(Course::BasicResource::ORE))){
          modifyResource(player, Course::BasicResource::ORE, 100);
-         trader.changeOreMultiplier("+");
+         trader.changeMultiplier(Course::BasicResource::ORE,"+");
     }
 }
 
@@ -163,8 +169,8 @@ void GameEventHandler::foodSold(std::shared_ptr<Player> player)
 {
     if(modifyResource(player, Course::BasicResource::FOOD, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getFoodSellPrice());
-        trader.changeFoodMultiplier("-");
+        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::FOOD));
+        trader.changeMultiplier(Course::BasicResource::FOOD, "-");
     }
 }
 
@@ -172,16 +178,16 @@ void GameEventHandler::woodSold(std::shared_ptr<Player> player)
 {
     if(modifyResource(player, Course::BasicResource::WOOD, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getWoodSellPrice());
-        trader.changeWoodMultiplier("-");
+        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::WOOD));
+        trader.changeMultiplier(Course::BasicResource::WOOD, "-");
     }
 }
 void GameEventHandler::stoneSold(std::shared_ptr<Player> player)
 {
     if(modifyResource(player, Course::BasicResource::STONE, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getStoneSellPrice());
-        trader.changeStoneMultiplier("-");
+        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::STONE));
+        trader.changeMultiplier(Course::BasicResource::STONE, "-");
     }
 }
 
@@ -189,9 +195,7 @@ void GameEventHandler::oreSold(std::shared_ptr<Player> player)
 {
     if(modifyResource(player, Course::BasicResource::ORE, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getOreSellPrice());
-        trader.changeOreMultiplier("-");
+        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(Course::BasicResource::ORE));
+        trader.changeMultiplier(Course::BasicResource::ORE, "-");
     }
 }
-
-

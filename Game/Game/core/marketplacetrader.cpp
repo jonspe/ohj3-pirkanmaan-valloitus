@@ -1,103 +1,49 @@
-#include "marketplacetrader.h"
+#include "Game/core/marketplacetrader.h"
 
 MarketplaceTrader::MarketplaceTrader()
 {
+    multiplier_map[Course::BasicResource::FOOD] = 1.00;
+    multiplier_map[Course::BasicResource::WOOD] = 1.00;
+    multiplier_map[Course::BasicResource::STONE] = 1.00;
+    multiplier_map[Course::BasicResource::ORE] = 1.00;
 
+    sell_price_map[Course::BasicResource::FOOD] = -100;
+    sell_price_map[Course::BasicResource::WOOD] = -150;
+    sell_price_map[Course::BasicResource::STONE] = -300;
+    sell_price_map[Course::BasicResource::ORE] = -1000;
+
+    buy_price_map[Course::BasicResource::FOOD] = 50;
+    buy_price_map[Course::BasicResource::WOOD] = 75;
+    buy_price_map[Course::BasicResource::STONE] = 150;
+    buy_price_map[Course::BasicResource::ORE] = 500;
 }
 
 
-int MarketplaceTrader::getFoodBuyPrice()
+int MarketplaceTrader::getBuyPrice(Course::BasicResource resource)
 {
-    return int((-100 * food_price_multiplier));
+     return int(buy_price_map[resource] * multiplier_map[resource]);
 }
 
-int MarketplaceTrader::getWoodBuyPrice()
+int MarketplaceTrader::getSellPrice(Course::BasicResource resource)
 {
-    return int((-150 * wood_price_multiplier));
+     return int(sell_price_map[resource] * multiplier_map[resource]);
 }
 
-int MarketplaceTrader::getStoneBuyPrice()
-{
-    return int((-300 * stone_price_multiplier));
-}
-
-int MarketplaceTrader::getOreBuyPrice()
-{
-    return int((-1000 * ore_price_multiplier));
-}
-
-int MarketplaceTrader::getFoodSellPrice()
-{
-    return int((50 * food_price_multiplier));
-}
-
-int MarketplaceTrader::getWoodSellPrice()
-{
-    return int((75 * wood_price_multiplier));
-}
-
-int MarketplaceTrader::getStoneSellPrice()
-{
-    return int((150 * stone_price_multiplier));
-}
-
-int MarketplaceTrader::getOreSellPrice()
-{
-    return int((500 * ore_price_multiplier));
-}
-
-void MarketplaceTrader::changeFoodMultiplier(std::string sign)
+void MarketplaceTrader::changeMultiplier(Course::BasicResource resource, std::string sign)
 {
     if (sign == "+")
     {
-        food_price_multiplier += 0.01;
+        multiplier_map[resource] += 0.01;
     }else if (sign == "-"){
-        food_price_multiplier -= 0.01;
+        multiplier_map[resource] -= 0.01;
     }
 
-    if (food_price_multiplier < 0.10){
-        food_price_multiplier = 0.10;
+    if (multiplier_map[resource] < 0.10){
+        multiplier_map[resource] = 0.10;
     }
+
+
 }
 
-void MarketplaceTrader::changeWoodMultiplier(std::string sign)
-{
-    if (sign == "+")
-    {
-        wood_price_multiplier += 0.01;
-    }else if (sign == "-"){
-        wood_price_multiplier -= 0.01;
-    }
 
-    if (food_price_multiplier < 0.10){
-        wood_price_multiplier = 0.10;
-    }
-}
 
-void MarketplaceTrader::changeStoneMultiplier(std::string sign)
-{
-    if (sign == "+")
-    {
-        stone_price_multiplier += 0.01;
-    }else if (sign == "-"){
-        stone_price_multiplier -= 0.01;
-    }
-
-    if (stone_price_multiplier < 0.10){
-        stone_price_multiplier = 0.10;
-    }
-}
-
-void MarketplaceTrader::changeOreMultiplier(std::string sign)
-{
-    if (sign == "+")
-    {
-        ore_price_multiplier += 0.01;
-    }else if (sign == "-"){
-        ore_price_multiplier -= 0.01;
-    }
-
-    if (ore_price_multiplier < 0.10){
-        ore_price_multiplier = 0.10;
-    }
-}
