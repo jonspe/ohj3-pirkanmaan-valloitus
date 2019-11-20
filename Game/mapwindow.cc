@@ -55,6 +55,39 @@ MapWindow::MapWindow(QWidget *parent,
     }
 
     players = new_players;
+    event_handler->setPlayers(players);
+
+    std::vector<std::string> grass_buildings;
+    grass_buildings.push_back("Colony");
+    grass_buildings.push_back("Farm");
+    grass_buildings.push_back("Marketplace");
+    grass_buildings.push_back("University");
+    grass_buildings.push_back("Victory Monument");
+    std::vector<std::string> animals_buildings;
+    animals_buildings.push_back("Farm");
+    std::vector<std::string> forest_buildings;
+    forest_buildings.push_back("Colony");
+    forest_buildings.push_back("Lumber Camp");
+    std::vector<std::string> stone_buildings;
+    stone_buildings.push_back("Mine");
+    std::vector<std::string> lake_buildings;
+
+    allowed_buildings_on_tile["Grass"] = grass_buildings;
+    allowed_buildings_on_tile["Animals"] = animals_buildings;
+    allowed_buildings_on_tile["Birch"] = forest_buildings;
+    allowed_buildings_on_tile["Evergreen"] = forest_buildings;
+    allowed_buildings_on_tile["Stone"] = stone_buildings;
+    allowed_buildings_on_tile["Diamond"] = stone_buildings;
+    allowed_buildings_on_tile["Ore"] = stone_buildings;
+    allowed_buildings_on_tile["Lake"] = lake_buildings;
+
+    m_ui->buildMenu->setVisible(false);
+    m_ui->buildingMenu->setVisible(false);
+    m_ui->buildmenuLabel->setVisible(false);
+    m_ui->buildingDescription->setVisible(false);
+    m_ui->buildingSelectionBox->setVisible(false);
+    m_ui->workerMenu->setVisible(false);
+    m_ui->workermenuLabel->setVisible(false);
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -131,7 +164,7 @@ void MapWindow::passTurn()
     {
         event_handler->setPresetResources(players[std::to_string(current_player)]);
         std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
-        event_handler->firstTurn(map_size,object_manager,players, new_city);
+        event_handler->firstTurn(map_size,object_manager, new_city);
     }
 
     players[std::to_string(current_player)]->generateResources(object_manager);
@@ -179,4 +212,26 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     qDebug() << QString::fromStdString(tile->getType())
              << "pressed at"
              << tile->getCoordinatePtr()->asQpoint();
+
+    if(tile->getOwner() == players[std::to_string(current_player)])
+       {
+           m_ui->buildingSelectionBox->clear();
+           m_ui->buildMenu->setVisible(true);
+           m_ui->buildingMenu->setVisible(true);
+           m_ui->buildmenuLabel->setVisible(true);
+           m_ui->buildingDescription->setVisible(true);
+           m_ui->buildingSelectionBox->setVisible(true);
+           for (auto building_name : allowed_buildings_on_tile[tile->getType()])
+           {
+               m_ui->buildingSelectionBox->addItem(QString::fromStdString(building_name));
+           }
+
+       }else{
+           m_ui->buildMenu->setVisible(false);
+           m_ui->buildingMenu->setVisible(false);
+           m_ui->buildmenuLabel->setVisible(false);
+           m_ui->buildingDescription->setVisible(false);
+           m_ui->buildingSelectionBox->setVisible(false);
+       }
+
 }

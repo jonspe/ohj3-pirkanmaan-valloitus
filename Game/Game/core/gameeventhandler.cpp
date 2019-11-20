@@ -63,6 +63,11 @@ Course::ResourceMap GameEventHandler::getResources(std::shared_ptr<Course::Playe
     return player_resources[player];
 }
 
+void GameEventHandler::setPlayers(std::map<std::string, std::shared_ptr<Player> > player_map)
+{
+    players = player_map;
+}
+
 void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager,  std::shared_ptr<Course::WorkerBase> worker_type)
 {
     auto tile = object_manager->getTile(location);
@@ -89,15 +94,18 @@ void GameEventHandler::removeBuilding(Course::Coordinate location, std::shared_p
     tile->removeBuilding(building_type);
 }
 
-void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant)
+void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
 {
     auto tile = object_manager->getTile(location);
-    tile->setOwner(claimant);
-    claimant->addObject(tile);
+    tile->setOwner(players[std::to_string(current_player)]);
+    players.at(std::to_string(current_player))->addObject(tile);
+    qDebug() << QString::fromStdString(tile->getType())
+             << "claimed at "
+             << tile->getCoordinatePtr()->asQpoint();
 }
 
 
-void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectManager> object_manager, std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city)
+void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> new_city)
 {
        bool looking_for_tile = true;
        std::shared_ptr<Course::TileBase> city_tile;
@@ -114,7 +122,7 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
            city_tile = object_manager->getTile(city_location);
            if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch")
            {
-               claimTile(city_location,object_manager,players[std::to_string(current_player)]);
+               claimTile(city_location, object_manager);
                addBuilding(city_location, object_manager, new_city);
                new_city->doSpecialAction(); // train a citizen at the new city
                looking_for_tile = false;

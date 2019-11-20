@@ -67,6 +67,8 @@ private:
     unsigned int turn;
     Course::BasicResource traded_resource;
 
+    std::map<std::string, std::vector<std::string>> allowed_buildings_on_tile;
+
 
 };
 

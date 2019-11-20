@@ -52,6 +52,8 @@ public:
      */
     Course::ResourceMap getResources(std::shared_ptr<Course::PlayerBase> player);
 
+    void setPlayers(std::map<std::string, std::shared_ptr<Player>> player_map);
+
     /**
      * @brief adds a new worker to tile at given coordinate
      * @param location coordinate of tile where worker spawns
@@ -86,9 +88,8 @@ public:
      * @brief claims tile at given coordinate to given player
      * @param location coordinate of tile where worker spawns
      * @param object_manager pointer to main object manager
-     * @param worker_type pointer to type of worker being added (Citizen, EducatedCitizen)
      */
-    void claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Player> claimant);
+    void claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager);
 
     /**
      * @brief spawns city in map quadrant for every player
@@ -99,7 +100,7 @@ public:
      * @param new_city pointer to City building)
      */
 
-    void firstTurn(unsigned int map_size, std::shared_ptr<ObjectManager> object_manager,  std::map<std::string, std::shared_ptr<Player>> players, std::shared_ptr<Course::BuildingBase> new_city);
+    void firstTurn(unsigned int map_size, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> new_city);
 
 
     std::tuple<unsigned int, unsigned int> passTurn(unsigned int player_amount);
@@ -134,6 +135,8 @@ private:
 
     unsigned int turn = 1;
     unsigned int current_player = 0;
+
+    std::map<std::string, std::shared_ptr<Player>> players;
 
 };
 
