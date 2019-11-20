@@ -64,7 +64,7 @@ void GameView::mousePressEvent(QMouseEvent *event)
 
     if (tile != nullptr)
     {
-        EVENTHANDLER->tilePressed(tile);
+        emit tilePressed(tile);
     }
 }
 

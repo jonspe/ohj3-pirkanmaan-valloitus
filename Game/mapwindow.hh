@@ -44,16 +44,14 @@ private slots:
     void passTurn();
 
     void on_selectFoodButton_clicked();
-
     void on_selectWoodButton_clicked();
-
     void on_selectStoneButton_clicked();
-
     void on_selectOreButton_clicked();
-
     void on_buyButton_clicked();
-
     void on_sellButton_clicked();
+
+    void tilePressed(std::shared_ptr<Course::TileBase> tile);
+
 
 private:
     Ui::MapWindow* m_ui;

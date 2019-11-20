@@ -42,6 +42,7 @@ MapWindow::MapWindow(QWidget *parent,
     m_gameview = std::shared_ptr<GameView>(new GameView(nullptr, event_handler, object_manager));
     m_ui->horizontalLayout_2->insertWidget(0, m_gameview.get());
 
+    connect(m_gameview.get(), &GameView::tilePressed, this, &MapWindow::tilePressed);
 
     std::map<std::string, std::shared_ptr<Player>> new_players;
 
@@ -63,7 +64,7 @@ MapWindow::MapWindow(QWidget *parent,
     std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());
 
     m_gameview->drawMultipleItems(objs);
-    connect(m_ui->endTurnButton,SIGNAL(pressed()),this,SLOT(passTurn()));
+    connect(m_ui->endTurnButton, SIGNAL(pressed()), this, SLOT(passTurn()));
 
     passTurn();
 
@@ -171,4 +172,11 @@ void MapWindow::on_sellButton_clicked()
 {
     event_handler->resourceSold(players[std::to_string(current_player)], traded_resource);
     updateStatusBar(event_handler, players, current_player, turn);
+}
+
+void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
+{
+    qDebug() << QString::fromStdString(tile->getType())
+             << "pressed at"
+             << tile->getCoordinatePtr()->asQpoint();
 }

@@ -61,6 +61,9 @@ public:
      */
     virtual void wheelEvent(QWheelEvent *event) override;
 
+signals:
+    void tilePressed(std::shared_ptr<Course::TileBase> tile);
+
 private:
     const std::shared_ptr<GameEventHandler> EVENTHANDLER;
     const std::shared_ptr<ObjectManager> OBJECTMANAGER;
