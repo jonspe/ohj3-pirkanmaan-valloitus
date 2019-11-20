@@ -21,7 +21,7 @@ LumberCamp::LumberCamp(
 
 std::string LumberCamp::getType() const
 {
-    return "Lumber camp";
+    return "Lumber Camp";
 }
 
 

@@ -23,55 +23,55 @@ const Course::ResourceMap CITY_PRODUCTION = {
 
 // Building - COLONY
 const Course::ResourceMap COLONY_BUILD_COST = {
-    {Course::BasicResource::MONEY, 150},
-    {Course::BasicResource::FOOD, 400},
-    {Course::BasicResource::WOOD, 200},
-    {Course::BasicResource::STONE, 25}
+    {Course::BasicResource::MONEY, -400},
+    {Course::BasicResource::FOOD, -800},
+    {Course::BasicResource::WOOD, -300},
+    {Course::BasicResource::STONE, -150}
 };
 
 const Course::ResourceMap COLONY_PRODUCTION = {
-    {Course::BasicResource::MONEY, 5},
-    {Course::BasicResource::FOOD, -2}
+    {Course::BasicResource::MONEY, 0},
+    {Course::BasicResource::FOOD, -5}
 };
 
 // Building - Farm
 const Course::ResourceMap FARM_BUILD_COST = {
-    {Course::BasicResource::MONEY, 50},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 25}
+    {Course::BasicResource::MONEY, -75},
+    {Course::BasicResource::FOOD, -25},
+    {Course::BasicResource::WOOD, -80}
 };
 const Course::ResourceMap FARM_PRODUCTION = {
-    {Course::BasicResource::MONEY, 1},
-    {Course::BasicResource::FOOD, 5}
+    {Course::BasicResource::MONEY, 2},
+    {Course::BasicResource::FOOD, 10}
 };
 
 // Building - Mine
 const Course::ResourceMap MINE_BUILD_COST = {
-    {Course::BasicResource::MONEY, 50},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 25}
+    {Course::BasicResource::MONEY, -50},
+    {Course::BasicResource::FOOD, -100},
+    {Course::BasicResource::WOOD, -25}
 };
 const Course::ResourceMap MINE_PRODUCTION = {
-    {Course::BasicResource::STONE, 5},
-    {Course::BasicResource::ORE, 2}
+    {Course::BasicResource::STONE, 8},
+    {Course::BasicResource::ORE, 3}
 };
 
 // Building - Lumber Camp
 const Course::ResourceMap LUMBERCAMP_BUILD_COST = {
-    {Course::BasicResource::MONEY, 50},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 40}
+    {Course::BasicResource::MONEY, -50},
+    {Course::BasicResource::FOOD, -100},
+    {Course::BasicResource::WOOD, -40}
 };
 const Course::ResourceMap LUMBERCAMP_PRODUCTION = {
-    {Course::BasicResource::WOOD, 9},
+    {Course::BasicResource::WOOD, 15},
 };
 
 // Building - University
 const Course::ResourceMap UNIVERSITY_BUILD_COST = {
-    {Course::BasicResource::MONEY, 550},
-    {Course::BasicResource::FOOD, 200},
-    {Course::BasicResource::STONE, 300},
-    {Course::BasicResource::ORE, 100}
+    {Course::BasicResource::MONEY, -550},
+    {Course::BasicResource::FOOD, -200},
+    {Course::BasicResource::STONE, -300},
+    {Course::BasicResource::ORE, -100}
 };
 const Course::ResourceMap UNIVERSITY_PRODUCTION = {
     {Course::BasicResource::MONEY, -15},
@@ -79,11 +79,11 @@ const Course::ResourceMap UNIVERSITY_PRODUCTION = {
 
 // Building - Victory Monument
 const Course::ResourceMap VICTORYMONUMENT_BUILD_COST = {
-    {Course::BasicResource::MONEY, 3000},
-    {Course::BasicResource::FOOD, 3000},
-    {Course::BasicResource::WOOD, 3000},
-    {Course::BasicResource::STONE, 2000},
-    {Course::BasicResource::ORE, 1000}
+    {Course::BasicResource::MONEY, -6000},
+    {Course::BasicResource::FOOD, -3000},
+    {Course::BasicResource::WOOD, -3000},
+    {Course::BasicResource::STONE, -2000},
+    {Course::BasicResource::ORE, -1000}
 };
 const Course::ResourceMap VICTORYMONUMENT_PRODUCTION = {
     {Course::BasicResource::MONEY, -15},
@@ -91,12 +91,12 @@ const Course::ResourceMap VICTORYMONUMENT_PRODUCTION = {
 
 // Building - Marketplace
 const Course::ResourceMap MARKETPLACE_BUILD_COST = {
-    {Course::BasicResource::MONEY, 200},
-    {Course::BasicResource::FOOD, 100},
-    {Course::BasicResource::WOOD, 250},
+    {Course::BasicResource::MONEY, -1000},
+    {Course::BasicResource::FOOD, -1000},
+    {Course::BasicResource::WOOD, -500},
 };
 const Course::ResourceMap MARKETPLACE_PRODUCTION = {
-    {Course::BasicResource::MONEY, 5},
+    {Course::BasicResource::MONEY, 15},
 };
 
 
@@ -116,8 +116,8 @@ const Course::ResourceMap CITIZEN_RECRUITMENT_COST = {
 
 // Worker - EducatedCitizen
 const Course::ResourceMapDouble EDUCATEDCITIZEN_EFFICIENCY = {
-    {Course::MONEY, 3.50},
-    {Course::FOOD, 3.50},
+    {Course::MONEY, 3.00},
+    {Course::FOOD, 3.00},
     {Course::WOOD, 3.00},
     {Course::STONE, 2.00},
     {Course::ORE, 2.00}

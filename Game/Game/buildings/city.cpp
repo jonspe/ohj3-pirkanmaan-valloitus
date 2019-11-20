@@ -52,7 +52,7 @@ void City::doSpecialAction()
     auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
     event_handler->addWorker(getCoordinate(),object_manager,citizen);
 
-   object_manager->addWorker(citizen);
+    object_manager->addWorker(citizen);
 }
 
 

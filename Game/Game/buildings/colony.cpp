@@ -37,7 +37,7 @@ void Colony::onBuildAction()
             auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
             auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
 
-            event_handler->claimTile(getCoordinate(), object_manager);
+            event_handler->claimTile(*it->get()->getCoordinatePtr(), object_manager);
         }
     }
 }

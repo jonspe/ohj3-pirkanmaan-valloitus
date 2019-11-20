@@ -52,6 +52,9 @@ private slots:
 
     void tilePressed(std::shared_ptr<Course::TileBase> tile);
 
+    void on_buildButton_clicked();
+
+    void on_buildingSelectionBox_currentTextChanged(const QString &arg1);
 
 private:
     Ui::MapWindow* m_ui;
@@ -65,11 +68,12 @@ private:
     std::map<std::string, std::shared_ptr<Player>> players;
     unsigned int current_player;
     unsigned int turn;
-    Course::BasicResource traded_resource;
+    Course::BasicResource traded_resource = Course::BasicResource::FOOD;
 
     std::map<std::string, std::vector<std::string>> allowed_buildings_on_tile;
+    std::shared_ptr<Course::TileBase> selected_tile = nullptr;
 
-
+    std::map<std::string, Course::ResourceMap> build_costs;
 };
 
 #endif // MapWINDOW_HH

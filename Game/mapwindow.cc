@@ -11,6 +11,12 @@
 #include "Game/tiles/sand.h"
 #include "Game/tiles/stone.h"
 #include "Game/buildings/city.h"
+#include "Game/buildings/colony.h"
+#include "Game/buildings/farm.h"
+#include "Game/buildings/lumbercamp.h"
+#include "Game/buildings/marketplace.h"
+#include "Game/buildings/mine.h"
+#include "Game/buildings/victorymonument.h"
 #include "Game/buildings/university.h"
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
@@ -81,6 +87,14 @@ MapWindow::MapWindow(QWidget *parent,
     allowed_buildings_on_tile["Ore"] = stone_buildings;
     allowed_buildings_on_tile["Lake"] = lake_buildings;
 
+    build_costs["Colony"] = ConstResources::COLONY_BUILD_COST;
+    build_costs["Farm"] = ConstResources::FARM_BUILD_COST;
+    build_costs["Lumber Camp"] = ConstResources::LUMBERCAMP_BUILD_COST;
+    build_costs["Marketplace"] = ConstResources::MARKETPLACE_BUILD_COST;
+    build_costs["Mine"] = ConstResources::MINE_BUILD_COST;
+    build_costs["University"] = ConstResources::UNIVERSITY_BUILD_COST;
+    build_costs["Victory Monument"] = ConstResources::VICTORYMONUMENT_BUILD_COST;
+
     m_ui->buildMenu->setVisible(false);
     m_ui->buildingMenu->setVisible(false);
     m_ui->buildmenuLabel->setVisible(false);
@@ -89,6 +103,7 @@ MapWindow::MapWindow(QWidget *parent,
     m_ui->workerMenu->setVisible(false);
     m_ui->workermenuLabel->setVisible(false);
     m_ui->tileName->setVisible(false);
+    m_ui->marketplaceMenu->setVisible(false);
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -213,12 +228,17 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     qDebug() << QString::fromStdString(tile->getType())
              << "pressed at"
              << tile->getCoordinatePtr()->asQpoint();
+
+    selected_tile = tile;
     m_ui->tileName->setText(QString::fromStdString(tile->getType()));
     m_ui->tileName->setVisible(true);
     m_ui->marketplaceMenu->setVisible(false);
+    m_ui->workerMenu->setVisible(false);
+    m_ui->workermenuLabel->setVisible(false);
 
-    if(tile->getOwner() == players[std::to_string(current_player)])
+    if(tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForBuildings(1))
        {
+
            m_ui->buildingSelectionBox->clear();
            m_ui->buildMenu->setVisible(true);
            m_ui->buildmenuLabel->setVisible(true);
@@ -246,13 +266,11 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
             if (building->getType() == "Marketplace")
             {
                 m_ui->marketplaceMenu->setVisible(true);
-                m_ui->workerMenu->setVisible(false);
             }
             else if(building->getType() == "City" or building->getType() == "University")
             {
                 m_ui->workerMenu->setVisible(true);
-            }else{
-                m_ui->workerMenu->setVisible(false);
+                m_ui->workerMenu->setVisible(true);
             }
         }
 
@@ -266,3 +284,125 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 }
 
 
+
+void MapWindow::on_buildButton_clicked()
+{
+
+    if(selected_tile->hasSpaceForBuildings(1)){
+
+        std::string building_type = (m_ui->buildingSelectionBox->currentText()).toStdString();
+
+        if (building_type == "Colony")
+        {
+            std::shared_ptr<Colony> building(new Colony(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+
+        }
+        else if (building_type == "Farm")
+        {
+            std::shared_ptr<Farm> building(new Farm(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        else if (building_type == "Lumber Camp")
+        {
+            std::shared_ptr<LumberCamp> building(new LumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        else if (building_type == "Marketplace")
+        {
+            std::shared_ptr<Marketplace> building(new Marketplace(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        else if (building_type == "Mine")
+        {
+            std::shared_ptr<Mine> building(new Mine(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        else if (building_type == "University")
+        {
+            std::shared_ptr<University> building(new University(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        else if (building_type == "Victory Monument")
+        {
+            std::shared_ptr<VictoryMonument> building(new VictoryMonument(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+        m_ui->buildMenu->setVisible(false);
+        m_ui->buildmenuLabel->setVisible(false);
+        m_ui->buildingDescription->setVisible(false);
+        m_ui->buildingSelectionBox->setVisible(false);
+
+        tilePressed(selected_tile); // update tile status
+        updateStatusBar(event_handler, players, current_player, turn);
+
+    }
+
+
+}
+
+void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
+{
+    std::string building_type = (arg1).toStdString();
+
+    if(build_costs.count(building_type))
+    {
+        Course::ResourceMap build_cost = build_costs[building_type];
+        if(build_cost.count(Course::BasicResource::FOOD))
+        {
+             m_ui->foodValue->setText(QString::number(-build_cost.at(Course::BasicResource::FOOD)));
+             m_ui->foodIcon->setVisible(true);
+             m_ui->foodValue->setVisible(true);
+        }else
+        {
+           m_ui->foodIcon->setVisible(false);
+           m_ui->foodValue->setVisible(false);
+        }
+        if(build_cost.count(Course::BasicResource::WOOD))
+        {
+            m_ui->woodValue->setText(QString::number(-build_cost.at(Course::BasicResource::WOOD)));
+            m_ui->woodIcon->setVisible(true);
+            m_ui->woodValue->setVisible(true);
+        }else
+        {
+            m_ui->woodIcon->setVisible(false);
+            m_ui->woodValue->setVisible(false);
+        }
+        if(build_cost.count(Course::BasicResource::STONE))
+        {
+            m_ui->stoneValue->setText(QString::number(-build_cost.at(Course::BasicResource::STONE)));
+            m_ui->stoneIcon->setVisible(true);
+            m_ui->stoneValue->setVisible(true);
+        }else
+        {
+            m_ui->stoneIcon->setVisible(false);
+            m_ui->stoneValue->setVisible(false);
+        }
+        if(build_cost.count(Course::BasicResource::ORE))
+        {
+            m_ui->oreValue->setText(QString::number(-build_cost.at(Course::BasicResource::ORE)));
+            m_ui->oreIcon->setVisible(true);
+            m_ui->oreValue->setVisible(true);
+        }else
+        {
+            m_ui->oreIcon->setVisible(false);
+            m_ui->oreValue->setVisible(false);
+        }
+
+    }
+
+}
