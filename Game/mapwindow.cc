@@ -88,6 +88,7 @@ MapWindow::MapWindow(QWidget *parent,
     m_ui->buildingSelectionBox->setVisible(false);
     m_ui->workerMenu->setVisible(false);
     m_ui->workermenuLabel->setVisible(false);
+    m_ui->tileName->setVisible(false);
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -212,12 +213,14 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     qDebug() << QString::fromStdString(tile->getType())
              << "pressed at"
              << tile->getCoordinatePtr()->asQpoint();
+    m_ui->tileName->setText(QString::fromStdString(tile->getType()));
+    m_ui->tileName->setVisible(true);
+    m_ui->marketplaceMenu->setVisible(false);
 
     if(tile->getOwner() == players[std::to_string(current_player)])
        {
            m_ui->buildingSelectionBox->clear();
            m_ui->buildMenu->setVisible(true);
-           m_ui->buildingMenu->setVisible(true);
            m_ui->buildmenuLabel->setVisible(true);
            m_ui->buildingDescription->setVisible(true);
            m_ui->buildingSelectionBox->setVisible(true);
@@ -228,10 +231,38 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 
        }else{
            m_ui->buildMenu->setVisible(false);
-           m_ui->buildingMenu->setVisible(false);
            m_ui->buildmenuLabel->setVisible(false);
            m_ui->buildingDescription->setVisible(false);
            m_ui->buildingSelectionBox->setVisible(false);
        }
 
+    if(tile->getBuildings().size() == 1 )
+    {
+        for( auto building : tile->getBuildings())
+        {
+            m_ui->buildingMenu->setVisible(true);
+            m_ui->buildingName->setText(QString::fromStdString(building->getType()));
+
+            if (building->getType() == "Marketplace")
+            {
+                m_ui->marketplaceMenu->setVisible(true);
+                m_ui->workerMenu->setVisible(false);
+            }
+            else if(building->getType() == "City" or building->getType() == "University")
+            {
+                m_ui->workerMenu->setVisible(true);
+            }else{
+                m_ui->workerMenu->setVisible(false);
+            }
+        }
+
+
+
+    }else{
+        m_ui->buildingMenu->setVisible(false);
+    }
+
+
 }
+
+
