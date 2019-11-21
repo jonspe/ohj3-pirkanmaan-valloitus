@@ -19,7 +19,7 @@ EducatedCitizen::EducatedCitizen(const std::shared_ptr<Course::iGameEventHandler
 
 std::string EducatedCitizen::getType() const
 {
-    return "EducatedCitizen";
+    return "Educated Citizen";
 }
 
 bool EducatedCitizen::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &target) const

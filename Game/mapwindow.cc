@@ -94,6 +94,8 @@ MapWindow::MapWindow(QWidget *parent,
     build_costs["Mine"] = ConstResources::MINE_BUILD_COST;
     build_costs["University"] = ConstResources::UNIVERSITY_BUILD_COST;
     build_costs["Victory Monument"] = ConstResources::VICTORYMONUMENT_BUILD_COST;
+    build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
+    build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
 
     m_ui->buildMenu->setVisible(false);
     m_ui->buildingMenu->setVisible(false);
@@ -104,6 +106,7 @@ MapWindow::MapWindow(QWidget *parent,
     m_ui->workermenuLabel->setVisible(false);
     m_ui->tileName->setVisible(false);
     m_ui->marketplaceMenu->setVisible(false);
+    m_ui->tileDescription->setVisible(false);
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -235,6 +238,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     m_ui->marketplaceMenu->setVisible(false);
     m_ui->workerMenu->setVisible(false);
     m_ui->workermenuLabel->setVisible(false);
+    m_ui->tileDescription->setVisible(true);
+    m_ui->demolishButton->setVisible(false);
 
     if(tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForBuildings(1))
        {
@@ -271,6 +276,69 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
             {
                 m_ui->workerMenu->setVisible(true);
                 m_ui->workerMenu->setVisible(true);
+                Course::ResourceMap worker_build_cost;
+
+                if(building->getType() == "City"){
+                    m_ui->trainButton->setText(QString::fromStdString("Train a Citizen"));
+                    worker_build_cost = build_costs["Citizen"];
+                    current_worker_selection = "Citizen";
+
+                }
+                else if (building->getType() == "University"){
+                    m_ui->trainButton->setText(QString::fromStdString("Train an Educated Citizen"));
+                    worker_build_cost = build_costs["Educated Citizen"];
+                    current_worker_selection = "Educated Citizen";
+                }
+
+                if(worker_build_cost.count(Course::BasicResource::FOOD))
+                {
+                     m_ui->foodValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::FOOD)));
+                     m_ui->foodIcon_2->setVisible(true);
+                     m_ui->foodValue_2->setVisible(true);
+                }else
+                {
+                   m_ui->foodIcon_2->setVisible(false);
+                   m_ui->foodValue_2->setVisible(false);
+                }
+                if(worker_build_cost.count(Course::BasicResource::WOOD))
+                {
+                    m_ui->woodValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::WOOD)));
+                    m_ui->woodIcon_2->setVisible(true);
+                    m_ui->woodValue_2->setVisible(true);
+                }else
+                {
+                    m_ui->woodIcon_2->setVisible(false);
+                    m_ui->woodValue_2->setVisible(false);
+                }
+                if(worker_build_cost.count(Course::BasicResource::STONE))
+                {
+                    m_ui->stoneValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::STONE)));
+                    m_ui->stoneIcon_2->setVisible(true);
+                    m_ui->stoneValue_2->setVisible(true);
+                }else
+                {
+                    m_ui->stoneIcon_2->setVisible(false);
+                    m_ui->stoneValue_2->setVisible(false);
+                }
+                if(worker_build_cost.count(Course::BasicResource::ORE))
+                {
+                    m_ui->oreValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::ORE)));
+                    m_ui->oreIcon_2->setVisible(true);
+                    m_ui->oreValue_2->setVisible(true);
+                }else
+                {
+                    m_ui->oreIcon_2->setVisible(false);
+                    m_ui->oreValue_2->setVisible(false);
+                }
+
+
+
+            }
+
+
+            if (building->getOwner() == players[std::to_string(current_player)])
+            {
+                m_ui->demolishButton->setVisible(true);
             }
         }
 
@@ -294,51 +362,51 @@ void MapWindow::on_buildButton_clicked()
 
         if (building_type == "Colony")
         {
-            std::shared_ptr<Colony> building(new Colony(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Colony"])){
+                std::shared_ptr<Colony> building(new Colony(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
 
         }
         else if (building_type == "Farm")
         {
-            std::shared_ptr<Farm> building(new Farm(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Farm"])){
+                std::shared_ptr<Farm> building(new Farm(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
         else if (building_type == "Lumber Camp")
         {
-            std::shared_ptr<LumberCamp> building(new LumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Lumber Camp"])){
+                std::shared_ptr<LumberCamp> building(new LumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
         else if (building_type == "Marketplace")
         {
-            std::shared_ptr<Marketplace> building(new Marketplace(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Marketplace"])){
+                std::shared_ptr<Marketplace> building(new Marketplace(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
         else if (building_type == "Mine")
         {
-            std::shared_ptr<Mine> building(new Mine(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Mine"])){
+                std::shared_ptr<Mine> building(new Mine(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
         else if (building_type == "University")
         {
-            std::shared_ptr<University> building(new University(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["University"])){
+                std::shared_ptr<University> building(new University(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
         else if (building_type == "Victory Monument")
         {
-            std::shared_ptr<VictoryMonument> building(new VictoryMonument(event_handler, object_manager,players[std::to_string(current_player)]));
-            if(event_handler->modifyResources(players[std::to_string(current_player)], building->BUILD_COST)){
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Victory Monument"])){
+                std::shared_ptr<VictoryMonument> building(new VictoryMonument(event_handler, object_manager,players[std::to_string(current_player)]));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
@@ -406,3 +474,29 @@ void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
     }
 
 }
+
+void MapWindow::on_demolishButton_clicked()
+{
+    auto building_vector = selected_tile->getBuildings();
+    for(auto building : building_vector)
+    {
+        selected_tile->removeBuilding(building);
+    }
+    tilePressed(selected_tile);
+}
+
+void MapWindow::on_trainButton_clicked()
+{
+    if(selected_tile->hasSpaceForWorkers(1)){
+        if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs[current_worker_selection])){
+            auto building_vector = selected_tile->getBuildings();
+            for(auto building : building_vector)
+            {
+                building->doSpecialAction();
+            }
+            tilePressed(selected_tile);
+        }
+    }
+}
+
+

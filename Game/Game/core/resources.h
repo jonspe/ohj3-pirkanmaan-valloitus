@@ -110,8 +110,8 @@ const Course::ResourceMapDouble CITIZEN_EFFICIENCY = {
 };
 
 const Course::ResourceMap CITIZEN_RECRUITMENT_COST = {
-    {Course::MONEY, 20},
-    {Course::FOOD, 30}
+    {Course::MONEY, -100},
+    {Course::FOOD, -100}
 };
 
 // Worker - EducatedCitizen
@@ -124,8 +124,9 @@ const Course::ResourceMapDouble EDUCATEDCITIZEN_EFFICIENCY = {
 };
 
 const Course::ResourceMap EDUCATEDCITIZEN_RECRUITMENT_COST = {
-    {Course::MONEY, 80},
-    {Course::FOOD, 50}
+    {Course::MONEY, -400},
+    {Course::FOOD, -150},
+    {Course::ORE, -30}
 };
 
 const Course::ResourceMap BIRCH_BP = {

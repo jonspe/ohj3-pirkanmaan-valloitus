@@ -56,6 +56,10 @@ private slots:
 
     void on_buildingSelectionBox_currentTextChanged(const QString &arg1);
 
+    void on_demolishButton_clicked();
+
+    void on_trainButton_clicked();
+
 private:
     Ui::MapWindow* m_ui;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
@@ -74,6 +78,7 @@ private:
     std::shared_ptr<Course::TileBase> selected_tile = nullptr;
 
     std::map<std::string, Course::ResourceMap> build_costs;
+    std::string current_worker_selection = "Citizen";
 };
 
 #endif // MapWINDOW_HH
