@@ -7,10 +7,15 @@ QT += multimedia
 CONFIG += c++14
 
 SOURCES += \
+    Game/buildings/advancedfarm.cpp \
+    Game/buildings/advancedlumbercamp.cpp \
+    Game/buildings/advancedmine.cpp \
+    Game/buildings/diamondmine.cpp \
     Game/buildings/farm.cpp \
     Game/buildings/lumbercamp.cpp \
     Game/buildings/marketplace.cpp \
     Game/buildings/mine.cpp \
+    Game/buildings/oremine.cpp \
     Game/buildings/university.cpp \
     Game/buildings/victorymonument.cpp \
     Game/core/marketplacetrader.cpp \
@@ -40,10 +45,15 @@ SOURCES += \
     setupdialog.cpp
 
 HEADERS += \
+    Game/buildings/advancedfarm.h \
+    Game/buildings/advancedlumbercamp.h \
+    Game/buildings/advancedmine.h \
+    Game/buildings/diamondmine.h \
     Game/buildings/farm.h \
     Game/buildings/lumbercamp.h \
     Game/buildings/marketplace.h \
     Game/buildings/mine.h \
+    Game/buildings/oremine.h \
     Game/buildings/university.h \
     Game/buildings/victorymonument.h \
     Game/core/marketplacetrader.h \

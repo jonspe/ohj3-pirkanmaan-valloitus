@@ -18,6 +18,11 @@
 #include "Game/buildings/mine.h"
 #include "Game/buildings/victorymonument.h"
 #include "Game/buildings/university.h"
+#include "Game/buildings/advancedfarm.h"
+#include "Game/buildings/advancedmine.h"
+#include "Game/buildings/advancedlumbercamp.h"
+#include "Game/buildings/diamondmine.h"
+#include "Game/buildings/oremine.h"
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
 #include "Game/core/resources.h"
@@ -67,16 +72,24 @@ MapWindow::MapWindow(QWidget *parent,
     std::vector<std::string> grass_buildings;
     grass_buildings.push_back("Colony");
     grass_buildings.push_back("Farm");
+    grass_buildings.push_back("Advanced Farm");
     grass_buildings.push_back("Marketplace");
     grass_buildings.push_back("University");
     grass_buildings.push_back("Victory Monument");
     std::vector<std::string> animals_buildings;
     animals_buildings.push_back("Farm");
+    animals_buildings.push_back("Advanced Farm");
     std::vector<std::string> forest_buildings;
     forest_buildings.push_back("Colony");
     forest_buildings.push_back("Lumber Camp");
+    forest_buildings.push_back("Advanced Lumber Camp");
     std::vector<std::string> stone_buildings;
     stone_buildings.push_back("Mine");
+    stone_buildings.push_back("Advanced Mine");
+    std::vector<std::string> diamond_buildings;
+    diamond_buildings.push_back("Diamond Mine");
+    std::vector<std::string> ore_buildings;
+    ore_buildings.push_back("Ore Mine");
     std::vector<std::string> lake_buildings;
 
     allowed_buildings_on_tile["Grass"] = grass_buildings;
@@ -84,8 +97,8 @@ MapWindow::MapWindow(QWidget *parent,
     allowed_buildings_on_tile["Birch"] = forest_buildings;
     allowed_buildings_on_tile["Evergreen"] = forest_buildings;
     allowed_buildings_on_tile["Stone"] = stone_buildings;
-    allowed_buildings_on_tile["Diamond"] = stone_buildings;
-    allowed_buildings_on_tile["Ore"] = stone_buildings;
+    allowed_buildings_on_tile["Diamond"] = diamond_buildings;
+    allowed_buildings_on_tile["Ore"] = ore_buildings;
     allowed_buildings_on_tile["Lake"] = lake_buildings;
 
     build_costs["Colony"] = ConstResources::COLONY_BUILD_COST;
@@ -95,14 +108,24 @@ MapWindow::MapWindow(QWidget *parent,
     build_costs["Mine"] = ConstResources::MINE_BUILD_COST;
     build_costs["University"] = ConstResources::UNIVERSITY_BUILD_COST;
     build_costs["Victory Monument"] = ConstResources::VICTORYMONUMENT_BUILD_COST;
+    build_costs["Advanced Mine"] = ConstResources::A_MINE_BUILD_COST;
+    build_costs["Advanced Farm"] = ConstResources::A_FARM_BUILD_COST;
+    build_costs["Advanced Lumber Camp"] = ConstResources::A_LUMBERCAMP_BUILD_COST;
+    build_costs["Diamond Mine"] = ConstResources::D_MINE_BUILD_COST;
+    build_costs["Ore Mine"] = ConstResources::ORE_MINE_BUILD_COST;
     build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
     build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
 
     selection_sounds["City"] = ":/sound/Colony.wav";
     selection_sounds["Colony"] = ":/sound/Colony.wav";
     selection_sounds["Farm"] = ":/sound/Farm.wav";
+    selection_sounds["Advanced Farm"] = ":/sound/Farm.wav";
     selection_sounds["Mine"] = ":/sound/Mine.wav";
+    selection_sounds["Advanced Mine"] = ":/sound/Mine.wav";
+    selection_sounds["Diamond Mine"] = ":/sound/Mine.wav";
+    selection_sounds["Ore Mine"] = ":/sound/Mine.wav";
     selection_sounds["Lumber Camp"] = ":/sound/LumberCamp.wav";
+    selection_sounds["Advanced Lumber Camp"] = ":/sound/LumberCamp.wav";
     selection_sounds["University"] = ":/sound/University.wav";
 
     m_ui->buildMenu->setVisible(false);
@@ -445,6 +468,48 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
             }
         }
+
+        else if (building_type == "Advanced Mine")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Mine"])){
+                std::shared_ptr<AdvancedMine> building(new AdvancedMine(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
+        else if (building_type == "Advanced Farm")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Farm"])){
+                std::shared_ptr<AdvancedFarm> building(new AdvancedFarm(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
+        else if (building_type == "Advanced Lumber Camp")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Lumber Camp"])){
+                std::shared_ptr<AdvancedLumberCamp> building(new AdvancedLumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
+        else if (building_type == "Diamond Mine")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Diamond Mine"])){
+                std::shared_ptr<DiamondMine> building(new DiamondMine(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
+        else if (building_type == "Ore Mine")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Ore Mine"])){
+                std::shared_ptr<OreMine> building(new OreMine(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
+
         m_ui->buildMenu->setVisible(false);
         m_ui->buildmenuLabel->setVisible(false);
         m_ui->buildingDescription->setVisible(false);

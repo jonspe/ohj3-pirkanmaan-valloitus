@@ -26,7 +26,7 @@ const Course::ResourceMap COLONY_BUILD_COST = {
     {Course::BasicResource::MONEY, -400},
     {Course::BasicResource::FOOD, -800},
     {Course::BasicResource::WOOD, -300},
-    {Course::BasicResource::STONE, -150}
+    {Course::BasicResource::STONE, -250},
 };
 
 const Course::ResourceMap COLONY_PRODUCTION = {
@@ -37,23 +37,66 @@ const Course::ResourceMap COLONY_PRODUCTION = {
 // Building - Farm
 const Course::ResourceMap FARM_BUILD_COST = {
     {Course::BasicResource::MONEY, -75},
-    {Course::BasicResource::FOOD, -25},
     {Course::BasicResource::WOOD, -80}
 };
 const Course::ResourceMap FARM_PRODUCTION = {
-    {Course::BasicResource::MONEY, 2},
+    {Course::BasicResource::MONEY, 4},
     {Course::BasicResource::FOOD, 10}
 };
 
+// Building - Advanced Farm
+const Course::ResourceMap A_FARM_BUILD_COST = {
+    {Course::BasicResource::MONEY, -300},
+    {Course::BasicResource::WOOD, -250},
+    {Course::BasicResource::ORE, -30}
+};
+const Course::ResourceMap A_FARM_PRODUCTION = {
+    {Course::BasicResource::MONEY, 6},
+    {Course::BasicResource::FOOD, 25}
+};
+
+
 // Building - Mine
 const Course::ResourceMap MINE_BUILD_COST = {
-    {Course::BasicResource::MONEY, -50},
-    {Course::BasicResource::FOOD, -100},
-    {Course::BasicResource::WOOD, -25}
+    {Course::BasicResource::MONEY, -100},
+    {Course::BasicResource::WOOD, -150}
 };
 const Course::ResourceMap MINE_PRODUCTION = {
     {Course::BasicResource::STONE, 8},
-    {Course::BasicResource::ORE, 3}
+    {Course::BasicResource::ORE, 1}
+};
+
+// Building - Advanced Mine
+const Course::ResourceMap A_MINE_BUILD_COST = {
+    {Course::BasicResource::MONEY, -200},
+    {Course::BasicResource::WOOD, -200},
+    {Course::BasicResource::ORE, -30}
+};
+const Course::ResourceMap A_MINE_PRODUCTION = {
+    {Course::BasicResource::STONE, 20},
+    {Course::BasicResource::ORE, 2}
+};
+
+// Building - Diamond Mine
+const Course::ResourceMap D_MINE_BUILD_COST = {
+    {Course::BasicResource::MONEY, -100},
+    {Course::BasicResource::WOOD, -100}
+};
+const Course::ResourceMap D_MINE_PRODUCTION = {
+    {Course::BasicResource::STONE, 3},
+    {Course::BasicResource::ORE, 1},
+    {Course::BasicResource::MONEY, 65}
+};
+
+
+// Building - Ore Mine
+const Course::ResourceMap ORE_MINE_BUILD_COST = {
+    {Course::BasicResource::MONEY, -100},
+    {Course::BasicResource::WOOD, -100}
+};
+const Course::ResourceMap ORE_MINE_PRODUCTION = {
+    {Course::BasicResource::STONE, 3},
+    {Course::BasicResource::ORE, 5}
 };
 
 // Building - Lumber Camp
@@ -64,6 +107,17 @@ const Course::ResourceMap LUMBERCAMP_BUILD_COST = {
 };
 const Course::ResourceMap LUMBERCAMP_PRODUCTION = {
     {Course::BasicResource::WOOD, 15},
+};
+
+// Building - Advanced Lumber Camp
+const Course::ResourceMap A_LUMBERCAMP_BUILD_COST = {
+    {Course::BasicResource::MONEY, -250},
+    {Course::BasicResource::FOOD, -150},
+    {Course::BasicResource::STONE, -80},
+    {Course::BasicResource::ORE, -20}
+};
+const Course::ResourceMap A_LUMBERCAMP_PRODUCTION = {
+    {Course::BasicResource::WOOD, 25},
 };
 
 // Building - University
@@ -96,7 +150,7 @@ const Course::ResourceMap MARKETPLACE_BUILD_COST = {
     {Course::BasicResource::WOOD, -500},
 };
 const Course::ResourceMap MARKETPLACE_PRODUCTION = {
-    {Course::BasicResource::MONEY, 15},
+    {Course::BasicResource::MONEY, 25},
 };
 
 
@@ -166,7 +220,7 @@ const Course::ResourceMap STONE_BP = {
     {Course::FOOD, 0},
     {Course::WOOD, 0},
     {Course::STONE, 5},
-    {Course::ORE, 1},
+    {Course::ORE, 0},
 };
 
 const Course::ResourceMap SAND_BP = {
@@ -178,10 +232,10 @@ const Course::ResourceMap SAND_BP = {
 };
 
 const Course::ResourceMap DIAMOND_BP = {
-    {Course::MONEY, 15},
+    {Course::MONEY, 30},
     {Course::FOOD, 0},
     {Course::WOOD, 0},
-    {Course::STONE, 5},
+    {Course::STONE, 4},
     {Course::ORE, 1},
 };
 
@@ -189,8 +243,8 @@ const Course::ResourceMap ORE_BP = {
     {Course::MONEY, 0},
     {Course::FOOD, 0},
     {Course::WOOD, 0},
-    {Course::STONE, 5},
-    {Course::ORE, 5},
+    {Course::STONE, 4},
+    {Course::ORE, 1},
 };
 
 const Course::ResourceMap LAKE_BP = {
