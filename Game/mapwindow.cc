@@ -25,6 +25,7 @@
 #include "Game/core/gameeventhandler.h"
 #include "setupdialog.h"
 #include <math.h>
+#include <QSound>
 
 MapWindow::MapWindow(QWidget *parent,
                      std::shared_ptr<Course::iGameEventHandler> handler):
@@ -96,6 +97,13 @@ MapWindow::MapWindow(QWidget *parent,
     build_costs["Victory Monument"] = ConstResources::VICTORYMONUMENT_BUILD_COST;
     build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
     build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
+
+    selection_sounds["City"] = ":/sound/Colony.wav";
+    selection_sounds["Colony"] = ":/sound/Colony.wav";
+    selection_sounds["Farm"] = ":/sound/Farm.wav";
+    selection_sounds["Mine"] = ":/sound/Mine.wav";
+    selection_sounds["Lumber Camp"] = ":/sound/LumberCamp.wav";
+    selection_sounds["University"] = ":/sound/University.wav";
 
     m_ui->buildMenu->setVisible(false);
     m_ui->buildingMenu->setVisible(false);
@@ -173,6 +181,19 @@ void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler,
 
 }
 
+void MapWindow::playSelectionSound()
+{
+    auto building_vector = selected_tile->getBuildings();
+    for(auto building : building_vector)
+    {
+        if(selection_sounds.count(building->getType()))
+        {
+            QSound::play(QString::fromStdString(selection_sounds[building->getType()]));
+        }
+    }
+
+}
+
 void MapWindow::passTurn()
 {
     std::tuple<unsigned int, unsigned int> turn_data = event_handler->passTurn(player_amount);
@@ -217,12 +238,14 @@ void MapWindow::on_selectOreButton_clicked()
 void MapWindow::on_buyButton_clicked()
 {
     event_handler->resourceBought(players[std::to_string(current_player)], traded_resource);
+    QSound::play(":/sound/trade.wav");
     updateStatusBar(event_handler, players, current_player, turn);
 }
 
 void MapWindow::on_sellButton_clicked()
 {
     event_handler->resourceSold(players[std::to_string(current_player)], traded_resource);
+    QSound::play(":/sound/trade.wav");
     updateStatusBar(event_handler, players, current_player, turn);
 }
 
@@ -233,6 +256,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
              << tile->getCoordinatePtr()->asQpoint();
 
     selected_tile = tile;
+    playSelectionSound();
+
     m_ui->tileName->setText(QString::fromStdString(tile->getType()));
     m_ui->tileName->setVisible(true);
     m_ui->marketplaceMenu->setVisible(false);
@@ -292,13 +317,13 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 
                 if(worker_build_cost.count(Course::BasicResource::MONEY))
                 {
-                    m_ui->goldValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::MONEY)));
+                     m_ui->goldValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::MONEY)));
                      m_ui->goldIcon_2->setVisible(true);
                      m_ui->goldValue_2->setVisible(true);
                 }else
                 {
-                    m_ui->foodIcon_2->setVisible(false);
-                   m_ui->foodValue_2->setVisible(false);
+                    m_ui->goldIcon_2->setVisible(false);
+                    m_ui->goldValue_2->setVisible(false);
                 }
                 if(worker_build_cost.count(Course::BasicResource::FOOD))
                 {
@@ -517,6 +542,7 @@ void MapWindow::on_trainButton_clicked()
             tilePressed(selected_tile);
         }
     }
+    updateStatusBar(event_handler, players, current_player, turn);
 }
 
 

@@ -14,6 +14,7 @@
 #include "Game/graphics/gameview.h"
 #include "Game/core/gameeventhandler.h"
 
+
 namespace Ui {
 class MapWindow;
 }
@@ -38,6 +39,8 @@ public:
     void updateItem( std::shared_ptr<Course::GameObject> obj);
 
     void updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, unsigned int current_player, unsigned int turn);
+
+    void playSelectionSound();
 
 
 private slots:
@@ -64,7 +67,6 @@ private:
     Ui::MapWindow* m_ui;
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameView> m_gameview = nullptr;
-
     std::shared_ptr<ObjectManager> object_manager;
     std::shared_ptr<GameEventHandler> event_handler;
     unsigned int map_size;
@@ -79,6 +81,7 @@ private:
 
     std::map<std::string, Course::ResourceMap> build_costs;
     std::string current_worker_selection = "Citizen";
+    std::map<std::string, std::string> selection_sounds;
 };
 
 #endif // MapWINDOW_HH

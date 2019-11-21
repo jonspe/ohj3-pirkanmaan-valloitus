@@ -6,5 +6,11 @@
         <file>images/gold.png</file>
         <file>images/ore.png</file>
         <file>images/stone.png</file>
+        <file>sound/Farm.wav</file>
+        <file>sound/Mine.wav</file>
+        <file>sound/trade.wav</file>
+        <file>sound/Colony.wav</file>
+        <file>sound/LumberCamp.wav</file>
+        <file>sound/University.wav</file>
     </qresource>
 </RCC>

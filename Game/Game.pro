@@ -2,6 +2,7 @@ TEMPLATE = app
 TARGET = TheGame
 
 QT += core gui widgets
+QT += multimedia
 
 CONFIG += c++14
 
@@ -101,3 +102,4 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+

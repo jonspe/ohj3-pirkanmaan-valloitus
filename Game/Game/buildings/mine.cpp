@@ -31,6 +31,6 @@ bool Mine::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &target) co
             target->hasSpaceForBuildings(spacesInTileCapacity()) and(
             target->getType() == "Stone" or
             target->getType() == "Ore" or
-            target->getType() == "Diamonds");
+            target->getType() == "Diamond");
 }
 
