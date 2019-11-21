@@ -290,6 +290,16 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                     current_worker_selection = "Educated Citizen";
                 }
 
+                if(worker_build_cost.count(Course::BasicResource::MONEY))
+                {
+                    m_ui->goldValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::MONEY)));
+                     m_ui->goldIcon_2->setVisible(true);
+                     m_ui->goldValue_2->setVisible(true);
+                }else
+                {
+                    m_ui->foodIcon_2->setVisible(false);
+                   m_ui->foodValue_2->setVisible(false);
+                }
                 if(worker_build_cost.count(Course::BasicResource::FOOD))
                 {
                      m_ui->foodValue_2->setText(QString::number(-worker_build_cost.at(Course::BasicResource::FOOD)));
@@ -297,8 +307,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                      m_ui->foodValue_2->setVisible(true);
                 }else
                 {
-                   m_ui->foodIcon_2->setVisible(false);
-                   m_ui->foodValue_2->setVisible(false);
+                    m_ui->foodIcon_2->setVisible(false);
+                    m_ui->foodValue_2->setVisible(false);
                 }
                 if(worker_build_cost.count(Course::BasicResource::WOOD))
                 {
@@ -430,6 +440,16 @@ void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
     if(build_costs.count(building_type))
     {
         Course::ResourceMap build_cost = build_costs[building_type];
+        if(build_cost.count(Course::BasicResource::MONEY))
+        {
+            m_ui->goldValue->setText(QString::number(-build_cost.at(Course::BasicResource::MONEY)));
+            m_ui->goldIcon->setVisible(true);
+            m_ui->goldValue->setVisible(true);
+        }else
+        {
+            m_ui->oreIcon->setVisible(false);
+            m_ui->oreValue->setVisible(false);
+        }
         if(build_cost.count(Course::BasicResource::FOOD))
         {
              m_ui->foodValue->setText(QString::number(-build_cost.at(Course::BasicResource::FOOD)));
