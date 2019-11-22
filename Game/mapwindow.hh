@@ -78,6 +78,8 @@ private:
     std::map<std::string, Course::ResourceMap> build_costs;
     std::string current_worker_selection = "Citizen";
     std::map<std::string, std::string> selection_sounds;
+
+    bool placing_worker = false;
 };
 
 #endif // MapWINDOW_HH

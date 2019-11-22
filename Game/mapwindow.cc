@@ -287,6 +287,12 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     m_ui->demolishButton->setVisible(false);
     m_ui->demolishButton->setText(QString::fromStdString("Demolish"));
 
+    if(placing_worker && tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForWorkers(1))
+    {
+        event_handler->addWorker(tile->getCoordinate(), object_manager);
+        placing_worker = false;
+    }
+
     if(tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForBuildings(1))
        {
 
@@ -621,17 +627,24 @@ void MapWindow::on_demolishButton_clicked()
 
 void MapWindow::on_trainButton_clicked()
 {
-    if(selected_tile->hasSpaceForWorkers(1)){
-        if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs[current_worker_selection])){
+    if(placing_worker == false)
+    {
+        if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs[current_worker_selection])
+                && selected_tile->getOwner() == players[std::to_string(current_player)])
+        {
             auto building_vector = selected_tile->getBuildings();
             for(auto building : building_vector)
             {
                 building->doSpecialAction();
+                placing_worker = true;
+                m_ui->trainButton->setText(QString("Select a tile to place the worker"));
             }
-            tilePressed(selected_tile);
+
         }
+
+        updateStatusBar(event_handler, players, current_player, turn);
     }
-    updateStatusBar(event_handler, players, current_player, turn);
+
 }
 
 

@@ -68,10 +68,15 @@ void GameEventHandler::setPlayers(std::map<std::string, std::shared_ptr<Player> 
     players = player_map;
 }
 
-void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager,  std::shared_ptr<Course::WorkerBase> worker_type)
+void GameEventHandler::queueWorker(std::shared_ptr<Course::WorkerBase> worker_type)
+{
+    queued_worker = worker_type;
+}
+
+void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
 {
     auto tile = object_manager->getTile(location);
-    tile->addWorker(worker_type);
+    tile->addWorker(queued_worker);
 }
 
 void GameEventHandler::removeWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type)
@@ -124,7 +129,6 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
            {
                claimTile(city_location, object_manager);
                addBuilding(city_location, object_manager, new_city);
-               new_city->doSpecialAction(); // train a citizen at the new city
                looking_for_tile = false;
            }
 

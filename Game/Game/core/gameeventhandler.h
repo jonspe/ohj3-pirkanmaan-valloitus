@@ -60,7 +60,11 @@ public:
      * @param object_manager pointer to main object manager
      * @param worker_type pointer to type of worker being added (Citizen, EducatedCitizen)
      */
-    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type);
+    void queueWorker(std::shared_ptr<Course::WorkerBase> worker_type);
+
+
+    void addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager);
+
     /**
      * @brief removes a worker from tile at given coordinate
      * @param location coordinate of tile where worker is kill
@@ -143,6 +147,8 @@ private:
     bool winner_decided = false;
     unsigned int winner = 0;
     unsigned int winning_turn = 0;
+
+    std::shared_ptr<Course::WorkerBase> queued_worker = nullptr;
 
     std::map<std::string, std::shared_ptr<Player>> players;
 
