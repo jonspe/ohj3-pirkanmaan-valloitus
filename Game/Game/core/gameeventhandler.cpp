@@ -132,6 +132,24 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
 
 }
 
+void GameEventHandler::setWinner()
+{
+    if(not winner_decided)
+    {
+        winner = current_player;
+        winning_turn = turn;
+        winner_decided = true;
+    }
+
+}
+
+std::tuple<unsigned int, unsigned int> GameEventHandler::getWinnerData()
+{
+    auto winner_data = std::make_tuple(winning_turn, winner);
+    return winner_data;
+}
+
+
 std::tuple<unsigned int, unsigned int> GameEventHandler::passTurn(unsigned int player_amount)
 {
     current_player++;

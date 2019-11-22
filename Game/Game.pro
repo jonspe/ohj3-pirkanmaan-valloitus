@@ -31,6 +31,7 @@ SOURCES += \
     Game/tiles/evergreen.cpp \
     Game/workers/citizen.cpp \
     Game/workers/educatedcitizen.cpp \
+    enddialog.cpp \
     main.cpp \
     mapwindow.cc \
     Game/tiles/birch.cpp \
@@ -69,6 +70,7 @@ HEADERS += \
     Game/tiles/evergreen.h \
     Game/workers/citizen.h \
     Game/workers/educatedcitizen.h \
+    enddialog.h \
     mapwindow.hh \
     Game/core/resources.h \
     Game/tiles/birch.h \
@@ -107,6 +109,7 @@ else:unix: PRE_TARGETDEPS += \
     $$OUT_PWD/../Course/CourseLib/libCourseLib.a
 
 FORMS += \
+    enddialog.ui \
     mapwindow.ui \
     setupdialog.ui
 

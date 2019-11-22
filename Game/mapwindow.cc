@@ -29,6 +29,7 @@
 #include "Game/core/mapgenerator.h"
 #include "Game/core/gameeventhandler.h"
 #include "setupdialog.h"
+#include "enddialog.h"
 #include <math.h>
 #include <QSound>
 
@@ -288,6 +289,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     m_ui->workermenuLabel->setVisible(false);
     m_ui->tileDescription->setVisible(true);
     m_ui->demolishButton->setVisible(false);
+    m_ui->demolishButton->setText(QString::fromStdString("Demolish"));
 
     if(tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForBuildings(1))
        {
@@ -320,6 +322,10 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
             {
                 m_ui->marketplaceMenu->setVisible(true);
             }
+            else if (building->getType() == "Victory Monument")
+            {
+               m_ui->demolishButton->setText(QString::fromStdString("End the game"));
+            }
             else if(building->getType() == "City" or building->getType() == "University")
             {
                 m_ui->workerMenu->setVisible(true);
@@ -336,6 +342,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                     m_ui->trainButton->setText(QString::fromStdString("Train an Educated Citizen"));
                     worker_build_cost = build_costs["Educated Citizen"];
                     current_worker_selection = "Educated Citizen";
+
                 }
 
                 if(worker_build_cost.count(Course::BasicResource::MONEY))
@@ -590,9 +597,26 @@ void MapWindow::on_demolishButton_clicked()
     auto building_vector = selected_tile->getBuildings();
     for(auto building : building_vector)
     {
-        selected_tile->removeBuilding(building);
+        if (building->getType() == "Victory Monument") // victory monument has a win button instead of demolish
+        {
+           std::tuple<unsigned int, unsigned int> winner_data = event_handler->getWinnerData();
+
+           unsigned int winner = std::get<1>(winner_data);
+           unsigned int winning_turn = std::get<0>(winner_data);
+
+           EndDialog* end_dialog(new EndDialog(nullptr, winner, winning_turn));
+           end_dialog->exec();
+
+           this->close();
+
+        }
+        else
+        {
+            selected_tile->removeBuilding(building);
+            tilePressed(selected_tile);
+        }
+
     }
-    tilePressed(selected_tile);
 }
 
 void MapWindow::on_trainButton_clicked()
