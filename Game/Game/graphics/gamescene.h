@@ -15,8 +15,7 @@ public:
     Sprite* getSprite(const Course::Coordinate& coord) const;
 
 private:
-    std::map<Course::Coordinate, Sprite*> m_sprite_map;
-
+    std::map<Course::Coordinate, Sprite*> m_coord_sprite_map;
 };
 
 #endif // GAMESCENE_H

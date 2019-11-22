@@ -26,26 +26,18 @@ GameView::GameView(QWidget* qt_parent,
 }
 
 
-void GameView::drawItem( std::shared_ptr<Course::GameObject> obj)
+void GameView::addTile(std::shared_ptr<Course::TileBase> obj)
 {
-    int height = 0;
-    ElevatedTileBase* tile = dynamic_cast<ElevatedTileBase*>(obj.get());
+    std::shared_ptr<ElevatedTileBase> tile = std::dynamic_pointer_cast<ElevatedTileBase>(obj);
 
-    if (tile != nullptr)
+    if (tile == nullptr)
     {
-        height = tile->getHeight();
+        throw std::bad_cast();
     }
 
-    Sprite* sprite = new Sprite(obj, m_spriteSheet, height);
+    Sprite* sprite = new Sprite(tile, m_spriteSheet);
     m_gs_ptr->addSprite(sprite);
 }
-
-void GameView::drawMultipleItems(std::vector<std::shared_ptr<Course::GameObject>> objs)
-{
-    for ( auto obj: objs)
-        drawItem(obj);
-}
-
 
 Course::Coordinate GameView::screenToCoordinate(QPoint screenPos)
 {

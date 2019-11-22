@@ -144,9 +144,10 @@ MapWindow::MapWindow(QWidget *parent,
     map_generator.generateMap(map_size,map_size,seed, object_manager, event_handler);
 
     std::vector<std::shared_ptr<Course::TileBase>> tiles = object_manager->getAllTiles();
-    std::vector<std::shared_ptr<Course::GameObject>> objs(tiles.begin(), tiles.end());
 
-    m_gameview->drawMultipleItems(objs);
+    for (auto tile: tiles)
+        m_gameview->addTile(tile);
+
     connect(m_ui->endTurnButton, SIGNAL(pressed()), this, SLOT(passTurn()));
 
     passTurn();
@@ -162,11 +163,6 @@ void MapWindow::setGEHandler(
         std::shared_ptr<Course::iGameEventHandler> nHandler)
 {
     m_GEHandler = nHandler;
-}
-
-void MapWindow::drawItem( std::shared_ptr<Course::GameObject> obj)
-{
-    m_gameview->drawItem(obj);
 }
 
 void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, unsigned int current_player, unsigned int turn)
@@ -518,6 +514,7 @@ void MapWindow::on_buildButton_clicked()
         tilePressed(selected_tile); // update tile status
         updateStatusBar(event_handler, players, current_player, turn);
 
+        m_gameview->update();
     }
 
 
@@ -593,6 +590,7 @@ void MapWindow::on_demolishButton_clicked()
         selected_tile->removeBuilding(building);
     }
     tilePressed(selected_tile);
+    m_gameview->update();
 }
 
 void MapWindow::on_trainButton_clicked()

@@ -9,7 +9,7 @@
 #include <map>
 
 #include "core/gameobject.h"
-
+#include "Game/tiles/elevatedtilebase.h"
 
 int const SPRITE_SIZE = 256;
 qreal const SPRITE_SQUASH = 0.5771;
@@ -24,13 +24,32 @@ public:
      * @param size of the created item in pixels.
      * @pre obj must have a valid Coordinate.
      */
-    Sprite(const std::shared_ptr<Course::GameObject> &obj, QPixmap* spriteSheet, int height_offset = 0);
+    Sprite(const std::shared_ptr<ElevatedTileBase> &tile, QPixmap* spriteSheet);
+
+    /**
+     * @brief sets highlight effect according to color and strength
+     * @param color
+     * @param strength
+     */
+    void setHighlight(qreal strength, const QColor &color = QColor(255, 255, 255));
 
     /**
      * @brief boundingRect
      * @return the bounding rectangle of this item.
      */
     QRectF boundingRect() const override;
+
+    /**
+     * @brief tileRect
+     * @return the bounding rectangle for tile sprite
+     */
+    QRectF tileRect() const;
+
+    /**
+     * @brief topRect
+     * @return the bounding rectangle for top item sprites (building, worker)
+     */
+    QRectF topRect() const;
 
     /**
      * @brief paints the item
@@ -43,31 +62,18 @@ public:
     void paint(QPainter *painter,
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
-    /**
-     * @brief getBoundObject
-     * @return the object this item is bound to.
-     */
-    const std::shared_ptr<Course::GameObject> &getBoundObject();
 
-    /**
-     * @brief updateLoc moves the item if the position has changed.
-     */
-    void updateLoc();
-
-    /**
-     * @brief checks if this instance has obj as bound obj.
-     * @param obj to compare to.
-     * @return True: if obj is pointing to the same object as this item.
-     * False otherwise.
-     */
-    bool isSameObj(std::shared_ptr<Course::GameObject> obj);
+    const std::shared_ptr<ElevatedTileBase> &getBoundTile();
 
 private:
     QPoint calculateIsometricPos() const;
 
-    const std::shared_ptr<Course::GameObject> m_gameobject;
+    const std::shared_ptr<ElevatedTileBase> m_tile;
+
     QPoint m_scenelocation;
     QPixmap* m_spriteSheet;
+
+    QGraphicsColorizeEffect m_highlight;
 
     int m_height_offset;
 };

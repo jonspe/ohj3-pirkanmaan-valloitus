@@ -25,10 +25,10 @@ public:
              const std::shared_ptr<ObjectManager>& objectmanager = nullptr);
 
     /**
-     * @brief Draws a GameObject on the screen as Sprite
+     * @brief Draws a TileBase on the screen as Sprite
      * @param obj shared_ptr<GameObject>
      */
-    void drawItem(std::shared_ptr<Course::GameObject> obj);
+    void addTile(std::shared_ptr<Course::TileBase> obj);
 
     /**
      * @brief Draws multiple GameObjects on the screen as Sprites

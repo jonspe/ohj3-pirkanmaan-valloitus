@@ -110,11 +110,11 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
        bool looking_for_tile = true;
        std::shared_ptr<Course::TileBase> city_tile;
        while (looking_for_tile){
-           int x = rand() % map_size/2;
+           int x = -(rand() % map_size/2);
            if (current_player % 2){
                x = x + map_size/2;
            }
-           int y = rand() % map_size/2;
+           int y = -(rand() % map_size/2);
            if (current_player > 2){
                y = y + map_size/2;
            }
