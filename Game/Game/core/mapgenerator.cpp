@@ -111,7 +111,7 @@ void MapGenerator::generateMap(int size_x, int size_y, unsigned int seed, const 
                 averaged_tile_height[coord] = roundToNearestMultiple((height-35) * 3, 30);
             }
 
-            tiles.push_back(ctor(coord, averaged_tile_height[coord], eventhandler, objectmanager));
+            tiles.push_back(ctor(coord - Course::Coordinate(size_x/2, size_y/2), averaged_tile_height[coord], eventhandler, objectmanager));
         }
     }
     objectmanager->addTiles(tiles);
