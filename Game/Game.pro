@@ -11,6 +11,7 @@ SOURCES += \
     Game/buildings/advancedlumbercamp.cpp \
     Game/buildings/advancedmine.cpp \
     Game/buildings/diamondmine.cpp \
+    Game/buildings/factory.cpp \
     Game/buildings/farm.cpp \
     Game/buildings/lumbercamp.cpp \
     Game/buildings/marketplace.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     Game/buildings/advancedlumbercamp.h \
     Game/buildings/advancedmine.h \
     Game/buildings/diamondmine.h \
+    Game/buildings/factory.h \
     Game/buildings/farm.h \
     Game/buildings/lumbercamp.h \
     Game/buildings/marketplace.h \

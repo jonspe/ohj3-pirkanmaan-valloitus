@@ -34,7 +34,7 @@ public:
     void setSize(int width, int height);
     void setScale(int scale);
 
-    void updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, unsigned int current_player, unsigned int turn);
+    void updateStatusBar();
 
     void playSelectionSound();
 

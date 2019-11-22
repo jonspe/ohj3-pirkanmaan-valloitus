@@ -23,6 +23,7 @@
 #include "Game/buildings/advancedlumbercamp.h"
 #include "Game/buildings/diamondmine.h"
 #include "Game/buildings/oremine.h"
+#include "Game/buildings/factory.h"
 #include "Game/core/objectmanager.h"
 #include "Game/core/player.h"
 #include "Game/core/resources.h"
@@ -77,6 +78,7 @@ MapWindow::MapWindow(QWidget *parent,
     grass_buildings.push_back("Marketplace");
     grass_buildings.push_back("University");
     grass_buildings.push_back("Victory Monument");
+    grass_buildings.push_back("Factory");
     std::vector<std::string> animals_buildings;
     animals_buildings.push_back("Farm");
     animals_buildings.push_back("Advanced Farm");
@@ -114,6 +116,7 @@ MapWindow::MapWindow(QWidget *parent,
     build_costs["Advanced Lumber Camp"] = ConstResources::A_LUMBERCAMP_BUILD_COST;
     build_costs["Diamond Mine"] = ConstResources::D_MINE_BUILD_COST;
     build_costs["Ore Mine"] = ConstResources::ORE_MINE_BUILD_COST;
+    build_costs["Factory"] = ConstResources::FACTORY_BUILD_COST;
     build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
     build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
 
@@ -166,7 +169,7 @@ void MapWindow::setGEHandler(
     m_GEHandler = nHandler;
 }
 
-void MapWindow::updateStatusBar(std::shared_ptr<GameEventHandler> event_handler, std::map<std::string, std::shared_ptr<Player>> players, unsigned int current_player, unsigned int turn)
+void MapWindow::updateStatusBar()
 {
 
     QString player_number_qstring =  QString::number(current_player);
@@ -227,46 +230,50 @@ void MapWindow::passTurn()
         event_handler->firstTurn(map_size,object_manager, new_city);
     }
 
-    players[std::to_string(current_player)]->generateResources(object_manager);
-    updateStatusBar(event_handler, players, current_player, turn);
+    if (turn != 1)
+    {
+        players[std::to_string(current_player)]->generateResources(object_manager);
+    }
+
+    updateStatusBar();
 }
 
 void MapWindow::on_selectFoodButton_clicked()
 {
     traded_resource = Course::BasicResource::FOOD;
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::on_selectWoodButton_clicked()
 {
     traded_resource = Course::BasicResource::WOOD;
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::on_selectStoneButton_clicked()
 {
     traded_resource = Course::BasicResource::STONE;
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::on_selectOreButton_clicked()
 {
     traded_resource = Course::BasicResource::ORE;
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::on_buyButton_clicked()
 {
     event_handler->resourceBought(players[std::to_string(current_player)], traded_resource);
     QSound::play(":/sound/trade.wav");
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::on_sellButton_clicked()
 {
     event_handler->resourceSold(players[std::to_string(current_player)], traded_resource);
     QSound::play(":/sound/trade.wav");
-    updateStatusBar(event_handler, players, current_player, turn);
+    updateStatusBar();
 }
 
 void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
@@ -518,6 +525,14 @@ void MapWindow::on_buildButton_clicked()
             }
         }
 
+        else if (building_type == "Factory")
+        {
+            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Factory"])){
+                std::shared_ptr<Factory> building(new Factory(event_handler, object_manager,players[std::to_string(current_player)]));
+                event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
+            }
+        }
+
 
         m_ui->buildMenu->setVisible(false);
         m_ui->buildmenuLabel->setVisible(false);
@@ -525,7 +540,7 @@ void MapWindow::on_buildButton_clicked()
         m_ui->buildingSelectionBox->setVisible(false);
 
         tilePressed(selected_tile); // update tile status
-        updateStatusBar(event_handler, players, current_player, turn);
+        updateStatusBar();
 
         m_gameview->update();
     }
@@ -642,7 +657,7 @@ void MapWindow::on_trainButton_clicked()
 
         }
 
-        updateStatusBar(event_handler, players, current_player, turn);
+        updateStatusBar();
     }
 
 }

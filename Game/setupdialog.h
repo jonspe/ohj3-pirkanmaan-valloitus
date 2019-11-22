@@ -29,7 +29,7 @@ private slots:
 
 private:
     Ui::SetupDialog *ui;
-    unsigned int map_size = 60;
+    unsigned int map_size = 20;
     unsigned int seed = 1337;
     unsigned int player_amount = 1;
 };

@@ -50,13 +50,13 @@ void SetupDialog::on_MapSizeDropdown_currentTextChanged(const QString &arg1)
     std::string size = arg1.toStdString();
 
     if (size == "Small"){
-        map_size = 40;
+        map_size = 20;
     }else if (size == "Medium"){
-        map_size = 60;
+        map_size = 30;
     }else if (size == "Large"){
-        map_size = 80;
+        map_size = 45;
     }else if (size == "Humongous"){
-        map_size = 100;
+        map_size = 60;
     }
 
 }
