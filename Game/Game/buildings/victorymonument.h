@@ -55,6 +55,11 @@ public:
     virtual bool canBePlacedOnTile(
             const std::shared_ptr<Course::TileBase> &target) const override;
 
+    /**
+     * @brief Sets builder as winner and stores current turn;
+     */
+    virtual void onBuildAction() override;
+
 }; // class VictoryMonument
 
 

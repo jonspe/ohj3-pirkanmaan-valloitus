@@ -1,6 +1,7 @@
 #include "victorymonument.h"
 #include "interfaces/iobjectmanager.h"
 #include "tiles/tilebase.h"
+#include "Game/core/gameeventhandler.h"
 
 VictoryMonument::VictoryMonument(
         const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
@@ -32,5 +33,11 @@ bool VictoryMonument::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> 
                 target->getType() == "Stone" or
                 target->getType() == "Grass" or
                 target->getType() == "Sand");
+}
+
+void VictoryMonument::onBuildAction()
+{
+    auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
+    event_handler->setWinner();
 }
 

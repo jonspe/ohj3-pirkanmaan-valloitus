@@ -102,6 +102,10 @@ public:
 
     void firstTurn(unsigned int map_size, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::BuildingBase> new_city);
 
+    void setWinner();
+
+    std::tuple<unsigned int, unsigned int> getWinnerData();
+
 
     std::tuple<unsigned int, unsigned int> passTurn(unsigned int player_amount);
 
@@ -135,6 +139,10 @@ private:
 
     unsigned int turn = 1;
     unsigned int current_player = 0;
+
+    bool winner_decided = false;
+    unsigned int winner = 0;
+    unsigned int winning_turn = 0;
 
     std::map<std::string, std::shared_ptr<Player>> players;
 
