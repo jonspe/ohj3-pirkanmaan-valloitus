@@ -34,7 +34,7 @@ const Course::ResourceMap COLONY_BUILD_COST = {
 
 const Course::ResourceMap COLONY_PRODUCTION = {
     {Course::BasicResource::MONEY, -15},
-    {Course::BasicResource::FOOD, -65}
+    {Course::BasicResource::FOOD, -40}
 };
 
 // Building - Farm
@@ -51,6 +51,7 @@ const Course::ResourceMap FARM_PRODUCTION = {
 const Course::ResourceMap A_FARM_BUILD_COST = {
     {Course::BasicResource::MONEY, -300},
     {Course::BasicResource::WOOD, -250},
+    {Course::BasicResource::STONE, -60},
     {Course::BasicResource::ORE, -30}
 };
 const Course::ResourceMap A_FARM_PRODUCTION = {
@@ -81,13 +82,14 @@ const Course::ResourceMap A_MINE_BUILD_COST = {
 const Course::ResourceMap A_MINE_PRODUCTION = {
     {Course::BasicResource::STONE, 20},
     {Course::BasicResource::ORE, 2},
-    {Course::BasicResource::MONEY, -4}
+    {Course::BasicResource::MONEY, -4},
 };
 
 // Building - Diamond Mine
 const Course::ResourceMap D_MINE_BUILD_COST = {
     {Course::BasicResource::MONEY, -200},
     {Course::BasicResource::WOOD, -150},
+    {Course::BasicResource::STONE, -40},
     {Course::BasicResource::ORE, -10}
 };
 const Course::ResourceMap D_MINE_PRODUCTION = {
@@ -123,6 +125,7 @@ const Course::ResourceMap LUMBERCAMP_PRODUCTION = {
 const Course::ResourceMap A_LUMBERCAMP_BUILD_COST = {
     {Course::BasicResource::MONEY, -200},
     {Course::BasicResource::FOOD, -150},
+    {Course::BasicResource::STONE, -60},
     {Course::BasicResource::ORE, -20}
 };
 const Course::ResourceMap A_LUMBERCAMP_PRODUCTION = {
@@ -148,7 +151,7 @@ const Course::ResourceMap VICTORYMONUMENT_BUILD_COST = {
     {Course::BasicResource::FOOD, -3000},
     {Course::BasicResource::WOOD, -3000},
     {Course::BasicResource::STONE, -2000},
-    {Course::BasicResource::ORE, -1000}
+    {Course::BasicResource::ORE, -700}
 };
 const Course::ResourceMap VICTORYMONUMENT_PRODUCTION = {
     {Course::BasicResource::MONEY, 100},
@@ -158,10 +161,11 @@ const Course::ResourceMap VICTORYMONUMENT_PRODUCTION = {
 const Course::ResourceMap MARKETPLACE_BUILD_COST = {
     {Course::BasicResource::MONEY, -100},
     {Course::BasicResource::FOOD, -200},
-    {Course::BasicResource::WOOD, -150},
+    {Course::BasicResource::WOOD, -200},
+    {Course::BasicResource::STONE, -20}
 };
 const Course::ResourceMap MARKETPLACE_PRODUCTION = {
-    {Course::BasicResource::MONEY, 25},
+    {Course::BasicResource::MONEY, 10},
 };
 
 
@@ -203,9 +207,9 @@ const Course::ResourceMapDouble EDUCATEDCITIZEN_EFFICIENCY = {
 };
 
 const Course::ResourceMap EDUCATEDCITIZEN_RECRUITMENT_COST = {
-    {Course::MONEY, -300},
-    {Course::FOOD, -150},
-    {Course::ORE, -25}
+    {Course::MONEY, -100},
+    {Course::FOOD, -100},
+    {Course::ORE, -10}
 };
 
 const Course::ResourceMap BIRCH_BP = {
