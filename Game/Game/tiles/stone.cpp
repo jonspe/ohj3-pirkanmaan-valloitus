@@ -15,6 +15,7 @@ Stone::Stone(const Course::Coordinate& location,
              max_work,
              production)
 {
+                  addDescription("Stone", "Rocky, uninhabitable terrain.");
 }
 
 std::string Stone::getType() const

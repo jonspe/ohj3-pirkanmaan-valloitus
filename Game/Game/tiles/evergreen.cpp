@@ -15,6 +15,7 @@ Evergreen::Evergreen(const Course::Coordinate& location,
              max_work,
              production)
 {
+      addDescription("Evergreen", "A thick forest with tall evergreen trees.");
 }
 
 std::string Evergreen::getType() const

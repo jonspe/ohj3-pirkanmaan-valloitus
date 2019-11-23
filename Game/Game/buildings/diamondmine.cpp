@@ -17,6 +17,7 @@ DiamondMine::DiamondMine(
                  buildcost,
                  production)
 {
+        addDescription("Diamond Mine", "So we back in the mine, got our pickaxe swinging from side to side...");
 }
 
 std::string DiamondMine::getType() const

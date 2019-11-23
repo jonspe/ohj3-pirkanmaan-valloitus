@@ -17,6 +17,7 @@ AdvancedMine::AdvancedMine(
                  buildcost,
                  production)
 {
+    addDescription("Advanced Mine", "Improved techniques and advanced tools allow faster and more efficient mining.");
 }
 
 std::string AdvancedMine::getType() const

@@ -17,6 +17,7 @@ LumberCamp::LumberCamp(
                  buildcost,
                  production)
 {
+                addDescription("Lumber Camp", "Wood is abundant and is used everywhere in construction.");
 }
 
 std::string LumberCamp::getType() const

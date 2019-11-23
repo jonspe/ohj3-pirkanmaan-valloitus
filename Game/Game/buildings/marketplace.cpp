@@ -17,6 +17,7 @@ Marketplace::Marketplace(
                  buildcost,
                  production)
 {
+              addDescription("Marketplace", "A place to exchange goods with foreign merchants.");
 }
 
 std::string Marketplace::getType() const

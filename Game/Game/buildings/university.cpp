@@ -20,6 +20,7 @@ University::University(
                  buildcost,
                  production)
 {
+              addDescription("University", "A place where citizens can be educated to be more efficient in their work.");
 }
 
 std::string University::getType() const

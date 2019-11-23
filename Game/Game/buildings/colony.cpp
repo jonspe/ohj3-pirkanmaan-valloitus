@@ -18,6 +18,7 @@ Colony::Colony(
                  buildcost,
                  production)
 {
+        addDescription("Colony", "Colonizing new areas allows you access to new resources. You will also have more mouths to feed, however.");
 }
 
 std::string Colony::getType() const

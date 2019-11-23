@@ -16,6 +16,8 @@ Grass::Grass(const Course::Coordinate& location,
              max_work,
              production)
 {
+
+    addDescription("Grass", "Lovely green fields of grass.");
 }
 
 std::string Grass::getType() const

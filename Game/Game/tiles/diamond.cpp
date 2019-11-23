@@ -16,6 +16,7 @@ Diamond::Diamond(const Course::Coordinate& location,
              max_work,
              production)
 {
+              addDescription("Diamond", "Beautiful gemstones worth several times their weight in gold.");
 }
 
 std::string Diamond::getType() const

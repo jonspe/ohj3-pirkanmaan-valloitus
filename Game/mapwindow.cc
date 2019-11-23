@@ -287,6 +287,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 
     m_ui->tileName->setText(QString::fromStdString(tile->getType()));
     m_ui->tileName->setVisible(true);
+    m_ui->tileDescription->setText(QString::fromStdString((tile->getDescription(tile->getType()))));
     m_ui->marketplaceMenu->setVisible(false);
     m_ui->workerMenu->setVisible(false);
     m_ui->workermenuLabel->setVisible(false);
@@ -326,7 +327,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
         {
             m_ui->buildingMenu->setVisible(true);
             m_ui->buildingName->setText(QString::fromStdString(building->getType()));
-
+            m_ui->buildingDescription->setVisible(true);
+            m_ui->buildingDescription->setText(QString::fromStdString(building->getDescription(building->getType())));
             if (building->getType() == "Marketplace")
             {
                 m_ui->marketplaceMenu->setVisible(true);
@@ -602,6 +604,7 @@ void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
 
     if(build_costs.count(building_type))
     {
+
         Course::ResourceMap build_cost = build_costs[building_type];
         if(build_cost.count(Course::BasicResource::MONEY))
         {

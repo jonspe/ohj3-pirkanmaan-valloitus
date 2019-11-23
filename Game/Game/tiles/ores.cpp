@@ -16,6 +16,7 @@ Ore::Ore(const Course::Coordinate& location,
              max_work,
              production)
 {
+              addDescription("Ore", "Various minerals of value can be spotted in the rocky ground.");
 }
 
 std::string Ore::getType() const

@@ -17,6 +17,7 @@ AdvancedFarm::AdvancedFarm(
                  buildcost,
                  production)
 {
+         addDescription("Advanced Farm", "More food can be produced thanks to improved farming methods.");
 }
 
 std::string AdvancedFarm::getType() const

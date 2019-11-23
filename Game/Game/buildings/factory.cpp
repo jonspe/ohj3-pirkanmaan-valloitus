@@ -17,6 +17,7 @@ Factory::Factory(
                  buildcost,
                  production)
 {
+            addDescription("Factory", "Creates exportable products out of wood to be sold for profit.");
 }
 
 std::string Factory::getType() const
