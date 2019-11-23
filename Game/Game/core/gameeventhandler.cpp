@@ -117,15 +117,15 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
        while (looking_for_tile){
            int x = -(rand() % map_size/2);
            if (current_player % 2){
-               x = x + map_size/2;
+               x = x + map_size/2 - 1;
            }
            int y = -(rand() % map_size/2);
            if (current_player > 2){
-               y = y + map_size/2;
+               y = y + map_size/2 - 1;
            }
            Course::Coordinate city_location = Course::Coordinate(x,y);
            city_tile = object_manager->getTile(city_location);
-           if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch")
+           if (city_tile->getType() == "Grass" || city_tile->getType() == "Evergreen" || city_tile->getType() == "Birch" )
            {
                claimTile(city_location, object_manager);
                addBuilding(city_location, object_manager, new_city);

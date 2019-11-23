@@ -234,7 +234,7 @@ void MapWindow::passTurn()
     {
         players[std::to_string(current_player)]->generateResources(object_manager);
     }
-
+    m_ui->buildButton->setText(QString("Build"));
     updateStatusBar();
 }
 
