@@ -120,18 +120,6 @@ MapWindow::MapWindow(QWidget *parent,
     build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
     build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
 
-    selection_sounds["City"] = ":/sound/Colony.wav";
-    selection_sounds["Colony"] = ":/sound/Colony.wav";
-    selection_sounds["Farm"] = ":/sound/Farm.wav";
-    selection_sounds["Advanced Farm"] = ":/sound/Farm.wav";
-    selection_sounds["Mine"] = ":/sound/Mine.wav";
-    selection_sounds["Advanced Mine"] = ":/sound/Mine.wav";
-    selection_sounds["Diamond Mine"] = ":/sound/Mine.wav";
-    selection_sounds["Ore Mine"] = ":/sound/Mine.wav";
-    selection_sounds["Lumber Camp"] = ":/sound/LumberCamp.wav";
-    selection_sounds["Advanced Lumber Camp"] = ":/sound/LumberCamp.wav";
-    selection_sounds["University"] = ":/sound/University.wav";
-
     m_ui->buildMenu->setVisible(false);
     m_ui->buildingMenu->setVisible(false);
     m_ui->buildmenuLabel->setVisible(false);
@@ -204,21 +192,10 @@ void MapWindow::updateStatusBar()
 
 }
 
-void MapWindow::playSelectionSound()
-{
-    auto building_vector = selected_tile->getBuildings();
-    for(auto building : building_vector)
-    {
-        if(selection_sounds.count(building->getType()))
-        {
-            QSound::play(QString::fromStdString(selection_sounds[building->getType()]));
-        }
-    }
-
-}
 
 void MapWindow::passTurn()
 {
+    QSound::play(":/sound/endturn.wav");
     std::tuple<unsigned int, unsigned int> turn_data = event_handler->passTurn(player_amount);
     turn = std::get<0>(turn_data);
     current_player = std::get<1>(turn_data);
@@ -234,6 +211,7 @@ void MapWindow::passTurn()
     {
         players[std::to_string(current_player)]->generateResources(object_manager);
     }
+
     m_ui->buildButton->setText(QString("Build"));
     updateStatusBar();
 }
@@ -241,24 +219,28 @@ void MapWindow::passTurn()
 void MapWindow::on_selectFoodButton_clicked()
 {
     traded_resource = Course::BasicResource::FOOD;
+    QSound::play(":/sound/ui_click.wav");
     updateStatusBar();
 }
 
 void MapWindow::on_selectWoodButton_clicked()
 {
     traded_resource = Course::BasicResource::WOOD;
+    QSound::play(":/sound/ui_click.wav");
     updateStatusBar();
 }
 
 void MapWindow::on_selectStoneButton_clicked()
 {
     traded_resource = Course::BasicResource::STONE;
+    QSound::play(":/sound/ui_click.wav");
     updateStatusBar();
 }
 
 void MapWindow::on_selectOreButton_clicked()
 {
     traded_resource = Course::BasicResource::ORE;
+    QSound::play(":/sound/ui_click.wav");
     updateStatusBar();
 }
 
@@ -283,8 +265,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
              << tile->getCoordinatePtr()->asQpoint();
 
     selected_tile = tile;
-    playSelectionSound();
-
+    QSound::play(":/sound/tile_select.wav");
     m_ui->tileName->setText(QString::fromStdString(tile->getType()));
     m_ui->tileName->setVisible(true);
     m_ui->tileDescription->setText(QString::fromStdString((tile->getDescription(tile->getType()))));
@@ -434,7 +415,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 
 void MapWindow::on_buildButton_clicked()
 {
-
+    QSound::play(":/sound/ui_click.wav");
     if(selected_tile->hasSpaceForBuildings(1)){
 
         std::string building_type = (m_ui->buildingSelectionBox->currentText()).toStdString();
@@ -663,6 +644,7 @@ void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
 
 void MapWindow::on_demolishButton_clicked()
 {
+    QSound::play(":/sound/ui_click.wav");
     auto building_vector = selected_tile->getBuildings();
     for(auto building : building_vector)
     {
@@ -693,6 +675,7 @@ void MapWindow::on_demolishButton_clicked()
 
 void MapWindow::on_trainButton_clicked()
 {
+    QSound::play(":/sound/ui_click.wav");
     if(placing_worker == false)
     {
         if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs[current_worker_selection])

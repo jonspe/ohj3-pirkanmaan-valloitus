@@ -36,8 +36,6 @@ public:
 
     void updateStatusBar();
 
-    void playSelectionSound();
-
 
 private slots:
     void passTurn();
@@ -77,7 +75,6 @@ private:
 
     std::map<std::string, Course::ResourceMap> build_costs;
     std::string current_worker_selection = "Citizen";
-    std::map<std::string, std::string> selection_sounds;
 
     bool placing_worker = false;
 };
