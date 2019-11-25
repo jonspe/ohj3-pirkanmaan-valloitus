@@ -7,8 +7,9 @@
 /**
  * @brief The University class represents a player's University-building.
  *
- * Can be constructed on any open land tile. \n
- * Can be used to train educated workers§
+ * can be used to train educated citizens
+ * generates some money and one ore
+ * can only be built on grass
  *
  */
 class University : public Course::BuildingBase

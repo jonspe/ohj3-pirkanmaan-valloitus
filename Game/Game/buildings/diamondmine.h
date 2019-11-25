@@ -7,10 +7,8 @@
 /**
  * @brief The DiamondMine class represents a player's DiamondMine-building.
  *
- * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
- * Production:
- * 5 stone
- * 2 ore
+ * generates a ton of gold
+ * can only be built on diamond tile
  *
  */
 class DiamondMine : public Course::BuildingBase

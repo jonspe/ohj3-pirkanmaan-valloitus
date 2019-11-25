@@ -7,15 +7,7 @@
 /**
  * @brief The Birch class represents Birch in the gameworld.
  *
- * Birch has BasicProduction: \n
- * * Money = 1
- * * Food = 3
- * * Wood = 5
- * * Stone = 1
- * * Ore = 0
- *
- *
- * Tile supports 2 buildings.
+ * generates some wood and food
  */
 class Birch : public ElevatedTileBase
 {

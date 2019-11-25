@@ -7,16 +7,7 @@
 /**
  * @brief The Grass class represents Grass in the gameworld.
  *
- * Grass has BasicProduction: \n
- * * Money = 2
- * * Food = 5
- * * Wood = 1
- * * Stone = 1
- * * Ore = 0
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * generates some wood and food
  */
 class Grass : public ElevatedTileBase
 {

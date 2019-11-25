@@ -8,10 +8,10 @@
 /**
  * @brief The AdvancedFarm class represents a player's AdvancedFarm-building.
  *
- * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
- * Production:
- * 5 food
- * 1 money
+ * generates a large amount of food per turn
+ * requires a lot of resources to build
+ * can only be built on grass or animal tile
+ *
  *
  */
 class AdvancedFarm : public Course::BuildingBase

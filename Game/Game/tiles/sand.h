@@ -7,16 +7,7 @@
 /**
  * @brief The Sand class represents Sand in the gameworld.
  *
- * Sand has BasicProduction: \n
- * * Money = 3
- * * Food = 2
- * * Wood = 0
- * * Stone = 2
- * * Ore = 0
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * unused
  */
 class Sand : public ElevatedTileBase
 {

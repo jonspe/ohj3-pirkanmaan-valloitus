@@ -7,16 +7,8 @@
 /**
  * @brief The Animals class represents Animals in the gameworld.
  *
- * Animals has BasicProduction: \n
- * * Money = 4
- * * Food = 9
- * * Wood = 1
- * * Stone = 1
- * * Ore = 0
+ * generates a lot of food and gold
  *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
  */
 class Animals : public ElevatedTileBase
 {

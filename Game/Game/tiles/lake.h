@@ -7,16 +7,7 @@
 /**
  * @brief The Lake class represents Lake in the gameworld.
  *
- * Lake has BasicProduction: \n
- * * Money = 5
- * * Food = 5
- * * Wood = 0
- * * Stone = 0
- * * Ore = 0
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * generates some gold and food
  */
 class Lake : public ElevatedTileBase
 {

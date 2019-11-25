@@ -7,8 +7,9 @@
 /**
  * @brief The VictoryMonument class represents a player's VictoryMonument-building.
  *
- * Can be constructed on any open land tile. \n
- * First player to build it wins the game
+ * can only be built on grass
+ * first player to build it wins the game
+ * demolish button replaced with end game button
  *
  */
 class VictoryMonument : public Course::BuildingBase

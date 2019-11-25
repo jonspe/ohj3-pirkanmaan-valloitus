@@ -7,15 +7,7 @@
 /**
  * @brief The Evergreen class represents Evergreen in the gameworld.
  *
- * Evergreen has BasicProduction: \n
- * * Money = 1
- * * Food = 2
- * * Wood = 6
- * * Stone = 1
- * * Ore = 0
- *
- *
- * Tile supports 2 buildings.
+ * generates some wood and food
  */
 class Evergreen : public ElevatedTileBase
 {

@@ -7,10 +7,8 @@
 /**
  * @brief The OreMine class represents a player's OreMine-building.
  *
- * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
- * Production:
- * 5 stone
- * 2 ore
+ * generates a some ore and some stone
+ * can only be built on ore tile
  *
  */
 class OreMine : public Course::BuildingBase

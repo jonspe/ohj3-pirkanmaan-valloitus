@@ -8,11 +8,12 @@
 /**
  * @brief The City class represents a player's City-building.
  *
- * It can be constructed on any tile that has not been claimed by any other
- * player. \n
- * Can train Citizens.
- * Effects: Claims surrounding unclaimed tiles. \n
- * Radius: 2 tiles.
+ * cannot be manually built, player gets one at the start of the game
+ * claims nearby tiles in a radius of 2
+ * allows training of basic citizens
+ * generates some base resources to help player start off
+ * only spawns on grass or forest
+ *
  */
 class City : public Course::BuildingBase
 {

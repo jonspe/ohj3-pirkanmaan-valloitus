@@ -7,9 +7,8 @@
 /**
  * @brief The LumberCamp class represents a player's Lumbercamp-building.
  *
- * Can be constructed on any forested tile (Birch, Evergreen). \n
- * Production:
- * 9 wood
+ * generates a small amount of wood
+ * can only be built in forest
  *
  */
 class LumberCamp : public Course::BuildingBase

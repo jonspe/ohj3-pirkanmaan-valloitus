@@ -39,11 +39,6 @@ bool GameEventHandler::modifyResource(std::shared_ptr<Course::PlayerBase> player
     return modifyResources(player, resource_in_map);
 }
 
-void GameEventHandler::tilePressed(std::shared_ptr<Course::TileBase> &tile)
-{
-    qDebug() << tile->getCoordinate().asQpoint();
-}
-
 void GameEventHandler::setPresetResources(std::shared_ptr<Course::PlayerBase> player)
 {
     Course::ResourceMap resource_stockpile = {

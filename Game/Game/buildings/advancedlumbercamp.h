@@ -7,9 +7,10 @@
 /**
  * @brief The AdvancedLumberCamp class represents a player's AdvancedLumberCamp-building.
  *
- * Can be constructed on any forested tile (Birch, Evergreen). \n
- * Production:
- * 9 wood
+ * generates a large amount of wood per turn
+ * requires a lot of resources to build
+ * can only be built on forest tile
+ *
  *
  */
 class AdvancedLumberCamp : public Course::BuildingBase

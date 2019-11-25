@@ -7,16 +7,7 @@
 /**
  * @brief The Diamond class represents Diamond in the gameworld.
  *
- * Diamond has BasicProduction: \n
- * * Money = 15
- * * Food = 0
- * * Wood = 0
- * * Stone = 5
- * * Ore = 1
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * generates a lot of gold and some stone
  */
 class Diamond : public ElevatedTileBase
 {

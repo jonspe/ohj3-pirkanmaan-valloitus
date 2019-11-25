@@ -8,10 +8,9 @@
 /**
  * @brief The Marketplace class represents a player's Marketplace-building.
  *
- * Can be constructed on any open land based tile. \n
- * Allows access to marketplace where resources can be traded
- * Production:
- * 5 gold
+ * allows access to marketplace where resources can be traded
+ * generates a small amount of gold
+ * can only be built on grass
  *
  */
 class Marketplace : public Course::BuildingBase

@@ -7,16 +7,7 @@
 /**
  * @brief The Ore class represents Ore in the gameworld.
  *
- * Ore has BasicProduction: \n
- * * Money = 1
- * * Food = 0
- * * Wood = 0
- * * Stone = 5
- * * Ore = 5
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * generates some stone and one ore
  */
 class Ore : public ElevatedTileBase
 {

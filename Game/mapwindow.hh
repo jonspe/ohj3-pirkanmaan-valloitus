@@ -30,10 +30,11 @@ public:
     ~MapWindow();
 
     void setGEHandler(std::shared_ptr<Course::iGameEventHandler> nHandler);
-
     void setSize(int width, int height);
     void setScale(int scale);
 
+    /** @brief updates UI widgets such as resource values and icons
+     */
     void updateStatusBar();
 
 

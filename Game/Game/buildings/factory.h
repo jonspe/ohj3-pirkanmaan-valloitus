@@ -9,11 +9,8 @@
 /**
  * @brief The Factory class represents a player's Factory-building.
  *
- * Can be constructed on any open land based tile. \n
- * Spends wood in return for gold
- * Production:
- * 5 gold
- *
+ * turns wood to gold
+ * can only be built on grassland
  */
 class Factory : public Course::BuildingBase
 {

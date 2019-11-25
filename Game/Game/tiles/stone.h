@@ -7,16 +7,7 @@
 /**
  * @brief The Stone class represents Stone in the gameworld.
  *
- * Stone has BasicProduction: \n
- * * Money = 1
- * * Food = 0
- * * Wood = 0
- * * Stone = 5
- * * Ore = 1
- *
- * Functionality follows mainly the parent class' functionality.
- *
- * Tile supports 3 buildings.
+ * generates some stone and one ore
  */
 class Stone : public ElevatedTileBase
 {

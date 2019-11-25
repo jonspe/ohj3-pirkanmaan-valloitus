@@ -7,10 +7,10 @@
 /**
  * @brief The AdvancedMine class represents a player's AdvancedMine-building.
  *
- * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
- * Production:
- * 5 stone
- * 2 ore
+ * generates a large amount of stone and some ore per turn
+ * requires a lot of resources to build
+ * can only be built on stone
+ *
  *
  */
 class AdvancedMine : public Course::BuildingBase

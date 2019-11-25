@@ -8,11 +8,8 @@
 /**
  * @brief The Farm class represents a player's Farm-building.
  *
- * Can be constructed on any stone-based tile (Stone, Ore, Diamond). \n
- * Production:
- * 5 food
- * 1 money
- *
+ * generates a small amount of food
+ * can only be built on grass or animal tile
  */
 class Farm : public Course::BuildingBase
 {

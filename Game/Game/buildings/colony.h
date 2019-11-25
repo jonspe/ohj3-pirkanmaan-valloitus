@@ -9,9 +9,10 @@
 /**
  * @brief The Colony class represents a player's Colony-building.
  *
- * It can be constructed on any claimed tile with a free space. \n
- * Effects: Claims surrounding unclaimed tiles. \n
- * Radius: 2 tiles\n
+ * claims nearby tiles in a radius of 2
+ * uses up a lot of food per turn
+ * can only be built on grass or forest
+ *
  *
  */
 class Colony : public Course::BuildingBase
