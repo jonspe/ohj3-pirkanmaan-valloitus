@@ -62,13 +62,20 @@ public:
     virtual void wheelEvent(QWheelEvent *event) override;
 
 signals:
+    /**
+     * @brief tilePressed is emitted when the user has clicked on a tile
+     * @param tile
+     */
     void tilePressed(std::shared_ptr<Course::TileBase> tile);
 
 private:
+    /**
+     * @brief Sets properties for graphicsview, like sizing and mouse tracking
+     */
+    void setupFrameProperties();
+
     const std::shared_ptr<GameEventHandler> EVENTHANDLER;
     const std::shared_ptr<ObjectManager> OBJECTMANAGER;
-
-    void setupFrameProperties();
 
     GameScene* m_gs_ptr;
 
@@ -77,6 +84,9 @@ private:
 
     QPixmap* m_spriteSheet;
 
+    /**
+     * @brief Highlight effect for hovered over tile
+     */
     QGraphicsColorizeEffect m_highlight_effect;
 };
 

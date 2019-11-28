@@ -3,7 +3,11 @@
 
 #include "tiles/tilebase.h"
 
-
+/**
+ * @brief The ElevatedTileBase class
+ * Basically TileBase class, but with a height attribute to
+ * support rendering at different heights by y-axis offset.
+ */
 class ElevatedTileBase : public Course::TileBase
 {
 public:
@@ -14,7 +18,6 @@ public:
 
     /**
      * @brief Constructor for the class.
-     *
      */
     ElevatedTileBase(const Course::Coordinate& location,
              const int& height,

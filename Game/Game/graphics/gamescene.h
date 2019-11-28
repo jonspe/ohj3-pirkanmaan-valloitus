@@ -11,10 +11,23 @@ class GameScene : public QGraphicsScene
 public:
     GameScene(QObject *parent = nullptr);
 
+    /**
+     * @brief Adds a Sprite to the game scene and maps it to its coordinate for indexing
+     * @param sprite
+     */
     void addSprite(Sprite* sprite);
+
+    /**
+     * @brief Gets the one Sprite at specified coordinate
+     * @param coord
+     * @return Sprite, if no sprite at coord, return nullptr
+     */
     Sprite* getSprite(const Course::Coordinate& coord) const;
 
 private:
+    /**
+     * @brief for mapping sprites to their coordinates
+     */
     std::map<Course::Coordinate, Sprite*> m_coord_sprite_map;
 };
 

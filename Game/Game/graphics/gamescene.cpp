@@ -14,7 +14,7 @@ Sprite *GameScene::getSprite(const Course::Coordinate &coord) const
     {
         return m_coord_sprite_map.at(coord);
     }
-    catch ( std::out_of_range ex )
+    catch (std::out_of_range)
     {
         return nullptr;
     }
