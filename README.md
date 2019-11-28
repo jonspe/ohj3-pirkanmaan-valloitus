@@ -1,23 +1,13 @@
-# Programming 3 Exercise project template
+# Programming 3 Course Project: Pirkanmaan Valloitus
 
-1. Make sure you have setup ssh-key for your GitLab account. https://course-gitlab.tuni.fi/profile/keys
-2. Clone using --recursive
-3. Make sure you can build the project. (Should compile without issues if your environment is setup correctly)
+Pirkanmaan Valloitus is a turn-based strategy game where you must expand your newfound empire and ultimately build the colossal Victory Monument building to win the game.
+To achieve this goal, players must build buildings and train workers, making the most of the natural resources available in their starting region. 
+The game can be played alone but multiplayer matches of up to 4 players can also be played. In multiplayer, the first player to build the Victory Monument wins.
 
-## Submodule / CourseLibrary
-Submodule for CourseLibrary is currently configured to use ssh. If you haven't yet setup an ssh-key. Go do it at  https://course-gitlab.tuni.fi/profile/keys
+This repository contains all the files related to our course project. Further information is available in the Documentation folder.
 
-The page contains also instructions for generating and using existing ssh-keys.
-
-Don't change anything in CourseLibrary ( You won't be able to submit changes made in it )
-
-If you find any bugs and/or missing features you can report them in GitLab  https://course-gitlab.tuni.fi/tie-02402-ohj3_2019-2020/courselibrary/issues
-
-## Other notes
-
-You'll probably want to remove MapWindow and make your own, especially if you want a grade better than 1. It's in this template just so you can get started more easily and do some experimenting.
-
-You should create your own code inside your own namespace :)
+If you have trouble running the game, please check the Troubleshooting section in the documentation.
 
 
-# You are allowed (and probably should) make changes to this file after you have started your project. :)
+![](https://i.imgur.com/wCa06WM.png?raw=true)
+
