@@ -337,14 +337,11 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                     m_ui->trainButton->setText(QString::fromStdString("Train a Citizen"));
                     worker_build_cost = build_costs["Citizen"];
                     current_worker_selection = "Citizen";
-
-
                 }
                 else if (building->getType() == "University"){
                     m_ui->trainButton->setText(QString::fromStdString("Train an Educated Citizen"));
                     worker_build_cost = build_costs["Educated Citizen"];
                     current_worker_selection = "Educated Citizen";
-
                 }
 
                 if(worker_build_cost.count(Course::BasicResource::MONEY))
@@ -442,7 +439,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
         else if (building_type == "Lumber Camp")
@@ -452,7 +449,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
         else if (building_type == "Marketplace")
@@ -462,7 +459,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
         else if (building_type == "Mine")
@@ -472,7 +469,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
         else if (building_type == "University")
@@ -482,7 +479,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
         else if (building_type == "Victory Monument")
@@ -492,7 +489,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
 
@@ -503,7 +500,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
 
@@ -514,7 +511,7 @@ void MapWindow::on_buildButton_clicked()
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
+                m_ui->buildButton->setText(QString("Not enough resources!"));
             }
         }
 
