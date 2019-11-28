@@ -6,42 +6,40 @@
 namespace {
     using SpriteMap = std::map<std::string, QRect>;
 
+    const QRect spriteRect(int x, int y)
+    {
+        return QRect(x * SPRITE_SIZE, y * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE);
+    }
+
     const SpriteMap SPRITE_MAP = {
-        {"NULL",        QRect(7 * SPRITE_SIZE, 7 * SPRITE_SIZE, 1 * SPRITE_SIZE, 1 * SPRITE_SIZE)},
+        {"NULL",                spriteRect(7, 7)},
 
-        {"Grass",       QRect(0 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Evergreen",   QRect(1 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Birch",       QRect(2 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Animals",     QRect(3 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Stone",       QRect(4 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Ore",         QRect(5 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Diamond",     QRect(6 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Lake",        QRect(7 * SPRITE_SIZE, 0 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
+        {"Grass",               spriteRect(0, 0)},
+        {"Evergreen",           spriteRect(1, 0)},
+        {"Birch",               spriteRect(2, 0)},
+        {"Animals",             spriteRect(3, 0)},
+        {"Stone",               spriteRect(4, 0)},
+        {"Ore",                 spriteRect(5, 0)},
+        {"Diamond",             spriteRect(6, 0)},
+        {"Lake",                spriteRect(7, 0)},
 
-        {"Lumber Camp", QRect(0 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Windmill",    QRect(1 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Factory",     QRect(2 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Solar Farm",  QRect(3 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Mine",        QRect(4 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"University",  QRect(5 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"City",        QRect(6 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Marketplace",        QRect(6 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
+        {"Colony",              spriteRect(0, 1)},
+        {"Factory",             spriteRect(1, 1)},
+        {"Lumber Camp",         spriteRect(2, 1)},
+        {"Advanced Lumber Camp",spriteRect(3, 1)},
+        {"University",          spriteRect(4, 1)},
+        {"Marketplace",         spriteRect(5, 1)},
+        {"Victory Monument",    spriteRect(6, 1)},
+        {"City",                spriteRect(7, 1)},
 
-        {"Advanced Lumber Camp",    QRect(0 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Farm",                    QRect(1 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Advanced Farm",           QRect(1 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Victory Monument",        QRect(2 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Colony",                  QRect(3 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-
-        {"Advanced Mine",           QRect(4 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Diamond Mine",            QRect(4 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Ore Mine",                QRect(4 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-
-        {"University",              QRect(5 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"City",                    QRect(6 * SPRITE_SIZE, 2 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-
-        {"Citizen",             QRect(0 * SPRITE_SIZE, 3 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
-        {"Educated Citizen",    QRect(1 * SPRITE_SIZE, 3 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE)},
+        {"Mine",                spriteRect(0, 2)},
+        {"Ore Mine",            spriteRect(1, 2)},
+        {"Diamond Mine",        spriteRect(2, 2)},
+        {"Advanced Mine",       spriteRect(3, 2)},
+        {"Farm",                spriteRect(4, 2)},
+        {"Advanced Farm",       spriteRect(5, 2)},
+        {"Citizen",             spriteRect(6, 2)},
+        {"Educated Citizen",    spriteRect(7, 2)},
     };
 }
 
