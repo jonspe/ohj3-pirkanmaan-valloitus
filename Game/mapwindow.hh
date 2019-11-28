@@ -7,6 +7,7 @@
 #include <QMouseEvent>
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
+#include <QSound>
 
 #include <map>
 
@@ -60,24 +61,35 @@ private slots:
 
 private:
     Ui::MapWindow* m_ui;
+
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;
     std::shared_ptr<GameView> m_gameview = nullptr;
     std::shared_ptr<ObjectManager> object_manager;
     std::shared_ptr<GameEventHandler> event_handler;
+    std::map<std::string, std::shared_ptr<Player>> players;
+
     unsigned int map_size;
     unsigned int player_amount;
-    std::map<std::string, std::shared_ptr<Player>> players;
     unsigned int current_player;
     unsigned int turn;
+
     Course::BasicResource traded_resource = Course::BasicResource::FOOD;
 
     std::map<std::string, std::vector<std::string>> allowed_buildings_on_tile;
+    std::map<std::string, Course::ResourceMap> build_costs;
+
     std::shared_ptr<Course::TileBase> selected_tile = nullptr;
 
-    std::map<std::string, Course::ResourceMap> build_costs;
     std::string current_worker_selection = "Citizen";
 
     bool placing_worker = false;
+
+
+    QSound tile_select_sound;
+    QSound ui_click_sound;
+    QSound end_turn_sound;
+    QSound trade_sound;
+
 };
 
 #endif // MapWINDOW_HH
