@@ -1,4 +1,5 @@
 #include "educatedcitizen.h"
+#include "Game/core/gameeventhandler.h"
 
 
 EducatedCitizen::EducatedCitizen(const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
@@ -36,7 +37,7 @@ void EducatedCitizen::doSpecialAction()
 const Course::ResourceMapDouble EducatedCitizen::tileWorkAction()
 {
     auto player = getOwner();
-    auto events = lockEventHandler();
+    auto events = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     double satisfaction = 0;
     Course::BasicResource focus = getResourceFocus();
 

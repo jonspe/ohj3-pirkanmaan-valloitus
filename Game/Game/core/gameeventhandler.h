@@ -151,6 +151,7 @@ public:
 private:
 
     std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources; // contains resources of every player
+    std::map<std::string, Course::BasicResource> tile_focuses; // contains preset worker focuses for every tile
     MarketplaceTrader trader;
 
     unsigned int turn = 1;

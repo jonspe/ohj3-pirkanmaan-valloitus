@@ -10,7 +10,14 @@
 
 GameEventHandler::GameEventHandler()
 {
-
+    tile_focuses["Animals"] = Course::BasicResource::FOOD;
+    tile_focuses["Birch"] = Course::BasicResource::WOOD;
+    tile_focuses["Diamond"] = Course::BasicResource::MONEY;
+    tile_focuses["Evergreen"] = Course::BasicResource::WOOD;
+    tile_focuses["Grass"] = Course::BasicResource::FOOD;
+    tile_focuses["Lake"] = Course::BasicResource::FOOD;
+    tile_focuses["Ore"] = Course::BasicResource::ORE;
+    tile_focuses["Stone"] = Course::BasicResource::STONE;
 }
 
 bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources)
@@ -71,7 +78,8 @@ void GameEventHandler::queueWorker(std::shared_ptr<Course::WorkerBase> worker_ty
 void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
 {
     auto tile = object_manager->getTile(location);
-    tile->addWorker(queued_worker);
+    queued_worker->setResourceFocus(tile_focuses[tile->getType()]);
+    tile->addWorker(queued_worker);  
 }
 
 void GameEventHandler::removeWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type)

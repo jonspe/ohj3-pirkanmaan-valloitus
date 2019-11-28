@@ -51,6 +51,7 @@ void City::doSpecialAction()
     std::shared_ptr<Citizen> citizen(new Citizen(lockEventHandler(),lockObjectManager(), getOwner()));
     auto event_handler = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
+
     event_handler->queueWorker(citizen);
 
     object_manager->addWorker(citizen);

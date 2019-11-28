@@ -1,4 +1,5 @@
 #include "citizen.h"
+#include "Game/core/gameeventhandler.h"
 
 
 
@@ -38,7 +39,7 @@ void Citizen::doSpecialAction()
 const Course::ResourceMapDouble Citizen::tileWorkAction()
 {
     auto player = getOwner();
-    auto events = lockEventHandler();
+    auto events = std::dynamic_pointer_cast<GameEventHandler>(lockEventHandler());
     double satisfaction = 0;
     Course::BasicResource focus = getResourceFocus();
 

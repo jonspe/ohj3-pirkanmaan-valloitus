@@ -326,7 +326,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                m_ui->demolishButton->setText(QString::fromStdString("End the game"));
             }
 
-            else if(building->getType() == "City" or building->getType() == "University")
+            else if((building->getType() == "City" or building->getType() == "University")
+                    && building->getOwner() == players[std::to_string(current_player)])
             {
                 m_ui->workerMenu->setVisible(true);
                 m_ui->workerMenu->setVisible(true);
