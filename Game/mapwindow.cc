@@ -331,7 +331,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
             m_ui->buildingName->setText(QString::fromStdString(building->getType()));
             m_ui->buildingDescription->setVisible(true);
             m_ui->buildingDescription->setText(QString::fromStdString(building->getDescription(building->getType())));
-            if (building->getType() == "Marketplace")
+            if (building->getType() == "Marketplace" && tile->getOwner() == players[std::to_string(current_player)])
             {
                 m_ui->marketplaceMenu->setVisible(true);
             }
