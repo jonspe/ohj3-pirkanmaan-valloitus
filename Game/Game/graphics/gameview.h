@@ -25,16 +25,22 @@ public:
              const std::shared_ptr<ObjectManager>& objectmanager = nullptr);
 
     /**
-     * @brief Draws a TileBase on the screen as Sprite
-     * @param obj shared_ptr<GameObject>
+     * @brief Adds a tile to the game scene
+     * @param obj shared_ptr<Course::TileBase>
      */
-    void addTile(std::shared_ptr<Course::TileBase> obj);
+    void addTile(std::shared_ptr<Course::TileBase> tile);
 
     /**
-     * @brief Draws multiple GameObjects on the screen as Sprites
-     * @param obj vector<shared_ptr<GameObject>>
+     * @brief sets a 'selected' state to the tile, giving it a slight highlight effect
+     * @param tile
+     * @param select
      */
-    void drawMultipleItems(std::vector<std::shared_ptr<Course::GameObject>> objs);
+    void selectTile(std::shared_ptr<Course::TileBase> tile, bool select);
+
+    /**
+     * @brief draw potential changes made to the scene
+     */
+    void refresh();
 
     /**
      * @brief Function for mapping view coordinates to tile coordinates
@@ -79,15 +85,17 @@ private:
 
     GameScene* m_gs_ptr;
 
-    QPoint m_lastMousePos;
-    QTransform m_viewTransform;
+    // Used to calculate mouse delta for panning
+    QPoint m_last_mousepos;
 
+    // Used to unhighlight previously hovered on tile
+    Sprite* m_last_sprite;
+
+    // Keeps track of view position and scale
+    QTransform m_view_transform;
+
+    // Spritesheet to draw sprites from
     QPixmap* m_spriteSheet;
-
-    /**
-     * @brief Highlight effect for hovered over tile
-     */
-    QGraphicsColorizeEffect m_highlight_effect;
 };
 
 #endif // GAMEVIEW_H

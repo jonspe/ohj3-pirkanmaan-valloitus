@@ -39,6 +39,8 @@ MapWindow::MapWindow(QWidget *parent,
     QMainWindow(parent),
     m_ui(new Ui::MapWindow),
     m_GEHandler(handler),
+    current_player(1),
+    selected_tile(nullptr),
     tile_select_sound(":/sound/tile_select.wav", this),
     ui_click_sound(":/sound/ui_click.wav", this),
     end_turn_sound(":/sound/endturn.wav", this),
@@ -201,24 +203,36 @@ void MapWindow::passTurn()
 {
     end_turn_sound.play();
 
+    std::shared_ptr<Player> previous_player = players.at(std::to_string(current_player));
+    highlightPlayerTiles(previous_player, false);
+
     std::tuple<unsigned int, unsigned int> turn_data = event_handler->passTurn(player_amount);
     turn = std::get<0>(turn_data);
     current_player = std::get<1>(turn_data);
 
+    std::shared_ptr<Player> player = players.at(std::to_string(current_player));
+
     if (turn == 1) // randomly place city for player
     {
-        event_handler->setPresetResources(players[std::to_string(current_player)]);
-        std::shared_ptr<City> new_city(new City(event_handler, object_manager,players[std::to_string(current_player)]));
+        event_handler->setPresetResources(player);
+        std::shared_ptr<City> new_city(new City(event_handler, object_manager, player));
         event_handler->firstTurn(map_size,object_manager, new_city);
     }
 
     if (turn != 1)
     {
-        players[std::to_string(current_player)]->generateResources(object_manager);
+        player->generateResources(object_manager);
     }
+
+    highlightPlayerTiles(player, true);
 
     m_ui->buildButton->setText(QString("Build"));
     updateStatusBar();
+
+    if (selected_tile != nullptr)
+    {
+        tilePressed(selected_tile);
+    }
 }
 
 void MapWindow::on_selectFoodButton_clicked()
@@ -289,7 +303,7 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
         placing_worker = false;
     }
 
-    if(tile->getOwner() == players[std::to_string(current_player)] && tile->hasSpaceForBuildings(1))
+    if(tile->getOwner() == players.at(std::to_string(current_player)) && tile->hasSpaceForBuildings(1))
        {
 
            m_ui->buildingSelectionBox->clear();
@@ -405,6 +419,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     }else{
         m_ui->buildingMenu->setVisible(false);
     }
+
+    m_gameview->refresh();
 }
 
 
@@ -418,13 +434,15 @@ void MapWindow::on_buildButton_clicked()
         std::string building_type = (m_ui->buildingSelectionBox->currentText()).toStdString();
         bool building_successful = false;
 
+        std::shared_ptr<Player> player = players[std::to_string(current_player)];
+
         // Could be optimized by mapping building type string to constructor
         // deadline near though so
 
         if (building_type == "Colony")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Colony"])){
-                std::shared_ptr<Colony> building(new Colony(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Colony"])){
+                std::shared_ptr<Colony> building(new Colony(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -434,8 +452,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "Farm")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Farm"])){
-                std::shared_ptr<Farm> building(new Farm(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Farm"])){
+                std::shared_ptr<Farm> building(new Farm(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -444,8 +462,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "Lumber Camp")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Lumber Camp"])){
-                std::shared_ptr<LumberCamp> building(new LumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Lumber Camp"])){
+                std::shared_ptr<LumberCamp> building(new LumberCamp(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -454,8 +472,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "Marketplace")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Marketplace"])){
-                std::shared_ptr<Marketplace> building(new Marketplace(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Marketplace"])){
+                std::shared_ptr<Marketplace> building(new Marketplace(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -464,8 +482,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "Mine")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Mine"])){
-                std::shared_ptr<Mine> building(new Mine(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Mine"])){
+                std::shared_ptr<Mine> building(new Mine(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -474,8 +492,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "University")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["University"])){
-                std::shared_ptr<University> building(new University(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["University"])){
+                std::shared_ptr<University> building(new University(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -484,8 +502,8 @@ void MapWindow::on_buildButton_clicked()
         }
         else if (building_type == "Victory Monument")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Victory Monument"])){
-                std::shared_ptr<VictoryMonument> building(new VictoryMonument(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Victory Monument"])){
+                std::shared_ptr<VictoryMonument> building(new VictoryMonument(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -495,8 +513,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Advanced Mine")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Mine"])){
-                std::shared_ptr<AdvancedMine> building(new AdvancedMine(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Advanced Mine"])){
+                std::shared_ptr<AdvancedMine> building(new AdvancedMine(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -506,8 +524,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Advanced Farm")
         {
-            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Farm"])){
-                std::shared_ptr<AdvancedFarm> building(new AdvancedFarm(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(player, build_costs["Advanced Farm"])){
+                std::shared_ptr<AdvancedFarm> building(new AdvancedFarm(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -517,8 +535,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Advanced Lumber Camp")
         {
-            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Advanced Lumber Camp"])){
-                std::shared_ptr<AdvancedLumberCamp> building(new AdvancedLumberCamp(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(player, build_costs["Advanced Lumber Camp"])){
+                std::shared_ptr<AdvancedLumberCamp> building(new AdvancedLumberCamp(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -528,8 +546,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Diamond Mine")
         {
-            if(event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Diamond Mine"])){
-                std::shared_ptr<DiamondMine> building(new DiamondMine(event_handler, object_manager,players[std::to_string(current_player)]));
+            if(event_handler->modifyResources(player, build_costs["Diamond Mine"])){
+                std::shared_ptr<DiamondMine> building(new DiamondMine(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -539,8 +557,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Ore Mine")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Ore Mine"])){
-                std::shared_ptr<OreMine> building(new OreMine(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Ore Mine"])){
+                std::shared_ptr<OreMine> building(new OreMine(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -550,8 +568,8 @@ void MapWindow::on_buildButton_clicked()
 
         else if (building_type == "Factory")
         {
-            if (event_handler->modifyResources(players[std::to_string(current_player)], build_costs["Factory"])){
-                std::shared_ptr<Factory> building(new Factory(event_handler, object_manager,players[std::to_string(current_player)]));
+            if (event_handler->modifyResources(player, build_costs["Factory"])){
+                std::shared_ptr<Factory> building(new Factory(event_handler, object_manager,player));
                 event_handler->addBuilding(selected_tile->getCoordinate(), object_manager, building);
                 building_successful = true;
             }else{
@@ -566,11 +584,13 @@ void MapWindow::on_buildButton_clicked()
             m_ui->buildingDescription->setVisible(false);
             m_ui->buildingSelectionBox->setVisible(false);
 
+            highlightPlayerTiles(player, true);
+
             tilePressed(selected_tile); // update tile status
             updateStatusBar();
         }
 
-        m_gameview->update();
+        m_gameview->refresh();
     }
 }
 
@@ -668,7 +688,7 @@ void MapWindow::on_demolishButton_clicked()
     }
 
     tilePressed(selected_tile);
-    m_gameview->update();
+    m_gameview->refresh();
 }
 
 void MapWindow::on_trainButton_clicked()
@@ -695,6 +715,18 @@ void MapWindow::on_trainButton_clicked()
         updateStatusBar();
     }
 
+}
+
+void MapWindow::highlightPlayerTiles(std::shared_ptr<Player> player, bool highlight)
+{
+    for (std::shared_ptr<Course::GameObject> obj: player->getObjects())
+    {
+        auto elevTile = std::dynamic_pointer_cast<ElevatedTileBase>(obj);
+        if (elevTile != nullptr)
+        {
+            m_gameview->selectTile(elevTile, highlight);
+        }
+    }
 }
 
 

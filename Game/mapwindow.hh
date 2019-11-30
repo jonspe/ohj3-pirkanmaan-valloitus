@@ -60,6 +60,13 @@ private slots:
     void on_trainButton_clicked();
 
 private:
+    /**
+     * @brief highlightPlayerTiles
+     * @param player
+     * @param highlight
+     */
+    void highlightPlayerTiles(std::shared_ptr<Player> player, bool highlight);
+
     Ui::MapWindow* m_ui;
 
     std::shared_ptr<Course::iGameEventHandler> m_GEHandler = nullptr;

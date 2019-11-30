@@ -36,11 +36,28 @@ public:
     Sprite(const std::shared_ptr<ElevatedTileBase> &tile, QPixmap* spriteSheet);
 
     /**
-     * @brief sets highlight effect according to color and strength
-     * @param color
-     * @param strength
+     * @brief sets the sprite in a 'selected' state, giving a highlight effect
+     * @param selected
      */
-    void setHighlight(qreal strength, const QColor &color = QColor(255, 255, 255));
+    void setSelected(bool selected);
+
+    /**
+     * @brief sets the sprite in a 'highlighted' state, which occurs when
+     * mouse is hovered over the sprite
+     * @param highlighted
+     */
+    void setHighlighted(bool highlighted);
+
+    /**
+     * @brief isSelected
+     * @return
+     */
+    bool isSelected();
+
+    /**
+     * @brief calculates final effect based on selected and highlighted state
+     */
+    void updateEffect();
 
     /**
      * @brief boundingRect
@@ -72,6 +89,10 @@ public:
                const QStyleOptionGraphicsItem *option,
                QWidget *widget) override;
 
+    /**
+     * @brief returns the tile this sprite is bound to
+     * @return bound tile
+     */
     const std::shared_ptr<ElevatedTileBase> &getBoundTile();
 
 private:
@@ -103,9 +124,10 @@ private:
      */
     QGraphicsColorizeEffect m_highlight;
 
-    /**
-     * @brief Defines how
-     */
+    bool m_highlighted;
+    bool m_selected;
+
+    // Is used to draw sprite in varying Y position
     int m_height_offset;
 };
 

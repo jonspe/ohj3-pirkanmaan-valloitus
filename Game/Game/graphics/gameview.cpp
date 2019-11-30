@@ -13,7 +13,8 @@
 GameView::GameView(QWidget* qt_parent,
                    const std::shared_ptr<GameEventHandler>& eventhandler,
                    const std::shared_ptr<ObjectManager>& objectmanager) :
-    QGraphicsView(qt_parent), EVENTHANDLER(eventhandler), OBJECTMANAGER(objectmanager)
+    QGraphicsView(qt_parent), EVENTHANDLER(eventhandler), OBJECTMANAGER(objectmanager),
+    m_last_sprite(nullptr)
 {
     setupFrameProperties();
 
@@ -21,22 +22,43 @@ GameView::GameView(QWidget* qt_parent,
     setScene(m_gs_ptr);
 
     m_spriteSheet = new QPixmap(":/images/sprites.png");
-    m_highlight_effect.setColor(QColor(255, 255, 255));
-    m_highlight_effect.setStrength(0.3);
 }
 
 
-void GameView::addTile(std::shared_ptr<Course::TileBase> obj)
+void GameView::addTile(std::shared_ptr<Course::TileBase> tile)
 {
-    std::shared_ptr<ElevatedTileBase> tile = std::dynamic_pointer_cast<ElevatedTileBase>(obj);
+    std::shared_ptr<ElevatedTileBase> elevatedTile = std::dynamic_pointer_cast<ElevatedTileBase>(tile);
 
-    if (tile == nullptr)
+    if (elevatedTile == nullptr)
     {
         throw std::bad_cast();
     }
 
-    Sprite* sprite = new Sprite(tile, m_spriteSheet);
+    Sprite* sprite = new Sprite(elevatedTile, m_spriteSheet);
     m_gs_ptr->addSprite(sprite);
+}
+
+void GameView::selectTile(std::shared_ptr<Course::TileBase> tile, bool select)
+{
+    auto elevatedTile = std::dynamic_pointer_cast<ElevatedTileBase>(tile);
+    if (elevatedTile == nullptr)
+    {
+        throw std::bad_cast();
+    }
+
+    Sprite* sprite = m_gs_ptr->getSprite(elevatedTile);
+
+    // not important if can't highlight
+    if (sprite != nullptr)
+    {
+        sprite->setSelected(select);
+    }
+}
+
+void GameView::refresh()
+{
+    updateSceneRect(QRectF(0, 0, width(), height()));
+    update();
 }
 
 Course::Coordinate GameView::screenToCoordinate(QPoint screenPos)
@@ -64,28 +86,32 @@ void GameView::mouseMoveEvent(QMouseEvent *event)
 {
     QPoint pos = event->pos();
 
+    // Pan the view
     if (event->buttons().testFlag(Qt::LeftButton))
     {
-        QPoint delta = pos - m_lastMousePos;
-        qreal zoom = m_viewTransform.m22();
+        QPoint delta = pos - m_last_mousepos;
+        qreal zoom = m_view_transform.m22();
 
-        m_viewTransform.translate(delta.x()/zoom, delta.y()/zoom);
-        setTransform(m_viewTransform);
+        m_view_transform.translate(delta.x()/zoom, delta.y()/zoom);
+        setTransform(m_view_transform);
     }
 
     Sprite* sprite = m_gs_ptr->getSprite(screenToCoordinate(pos));
 
-    if (sprite != nullptr)
+    // Highlight sprite on hover
+    if (sprite != nullptr && sprite != m_last_sprite)
     {
-        m_highlight_effect.setEnabled(true);
-        sprite->setGraphicsEffect(&m_highlight_effect);
-    }
-    else
-    {
-        m_highlight_effect.setEnabled(false);
+        sprite->setHighlighted(true);
     }
 
-    m_lastMousePos = pos;
+    // Unhighlight when mouse leaves sprite
+    if (m_last_sprite != nullptr && m_last_sprite != sprite)
+    {
+        m_last_sprite->setHighlighted(false);
+    }
+
+    m_last_sprite = sprite;
+    m_last_mousepos = pos;
 }
 
 void GameView::wheelEvent(QWheelEvent *event)
@@ -96,8 +122,8 @@ void GameView::wheelEvent(QWheelEvent *event)
     if (event->delta() < 0)
         scaleFactor = 1/scaleFactor;
 
-    m_viewTransform.scale(scaleFactor, scaleFactor);
-    setTransform(m_viewTransform);
+    m_view_transform.scale(scaleFactor, scaleFactor);
+    setTransform(m_view_transform);
 }
 
 void GameView::setupFrameProperties()

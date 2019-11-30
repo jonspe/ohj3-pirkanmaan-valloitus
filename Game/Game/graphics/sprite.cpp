@@ -47,24 +47,43 @@ Sprite::Sprite(const std::shared_ptr<ElevatedTileBase> &tile, QPixmap *spriteShe
     m_tile(tile),
     m_scenelocation(m_tile->getCoordinatePtr()->asQpoint()),
     m_spriteSheet(spriteSheet),
+    m_selected(false),
     m_height_offset(m_tile->getHeight())
 {
-
+    m_highlight.setStrength(0);
+    m_highlight.setColor(QColor(255, 255, 255));
+    setGraphicsEffect(&m_highlight);
 }
 
-void Sprite::setHighlight(qreal strength, const QColor &color)
+void Sprite::setSelected(bool selected)
 {
-    if (strength < .001)
-    {
-        m_highlight.setEnabled(false);
-    }
-    else
-    {
-        m_highlight.setColor(color);
-        m_highlight.setStrength(strength);
-        m_highlight.setEnabled(true);
-    }
+    m_selected = selected;
+    updateEffect();
 }
+
+void Sprite::setHighlighted(bool highlighted)
+{
+    m_highlighted = highlighted;
+    updateEffect();
+}
+
+void Sprite::updateEffect()
+{
+    //This is some ugly stuff because Qt can't stack effects smh
+
+    if (!m_selected && !m_highlighted)
+        m_highlight.setStrength(0);
+    else if (m_selected && !m_highlighted)
+        m_highlight.setStrength(0.15);
+    else if (!m_selected && m_highlighted)
+        m_highlight.setStrength(0.25);
+    else
+        m_highlight.setStrength(0.3);
+
+    update();
+}
+
+
 
 void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
@@ -84,7 +103,7 @@ void Sprite::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QW
     if ( SPRITE_MAP.find(tileType) != SPRITE_MAP.end() )
     {
         // draw elements in correct drawing order: tile, building, worker
-        // TODO: maybe optimize with if statements so it doesnt always draw three times ?
+        // maybe optimize with if statements so it doesnt always draw three times ?
 
         painter->drawPixmap(tileRect(), *m_spriteSheet, SPRITE_MAP.at(tileType));
         painter->drawPixmap(topRect(), *m_spriteSheet, SPRITE_MAP.at(buildingType));
