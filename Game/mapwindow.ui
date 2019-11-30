@@ -17,7 +17,11 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Pirkanmaan Valloitus</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resources.qrc">
+    <normaloff>:/images/tuni.png</normaloff>:/images/tuni.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">*{

@@ -10,5 +10,6 @@
         <file>sound/ui_click.wav</file>
         <file>sound/tile_select.wav</file>
         <file>sound/endturn.wav</file>
+        <file>images/tuni.png</file>
     </qresource>
 </RCC>
