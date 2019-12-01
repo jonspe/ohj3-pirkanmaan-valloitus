@@ -718,7 +718,6 @@ void MapWindow::on_trainButton_clicked()
 
         updateStatusBar();
     }
-
 }
 
 void MapWindow::highlightPlayerTiles(std::shared_ptr<Player> player, bool highlight)
