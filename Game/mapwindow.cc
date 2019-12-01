@@ -139,7 +139,12 @@ MapWindow::MapWindow(QWidget *parent,
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
-    map_generator.generateMap(map_size,map_size,seed, object_manager, event_handler);
+    map_generator.generateMap(
+                static_cast<int>(map_size),
+                static_cast<int>(map_size),
+                seed,
+                object_manager,
+                event_handler);
 
     std::vector<std::shared_ptr<Course::TileBase>> tiles = object_manager->getAllTiles();
 
@@ -149,7 +154,6 @@ MapWindow::MapWindow(QWidget *parent,
     connect(m_ui->endTurnButton, SIGNAL(pressed()), this, SLOT(passTurn()));
 
     passTurn();
-
 }
 
 MapWindow::~MapWindow()
