@@ -10,14 +10,14 @@
 
 GameEventHandler::GameEventHandler()
 {
-    tile_focuses["Animals"] = Course::BasicResource::FOOD;
-    tile_focuses["Birch"] = Course::BasicResource::WOOD;
-    tile_focuses["Diamond"] = Course::BasicResource::MONEY;
-    tile_focuses["Evergreen"] = Course::BasicResource::WOOD;
-    tile_focuses["Grass"] = Course::BasicResource::FOOD;
-    tile_focuses["Lake"] = Course::BasicResource::FOOD;
-    tile_focuses["Ore"] = Course::BasicResource::ORE;
-    tile_focuses["Stone"] = Course::BasicResource::STONE;
+    m_tile_focuses["Animals"] = Course::BasicResource::FOOD;
+    m_tile_focuses["Birch"] = Course::BasicResource::WOOD;
+    m_tile_focuses["Diamond"] = Course::BasicResource::MONEY;
+    m_tile_focuses["Evergreen"] = Course::BasicResource::WOOD;
+    m_tile_focuses["Grass"] = Course::BasicResource::FOOD;
+    m_tile_focuses["Lake"] = Course::BasicResource::FOOD;
+    m_tile_focuses["Ore"] = Course::BasicResource::ORE;
+    m_tile_focuses["Stone"] = Course::BasicResource::STONE;
 }
 
 bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> player, Course::ResourceMap resources)
@@ -26,7 +26,7 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
     for (auto it = resources.begin(); it != resources.end(); it++){
         for (auto player_it = resources.begin(); player_it != resources.end(); player_it++){
              if (player_it->first == it->first){
-                if ((player_resources[player].at(player_it->first) + resources.at(it->first)) >= 0){
+                if ((m_player_resources[player].at(player_it->first) + resources.at(it->first)) >= 0){
                 }else{
                  return false; // resources would go negative
                 }
@@ -34,7 +34,7 @@ bool GameEventHandler::modifyResources(std::shared_ptr<Course::PlayerBase> playe
         }
      }
 
-    player_resources[player] = mergeResourceMaps(player_resources[player], resources);
+    m_player_resources[player] = mergeResourceMaps(m_player_resources[player], resources);
     return true;
 
 }
@@ -57,29 +57,29 @@ void GameEventHandler::setPresetResources(std::shared_ptr<Course::PlayerBase> pl
 
     };
 
-    player_resources[player] = resource_stockpile;
+    m_player_resources[player] = resource_stockpile;
 }
 
 Course::ResourceMap GameEventHandler::getResources(std::shared_ptr<Course::PlayerBase> player)
 {
-    return player_resources[player];
+    return m_player_resources[player];
 }
 
 void GameEventHandler::setPlayers(std::map<std::string, std::shared_ptr<Player> > player_map)
 {
-    players = player_map;
+    m_players = player_map;
 }
 
 void GameEventHandler::queueWorker(std::shared_ptr<Course::WorkerBase> worker_type)
 {
-    queued_worker = worker_type;
+    m_queued_worker = worker_type;
 }
 
 void GameEventHandler::addWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
 {
     auto tile = object_manager->getTile(location);
-    queued_worker->setResourceFocus(tile_focuses[tile->getType()]);
-    tile->addWorker(queued_worker);  
+    m_queued_worker->setResourceFocus(m_tile_focuses[tile->getType()]);
+    tile->addWorker(m_queued_worker);
 }
 
 void GameEventHandler::removeWorker(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager, std::shared_ptr<Course::WorkerBase> worker_type)
@@ -105,8 +105,8 @@ void GameEventHandler::removeBuilding(Course::Coordinate location, std::shared_p
 void GameEventHandler::claimTile(Course::Coordinate location, std::shared_ptr<ObjectManager> object_manager)
 {
     auto tile = object_manager->getTile(location);
-    tile->setOwner(players[std::to_string(current_player)]);
-    players.at(std::to_string(current_player))->addObject(tile);
+    tile->setOwner(m_players[std::to_string(m_current_player)]);
+    m_players.at(std::to_string(m_current_player))->addObject(tile);
     qDebug() << QString::fromStdString(tile->getType())
              << "claimed at "
              << tile->getCoordinatePtr()->asQpoint();
@@ -119,11 +119,11 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
        std::shared_ptr<Course::TileBase> city_tile;
        while (looking_for_tile){
            int x = -(rand() % map_size/2);
-           if (current_player % 2){
+           if (m_current_player % 2){
                x = x + map_size/2 - 1;
            }
            int y = -(rand() % map_size/2);
-           if (current_player > 2){
+           if (m_current_player > 2){
                y = y + map_size/2 - 1;
            }
            Course::Coordinate city_location = Course::Coordinate(x,y);
@@ -141,46 +141,46 @@ void GameEventHandler::firstTurn(unsigned int map_size,  std::shared_ptr<ObjectM
 
 void GameEventHandler::setWinner()
 {
-    if(not winner_decided)
+    if(not m_winner_decided)
     {
-        winner = current_player;
-        winning_turn = turn;
-        winner_decided = true;
+        m_winner = m_current_player;
+        m_winning_turn = m_turn;
+        m_winner_decided = true;
     }
 
 }
 
 std::tuple<unsigned int, unsigned int> GameEventHandler::getWinnerData()
 {
-    auto winner_data = std::make_tuple(winning_turn, winner);
+    auto winner_data = std::make_tuple(m_winning_turn, m_winner);
     return winner_data;
 }
 
 
 std::tuple<unsigned int, unsigned int> GameEventHandler::passTurn(unsigned int player_amount)
 {
-    current_player++;
-    if (current_player == player_amount + 1)
+    m_current_player++;
+    if (m_current_player == player_amount + 1)
     {
-        turn++;
-        current_player = 1;
+        m_turn++;
+        m_current_player = 1;
     }
-   auto turn_data = std::make_tuple(turn, current_player);
+   auto turn_data = std::make_tuple(m_turn, m_current_player);
    return turn_data;
 
 }
 
 MarketplaceTrader GameEventHandler::getTrader()
 {
-    return trader;
+    return m_trader;
 }
 
 
 void GameEventHandler::resourceBought(std::shared_ptr<Player> player, Course::BasicResource resource)
 {
-    if(modifyResource(player, Course::BasicResource::MONEY, trader.getBuyPrice(resource))){
+    if(modifyResource(player, Course::BasicResource::MONEY, m_trader.getBuyPrice(resource))){
          modifyResource(player, resource, 100);
-         trader.changeMultiplier(resource, "+");
+         m_trader.changeMultiplier(resource, "+");
     }
 
 }
@@ -189,8 +189,8 @@ void GameEventHandler::resourceSold(std::shared_ptr<Player> player, Course::Basi
 {
     if(modifyResource(player, resource, -100))
     {
-        modifyResource(player, Course::BasicResource::MONEY, trader.getSellPrice(resource));
-        trader.changeMultiplier(resource, "-");
+        modifyResource(player, Course::BasicResource::MONEY, m_trader.getSellPrice(resource));
+        m_trader.changeMultiplier(resource, "-");
     }
 }
 

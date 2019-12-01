@@ -68,9 +68,9 @@ public:
     void addWorker(std::shared_ptr<Course::WorkerBase> worker);
 
 private:
-    std::vector<std::shared_ptr<Course::TileBase>> tile_data; // stores all currently managed tiles
-    std::vector<std::shared_ptr<Course::BuildingBase>> buildings; // stores weak pointers to buildings so they dont kill themselves
-    std::vector<std::shared_ptr<Course::WorkerBase>> workers; // stores weak pointers to workers so they dont kill themselves
+    std::vector<std::shared_ptr<Course::TileBase>> m_tile_data; // stores all currently managed tiles
+    std::vector<std::shared_ptr<Course::BuildingBase>> m_buildings; // stores weak pointers to buildings so they dont kill themselves
+    std::vector<std::shared_ptr<Course::WorkerBase>> m_workers; // stores weak pointers to workers so they dont kill themselves
 };
 
 #endif // OBJECTMANAGER_H

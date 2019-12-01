@@ -7,6 +7,11 @@ namespace Ui {
 class SetupDialog;
 }
 
+/**
+ * @brief The SetupDialog class, which is the initial
+ * dialog when running the game. Has some input fields
+ * that affect gameplay.
+ */
 class SetupDialog : public QDialog
 {
     Q_OBJECT
@@ -18,6 +23,7 @@ public:
     unsigned int getSize();
     unsigned int getSeed();
     unsigned int getPlayers();
+
 private slots:
     void on_AcceptButton_released();
 

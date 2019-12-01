@@ -1,30 +1,29 @@
 #include "enddialog.h"
 #include "ui_enddialog.h"
 
-EndDialog::EndDialog(QWidget *parent,
-                     unsigned int winning_player,
-                     unsigned int winning_turn) :
+EndDialog::EndDialog(unsigned int winning_player,
+                     unsigned int winning_turn,
+                     QWidget *parent):
     QDialog(parent),
-    ui(new Ui::EndDialog),
-    winner(winning_player),
-    turn(winning_turn)
+    m_ui(new Ui::EndDialog),
+    m_winner(winning_player),
+    m_turn(winning_turn)
 {
-    ui->setupUi(this);
+    m_ui->setupUi(this);
 
     setWindowTitle("Victory!");
 
-    QString winner_qstring = QString::number(winner);
-    QString turn_qstring = QString::number(winning_turn);
-    QString end_text_qstring = QString("Player %1 wins by being the first to construct the monument on turn %2!").arg(winner_qstring, turn_qstring);
+    QString winner_qstring = QString::number(m_winner);
+    QString turn_qstring = QString::number(m_turn);
+    QString end_text = QString("Player %1 wins by being the first to construct the monument on turn %2!").arg(winner_qstring, turn_qstring);
 
-    ui->label->setText(end_text_qstring);
+    m_ui->label->setText(end_text);
 }
 
 EndDialog::~EndDialog()
 {
-    delete ui;
+    delete m_ui;
 }
-
 
 void EndDialog::on_pushButton_clicked()
 {

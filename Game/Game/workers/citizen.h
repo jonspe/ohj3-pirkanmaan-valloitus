@@ -33,11 +33,6 @@ public:
                 );
 
     /**
-     * @brief Default destructor.
-     */
-    virtual ~Citizen() = default;
-
-    /**
      * @copydoc GameObject::getType()
      */
     virtual std::string getType() const override;
@@ -70,8 +65,6 @@ public:
      * @return
      */
     virtual const Course::ResourceMapDouble tileWorkAction() override;
-
-private:
 
 }; // class Citizen
 

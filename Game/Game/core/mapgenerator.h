@@ -88,21 +88,21 @@ class MapGenerator
         void average(int size_x, int size_y);
 
         // For mapping constructors.
-        std::map<std::string, ElevatedTileConstructorPointer> all_ctors;
-        std::map<Course::Coordinate, int> averaged_tile_noise;
-        std::map<Course::Coordinate, int> averaged_forest_noise;
-        std::map<Course::Coordinate, int> averaged_stone_noise;
-        std::map<Course::Coordinate, int> averaged_tile_height;
+        std::map<std::string, ElevatedTileConstructorPointer> m_all_ctors;
+        std::map<Course::Coordinate, int> m_averaged_tile_noise;
+        std::map<Course::Coordinate, int> m_averaged_forest_noise;
+        std::map<Course::Coordinate, int> m_averaged_stone_noise;
+        std::map<Course::Coordinate, int> m_averaged_tile_height;
 
-        std::map<Course::Coordinate, int> tile_noise;
-        std::map<Course::Coordinate, int> forest_noise;
-        std::map<Course::Coordinate, int> stone_noise;
-        std::map<Course::Coordinate, int> tile_height;
+        std::map<Course::Coordinate, int> m_tile_noise;
+        std::map<Course::Coordinate, int> m_forest_noise;
+        std::map<Course::Coordinate, int> m_stone_noise;
+        std::map<Course::Coordinate, int> m_tile_height;
 
-        int tile_average_count = 0;
-        int forest_average_count = 0;
-        int stone_average_count = 0;
-        int tile_height_average_count = 0;
+        int m_tile_average_count = 0;
+        int m_forest_average_count = 0;
+        int m_stone_average_count = 0;
+        int m_tile_height_average_count = 0;
  }; // class MapGenerator
 
 

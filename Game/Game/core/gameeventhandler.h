@@ -149,21 +149,20 @@ public:
 
 
 private:
+    std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> m_player_resources; // contains resources of every player
+    std::map<std::string, Course::BasicResource> m_tile_focuses; // contains preset worker focuses for every tile
+    MarketplaceTrader m_trader;
 
-    std::map<std::shared_ptr<Course::PlayerBase>,Course::ResourceMap> player_resources; // contains resources of every player
-    std::map<std::string, Course::BasicResource> tile_focuses; // contains preset worker focuses for every tile
-    MarketplaceTrader trader;
+    unsigned int m_turn = 1;
+    unsigned int m_current_player = 0;
 
-    unsigned int turn = 1;
-    unsigned int current_player = 0;
+    bool m_winner_decided = false;
+    unsigned int m_winner = 0;
+    unsigned int m_winning_turn = 0;
 
-    bool winner_decided = false;
-    unsigned int winner = 0;
-    unsigned int winning_turn = 0;
+    std::shared_ptr<Course::WorkerBase> m_queued_worker = nullptr;
 
-    std::shared_ptr<Course::WorkerBase> queued_worker = nullptr;
-
-    std::map<std::string, std::shared_ptr<Player>> players;
+    std::map<std::string, std::shared_ptr<Player>> m_players;
 
 };
 

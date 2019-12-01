@@ -2,47 +2,45 @@
 
 MarketplaceTrader::MarketplaceTrader()
 {
-    multiplier_map[Course::BasicResource::FOOD] = 1.00;
-    multiplier_map[Course::BasicResource::WOOD] = 1.00;
-    multiplier_map[Course::BasicResource::STONE] = 1.00;
-    multiplier_map[Course::BasicResource::ORE] = 1.00;
+    m_multiplier_map[Course::BasicResource::FOOD] = 1.00;
+    m_multiplier_map[Course::BasicResource::WOOD] = 1.00;
+    m_multiplier_map[Course::BasicResource::STONE] = 1.00;
+    m_multiplier_map[Course::BasicResource::ORE] = 1.00;
 
-    sell_price_map[Course::BasicResource::FOOD] = 80;
-    sell_price_map[Course::BasicResource::WOOD] = 125;
-    sell_price_map[Course::BasicResource::STONE] = 200;
-    sell_price_map[Course::BasicResource::ORE] = 500;
+    m_sell_price_map[Course::BasicResource::FOOD] = 80;
+    m_sell_price_map[Course::BasicResource::WOOD] = 125;
+    m_sell_price_map[Course::BasicResource::STONE] = 200;
+    m_sell_price_map[Course::BasicResource::ORE] = 500;
 
-    buy_price_map[Course::BasicResource::FOOD] = -100;
-    buy_price_map[Course::BasicResource::WOOD] = -150;
-    buy_price_map[Course::BasicResource::STONE] = -250;
-    buy_price_map[Course::BasicResource::ORE] = -1000;
+    m_buy_price_map[Course::BasicResource::FOOD] = -100;
+    m_buy_price_map[Course::BasicResource::WOOD] = -150;
+    m_buy_price_map[Course::BasicResource::STONE] = -250;
+    m_buy_price_map[Course::BasicResource::ORE] = -1000;
 }
 
 
-int MarketplaceTrader::getBuyPrice(Course::BasicResource resource)
+int MarketplaceTrader::getBuyPrice(Course::BasicResource resource) const
 {
-     return int(buy_price_map[resource] * multiplier_map[resource]);
+     return int(m_buy_price_map.at(resource) * m_multiplier_map.at(resource));
 }
 
-int MarketplaceTrader::getSellPrice(Course::BasicResource resource)
+int MarketplaceTrader::getSellPrice(Course::BasicResource resource) const
 {
-     return int(sell_price_map[resource] * multiplier_map[resource]);
+     return int(m_sell_price_map.at(resource) * m_multiplier_map.at(resource));
 }
 
 void MarketplaceTrader::changeMultiplier(Course::BasicResource resource, std::string sign)
 {
     if (sign == "+")
     {
-        multiplier_map[resource] += 0.01;
+        m_multiplier_map[resource] += 0.01;
     }else if (sign == "-"){
-        multiplier_map[resource] -= 0.01;
+        m_multiplier_map[resource] -= 0.01;
     }
 
-    if (multiplier_map[resource] < 0.10){
-        multiplier_map[resource] = 0.10;
+    if (m_multiplier_map[resource] < 0.10){
+        m_multiplier_map[resource] = 0.10;
     }
-
-
 }
 
 
