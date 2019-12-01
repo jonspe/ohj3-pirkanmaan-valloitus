@@ -8,7 +8,6 @@
 #include "Game/tiles/grass.h"
 #include "Game/tiles/lake.h"
 #include "Game/tiles/ores.h"
-#include "Game/tiles/sand.h"
 #include "Game/tiles/stone.h"
 
 

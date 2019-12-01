@@ -40,7 +40,6 @@ SOURCES += \
     Game/tiles/grass.cpp \
     Game/tiles/lake.cpp \
     Game/tiles/ores.cpp \
-    Game/tiles/sand.cpp \
     Game/tiles/stone.cpp \
     Game/buildings/city.cpp \
     Game/buildings/colony.cpp \
@@ -80,7 +79,6 @@ HEADERS += \
     Game/tiles/grass.h \
     Game/tiles/lake.h \
     Game/tiles/ores.h \
-    Game/tiles/sand.h \
     Game/tiles/stone.h \
     Game/buildings/city.h \
     Game/buildings/colony.h \
