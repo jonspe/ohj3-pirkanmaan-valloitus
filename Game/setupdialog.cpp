@@ -9,7 +9,10 @@ SetupDialog::SetupDialog(QWidget *parent) :
     ui(new Ui::SetupDialog)
 {
     ui->setupUi(this);
-    srand(time(NULL));
+    setWindowTitle("Game Config");
+
+    srand(static_cast<unsigned int>(time(nullptr)));
+
     seed = rand()%1000000; // create seed based on current time in case no seed is given
     ui->SeedInput->setValidator( new QIntValidator(0, 1000000, this) );
 }
@@ -41,7 +44,7 @@ void SetupDialog::on_AcceptButton_released()
 
 void SetupDialog::on_PlayersDropdown_currentIndexChanged(const QString &arg1)
 {
-    unsigned int amount = arg1.toInt();
+    unsigned int amount = arg1.toUInt();
     player_amount = amount;
 }
 
@@ -63,8 +66,7 @@ void SetupDialog::on_MapSizeDropdown_currentTextChanged(const QString &arg1)
 
 void SetupDialog::on_SeedInput_textChanged(const QString &arg1)
 {
-        unsigned int input = arg1.toInt();
-        seed = input;
-
+    unsigned int input = arg1.toUInt();
+    seed = input;
 }
 
