@@ -32,5 +32,4 @@ bool LumberCamp::canBePlacedOnTile(const std::shared_ptr<Course::TileBase> &targ
             target->hasSpaceForBuildings(spacesInTileCapacity()) and(
             target->getType() == "Birch" or
             target->getType() == "Evergreen");
-
 }

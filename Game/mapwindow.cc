@@ -28,8 +28,10 @@
 #include "Game/core/resources.h"
 #include "Game/core/mapgenerator.h"
 #include "Game/core/gameeventhandler.h"
+#include "Game/core/objectmappings.h"
 #include "setupdialog.h"
 #include "enddialog.h"
+
 #include <math.h>
 #include <QSound>
 
@@ -56,7 +58,7 @@ MapWindow::MapWindow(QWidget *parent):
     m_event_handler = new_handler;
 
     m_ui->setupUi(this);
-    m_gameview = std::shared_ptr<GameView>(new GameView);
+    m_gameview = std::shared_ptr<GameView>(new GameView(m_object_manager, m_event_handler));
     m_ui->horizontalLayout_2->insertWidget(0, m_gameview.get());
 
     connect(m_gameview.get(), &GameView::tilePressed, this, &MapWindow::tilePressed);
@@ -74,65 +76,11 @@ MapWindow::MapWindow(QWidget *parent):
     m_players = new_players;
     m_event_handler->setPlayers(m_players);
 
-    std::vector<std::string> grass_buildings;
-    grass_buildings.push_back("Colony");
-    grass_buildings.push_back("Farm");
-    grass_buildings.push_back("Advanced Farm");
-    grass_buildings.push_back("Marketplace");
-    grass_buildings.push_back("University");
-    grass_buildings.push_back("Victory Monument");
-    grass_buildings.push_back("Factory");
-    std::vector<std::string> animals_buildings;
-    animals_buildings.push_back("Farm");
-    animals_buildings.push_back("Advanced Farm");
-    std::vector<std::string> forest_buildings;
-    forest_buildings.push_back("Colony");
-    forest_buildings.push_back("Lumber Camp");
-    forest_buildings.push_back("Advanced Lumber Camp");
-    std::vector<std::string> stone_buildings;
-    stone_buildings.push_back("Mine");
-    stone_buildings.push_back("Advanced Mine");
-    std::vector<std::string> diamond_buildings;
-    diamond_buildings.push_back("Diamond Mine");
-    std::vector<std::string> ore_buildings;
-    ore_buildings.push_back("Ore Mine");
-    std::vector<std::string> lake_buildings;
-
-    m_allowed_buildings_on_tile["Grass"] = grass_buildings;
-    m_allowed_buildings_on_tile["Animals"] = animals_buildings;
-    m_allowed_buildings_on_tile["Birch"] = forest_buildings;
-    m_allowed_buildings_on_tile["Evergreen"] = forest_buildings;
-    m_allowed_buildings_on_tile["Stone"] = stone_buildings;
-    m_allowed_buildings_on_tile["Diamond"] = diamond_buildings;
-    m_allowed_buildings_on_tile["Ore"] = ore_buildings;
-    m_allowed_buildings_on_tile["Lake"] = lake_buildings;
-
-    m_build_costs["Colony"] = ConstResources::COLONY_BUILD_COST;
-    m_build_costs["Farm"] = ConstResources::FARM_BUILD_COST;
-    m_build_costs["Lumber Camp"] = ConstResources::LUMBERCAMP_BUILD_COST;
-    m_build_costs["Marketplace"] = ConstResources::MARKETPLACE_BUILD_COST;
-    m_build_costs["Mine"] = ConstResources::MINE_BUILD_COST;
-    m_build_costs["University"] = ConstResources::UNIVERSITY_BUILD_COST;
-    m_build_costs["Victory Monument"] = ConstResources::VICTORYMONUMENT_BUILD_COST;
-    m_build_costs["Advanced Mine"] = ConstResources::A_MINE_BUILD_COST;
-    m_build_costs["Advanced Farm"] = ConstResources::A_FARM_BUILD_COST;
-    m_build_costs["Advanced Lumber Camp"] = ConstResources::A_LUMBERCAMP_BUILD_COST;
-    m_build_costs["Diamond Mine"] = ConstResources::D_MINE_BUILD_COST;
-    m_build_costs["Ore Mine"] = ConstResources::ORE_MINE_BUILD_COST;
-    m_build_costs["Factory"] = ConstResources::FACTORY_BUILD_COST;
-    m_build_costs["Citizen"] = ConstResources::CITIZEN_RECRUITMENT_COST;
-    m_build_costs["Educated Citizen"] = ConstResources::EDUCATEDCITIZEN_RECRUITMENT_COST;
-
     m_ui->buildMenu->setVisible(false);
     m_ui->buildingMenu->setVisible(false);
-    m_ui->buildmenuLabel->setVisible(false);
-    m_ui->buildingDescription->setVisible(false);
-    m_ui->buildingSelectionBox->setVisible(false);
     m_ui->workerMenu->setVisible(false);
     m_ui->workermenuLabel->setVisible(false);
-    m_ui->tileName->setVisible(false);
     m_ui->marketplaceMenu->setVisible(false);
-    m_ui->tileDescription->setVisible(false);
 
     MapGenerator& map_generator = MapGenerator::getInstance();
 
@@ -283,12 +231,9 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     m_tile_select_sound.play();
 
     m_ui->tileName->setText(QString::fromStdString(tile->getType()));
-    m_ui->tileName->setVisible(true);
     m_ui->tileDescription->setText(QString::fromStdString((tile->getDescription(tile->getType()))));
     m_ui->marketplaceMenu->setVisible(false);
     m_ui->workerMenu->setVisible(false);
-    m_ui->workermenuLabel->setVisible(false);
-    m_ui->tileDescription->setVisible(true);
     m_ui->demolishButton->setVisible(false);
     m_ui->demolishButton->setText(QString::fromStdString("Demolish"));
 
@@ -299,24 +244,18 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
     }
 
     if(tile->getOwner() == m_players.at(std::to_string(m_current_player)) && tile->hasSpaceForBuildings(1))
+    {
+       m_ui->buildingSelectionBox->clear();
+       m_ui->buildMenu->setVisible(true);
+
+       for (auto building_name : TILE_BUILDING_MAP.at(tile->getType()))
        {
-
-           m_ui->buildingSelectionBox->clear();
-           m_ui->buildMenu->setVisible(true);
-           m_ui->buildmenuLabel->setVisible(true);
-           m_ui->buildingDescription->setVisible(true);
-           m_ui->buildingSelectionBox->setVisible(true);
-           for (auto building_name : m_allowed_buildings_on_tile[tile->getType()])
-           {
-               m_ui->buildingSelectionBox->addItem(QString::fromStdString(building_name));
-           }
-
-       }else{
-           m_ui->buildMenu->setVisible(false);
-           m_ui->buildmenuLabel->setVisible(false);
-           m_ui->buildingDescription->setVisible(false);
-           m_ui->buildingSelectionBox->setVisible(false);
+           m_ui->buildingSelectionBox->addItem(QString::fromStdString(building_name));
        }
+
+   }else{
+       m_ui->buildMenu->setVisible(false);
+   }
 
     if(tile->getBuildings().size() == 1 )
     {
@@ -324,8 +263,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
         {
             m_ui->buildingMenu->setVisible(true);
             m_ui->buildingName->setText(QString::fromStdString(building->getType()));
-            m_ui->buildingDescription->setVisible(true);
             m_ui->buildingDescription->setText(QString::fromStdString(building->getDescription(building->getType())));
+
             if (building->getType() == "Marketplace" && tile->getOwner() == m_players[std::to_string(m_current_player)])
             {
                 m_ui->marketplaceMenu->setVisible(true);
@@ -339,17 +278,16 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
                     && building->getOwner() == m_players[std::to_string(m_current_player)])
             {
                 m_ui->workerMenu->setVisible(true);
-                m_ui->workerMenu->setVisible(true);
                 Course::ResourceMap worker_build_cost;
 
                 if(building->getType() == "City"){
                     m_ui->trainButton->setText(QString::fromStdString("Train a Citizen"));
-                    worker_build_cost = m_build_costs["Citizen"];
+                    worker_build_cost = BUILD_COSTS.at("Citizen");
                     m_current_worker_selection = "Citizen";
                 }
                 else if (building->getType() == "University"){
                     m_ui->trainButton->setText(QString::fromStdString("Train an Educated Citizen"));
-                    worker_build_cost = m_build_costs["Educated Citizen"];
+                    worker_build_cost = BUILD_COSTS.at("Educated Citizen");
                     m_current_worker_selection = "Educated Citizen";
                 }
 
@@ -431,153 +369,17 @@ void MapWindow::on_buildButton_clicked()
 
         std::shared_ptr<Player> player = m_players[std::to_string(m_current_player)];
 
-        // Could be optimized by mapping building type string to constructor
-        // deadline near though so
-
-        if (building_type == "Colony")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Colony"])){
-                std::shared_ptr<Colony> building(new Colony(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-
-        }
-        else if (building_type == "Farm")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Farm"])){
-                std::shared_ptr<Farm> building(new Farm(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-        else if (building_type == "Lumber Camp")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Lumber Camp"])){
-                std::shared_ptr<LumberCamp> building(new LumberCamp(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-        else if (building_type == "Marketplace")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Marketplace"])){
-                std::shared_ptr<Marketplace> building(new Marketplace(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-        else if (building_type == "Mine")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Mine"])){
-                std::shared_ptr<Mine> building(new Mine(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-        else if (building_type == "University")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["University"])){
-                std::shared_ptr<University> building(new University(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-        else if (building_type == "Victory Monument")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Victory Monument"])){
-                std::shared_ptr<VictoryMonument> building(new VictoryMonument(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Advanced Mine")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Advanced Mine"])){
-                std::shared_ptr<AdvancedMine> building(new AdvancedMine(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Advanced Farm")
-        {
-            if(m_event_handler->modifyResources(player, m_build_costs["Advanced Farm"])){
-                std::shared_ptr<AdvancedFarm> building(new AdvancedFarm(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Advanced Lumber Camp")
-        {
-            if(m_event_handler->modifyResources(player, m_build_costs["Advanced Lumber Camp"])){
-                std::shared_ptr<AdvancedLumberCamp> building(new AdvancedLumberCamp(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Diamond Mine")
-        {
-            if(m_event_handler->modifyResources(player, m_build_costs["Diamond Mine"])){
-                std::shared_ptr<DiamondMine> building(new DiamondMine(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Ore Mine")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Ore Mine"])){
-                std::shared_ptr<OreMine> building(new OreMine(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
-        }
-
-        else if (building_type == "Factory")
-        {
-            if (m_event_handler->modifyResources(player, m_build_costs["Factory"])){
-                std::shared_ptr<Factory> building(new Factory(m_event_handler, m_object_manager,player));
-                m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
-                building_successful = true;
-            }else{
-                    m_ui->buildButton->setText(QString("Not enough resources!"));
-            }
+        if (m_event_handler->modifyResources(player, BUILD_COSTS.at(building_type))){
+            auto building = BUILDING_CTOR_MAP.at(building_type)(m_event_handler, m_object_manager, player);
+            m_event_handler->addBuilding(m_selected_tile->getCoordinate(), m_object_manager, building);
+            building_successful = true;
+        }else{
+            m_ui->buildButton->setText(QString("Not enough resources!"));
         }
 
         if(building_successful)
         {
             m_ui->buildMenu->setVisible(false);
-            m_ui->buildmenuLabel->setVisible(false);
-            m_ui->buildingDescription->setVisible(false);
-            m_ui->buildingSelectionBox->setVisible(false);
 
             highlightPlayerTiles(player, true);
 
@@ -595,10 +397,10 @@ void MapWindow::on_buildingSelectionBox_currentTextChanged(const QString &arg1)
 
     m_ui->buildButton->setText(QString("Build"));
 
-    if(m_build_costs.count(building_type))
+    if(BUILD_COSTS.count(building_type))
     {
 
-        Course::ResourceMap build_cost = m_build_costs[building_type];
+        Course::ResourceMap build_cost = BUILD_COSTS.at(building_type);
         if(build_cost.count(Course::BasicResource::MONEY))
         {
             m_ui->goldValue->setText(QString::number(-build_cost.at(Course::BasicResource::MONEY)));
@@ -678,7 +480,6 @@ void MapWindow::on_demolishButton_clicked()
             m_selected_tile->removeBuilding(building);
             tilePressed(m_selected_tile);
         }
-
     }
 
     tilePressed(m_selected_tile);
@@ -691,7 +492,7 @@ void MapWindow::on_trainButton_clicked()
 
     if (m_placing_worker == false)
     {
-        if(m_event_handler->modifyResources(m_players[std::to_string(m_current_player)], m_build_costs[m_current_worker_selection])
+        if(m_event_handler->modifyResources(m_players[std::to_string(m_current_player)], BUILD_COSTS.at(m_current_worker_selection))
                 && m_selected_tile->getOwner() == m_players[std::to_string(m_current_player)])
         {
             auto building_vector = m_selected_tile->getBuildings();

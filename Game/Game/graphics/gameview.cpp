@@ -10,8 +10,12 @@
 #include <QDebug>
 
 
-GameView::GameView(QWidget* qt_parent):
+GameView::GameView(std::shared_ptr<ObjectManager> object_manager,
+                   std::shared_ptr<GameEventHandler> event_handler,
+                   QWidget *qt_parent):
     QGraphicsView(qt_parent),
+    m_object_manager(object_manager),
+    m_event_handler(event_handler),
     m_last_sprite(nullptr)
 {
     setupFrameProperties();
@@ -21,7 +25,6 @@ GameView::GameView(QWidget* qt_parent):
 
     m_spriteSheet = new QPixmap(":/images/sprites.png");
 }
-
 
 void GameView::addTile(std::shared_ptr<Course::TileBase> tile)
 {

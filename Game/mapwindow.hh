@@ -1,6 +1,10 @@
 #ifndef MAPWINDOW_HH
 #define MAPWINDOW_HH
 
+#include "interfaces/igameeventhandler.h"
+#include "Game/graphics/gameview.h"
+#include "Game/core/gameeventhandler.h"
+
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QGraphicsView>
@@ -8,16 +12,11 @@
 #include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 #include <QSound>
-
 #include <map>
-
-#include "interfaces/igameeventhandler.h"
-#include "Game/graphics/gameview.h"
-#include "Game/core/gameeventhandler.h"
 
 
 namespace Ui {
-class MapWindow;
+    class MapWindow;
 }
 
 /**
@@ -83,9 +82,6 @@ private:
     unsigned int m_turn;
 
     Course::BasicResource m_traded_resource = Course::BasicResource::FOOD;
-
-    std::map<std::string, std::vector<std::string>> m_allowed_buildings_on_tile;
-    std::map<std::string, Course::ResourceMap> m_build_costs;
 
     std::shared_ptr<Course::TileBase> m_selected_tile = nullptr;
 

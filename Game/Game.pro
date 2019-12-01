@@ -59,6 +59,7 @@ HEADERS += \
     Game/buildings/university.h \
     Game/buildings/victorymonument.h \
     Game/core/marketplacetrader.h \
+    Game/core/objectmappings.h \
     Game/graphics/gamescene.h \
     Game/tiles/elevatedtilebase.h \
     Game/core/gameeventhandler.h \
