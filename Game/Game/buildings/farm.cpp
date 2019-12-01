@@ -17,7 +17,8 @@ Farm::Farm(
                  buildcost,
                  production)
 {
-                addDescription("Farm", "A sustainable source of food is essential for the survival of any civilization.");
+    setDescription("Name", "Farm");
+    setDescription("Description", "A sustainable source of food is essential for the survival of any civilization.");
 }
 
 std::string Farm::getType() const

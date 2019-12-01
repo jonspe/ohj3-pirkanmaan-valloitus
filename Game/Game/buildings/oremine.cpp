@@ -17,7 +17,8 @@ OreMine::OreMine(
                  buildcost,
                  production)
 {
-                    addDescription("Ore Mine", "Mining the mineral rich ground");
+    setDescription("Name", "Ore Mine");
+    setDescription("Description", "Mining the mineral rich ground");
 }
 
 std::string OreMine::getType() const

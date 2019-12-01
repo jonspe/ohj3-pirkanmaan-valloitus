@@ -16,7 +16,8 @@ Lake::Lake(const Course::Coordinate& location,
              max_work,
              production)
 {
-        addDescription("Lake",  "A large body of water with plenty of fish.");
+    setDescription("Name", "Lake");
+    setDescription("Description",  "A large body of water with plenty of fish.");
 }
 
 std::string Lake::getType() const

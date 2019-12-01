@@ -17,7 +17,8 @@ AdvancedLumberCamp::AdvancedLumberCamp(
                  buildcost,
                  production)
 {
-        addDescription("Advanced Lumber Camp", "With new tools created of rare minerals, wood production is faster than ever.");
+    setDescription("Name", "Advanced Lumber Camp");
+    setDescription("Description", "With new tools created of rare minerals, wood production is faster than ever.");
 }
 
 std::string AdvancedLumberCamp::getType() const

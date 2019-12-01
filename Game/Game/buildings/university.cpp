@@ -20,7 +20,8 @@ University::University(
                  buildcost,
                  production)
 {
-              addDescription("University", "A place where citizens can be educated to be more efficient in their work.");
+    setDescription("Name", "University");
+    setDescription("Description", "A place where citizens can be educated to be more efficient in their work.");
 }
 
 std::string University::getType() const
@@ -35,7 +36,6 @@ void University::doSpecialAction()
     auto object_manager = std::dynamic_pointer_cast<ObjectManager>(lockObjectManager());
     event_handler->queueWorker(educated_citizen);
     object_manager->addWorker(educated_citizen);
-
 }
 
 

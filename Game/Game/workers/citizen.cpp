@@ -18,6 +18,8 @@ Citizen::Citizen(const std::shared_ptr<Course::iGameEventHandler>& eventhandler,
         cost,
         efficiency)
 {
+    setDescription("Name", "Citizen");
+    setDescription("Description", "");
 }
 
 std::string Citizen::getType() const

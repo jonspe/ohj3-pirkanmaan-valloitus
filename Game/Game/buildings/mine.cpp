@@ -17,7 +17,8 @@ Mine::Mine(
                  buildcost,
                  production)
 {
-               addDescription("Mine", "Many useful materials can be found beneath the ground.");
+    setDescription("Name", "Mine");
+    setDescription("Description", "Many useful materials can be found beneath the ground.");
 }
 
 std::string Mine::getType() const

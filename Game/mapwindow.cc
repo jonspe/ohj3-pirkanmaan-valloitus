@@ -230,8 +230,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
 
     m_tile_select_sound.play();
 
-    m_ui->tileName->setText(QString::fromStdString(tile->getType()));
-    m_ui->tileDescription->setText(QString::fromStdString((tile->getDescription(tile->getType()))));
+    m_ui->tileName->setText(QString::fromStdString(tile->getDescription("Name")));
+    m_ui->tileDescription->setText(QString::fromStdString(tile->getDescription("Description")));
     m_ui->marketplaceMenu->setVisible(false);
     m_ui->workerMenu->setVisible(false);
     m_ui->demolishButton->setVisible(false);
@@ -262,8 +262,8 @@ void MapWindow::tilePressed(std::shared_ptr<Course::TileBase> tile)
         for( auto building : tile->getBuildings())
         {
             m_ui->buildingMenu->setVisible(true);
-            m_ui->buildingName->setText(QString::fromStdString(building->getType()));
-            m_ui->buildingDescription->setText(QString::fromStdString(building->getDescription(building->getType())));
+            m_ui->buildingName->setText(QString::fromStdString(building->getDescription("Name")));
+            m_ui->buildingDescription->setText(QString::fromStdString(building->getDescription("Description")));
 
             if (building->getType() == "Marketplace" && tile->getOwner() == m_players[std::to_string(m_current_player)])
             {

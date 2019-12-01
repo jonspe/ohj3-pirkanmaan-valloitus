@@ -17,7 +17,8 @@ Birch::Birch(const Course::Coordinate& location,
              max_work,
              production)
 { 
-          addDescription("Birch", "A forest of hundreds of beautiful birch trees.");
+    setDescription("Name", "Birch");
+    setDescription("Description", "A forest of hundreds of beautiful birch trees.");
 }
 
 std::string Birch::getType() const

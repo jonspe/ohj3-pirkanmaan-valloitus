@@ -21,7 +21,8 @@ City::City(
         buildcost,
         production)
 {
-        addDescription("City", "The heart of your empire. Allows training of new citizens to work in your lands.");
+    setDescription("Name", "City");
+    setDescription("Description", "The heart of your empire. Allows training of new citizens to work in your lands.");
 }
 
 std::string City::getType() const

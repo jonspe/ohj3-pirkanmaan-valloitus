@@ -18,7 +18,8 @@ VictoryMonument::VictoryMonument(
                  buildcost,
                  production)
 {
-            addDescription("Victory Monument", "A majestic tribute to the ancient gods, a symbol of your rule over this land.");
+    setDescription("Name", "Victory Monument");
+    setDescription("Description", "A majestic tribute to the ancient gods, a symbol of your rule over this land.");
 }
 
 std::string VictoryMonument::getType() const

@@ -16,7 +16,8 @@ Animals::Animals(const Course::Coordinate& location,
              max_work,
              production)
 {
-              addDescription("Animals", "Several herd animals have gathered on this field. They can be hunted for their meat, leather and furs");
+    setDescription("Name", "Animals");
+    setDescription("Description", "Several herd animals have gathered on this field. They can be hunted for their meat, leather and furs");
 }
 
 std::string Animals::getType() const

@@ -16,6 +16,8 @@ EducatedCitizen::EducatedCitizen(const std::shared_ptr<Course::iGameEventHandler
         cost,
         efficiency)
 {
+    setDescription("Name", "Educated Citizen");
+    setDescription("Description", "");
 }
 
 std::string EducatedCitizen::getType() const
