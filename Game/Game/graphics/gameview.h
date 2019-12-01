@@ -20,9 +20,7 @@ public:
      * @brief Constructor for the class.
      * @param qt_parent points to the parent object per Qt's parent-child-system.
      */
-    GameView(QWidget* qt_parent = nullptr,
-             const std::shared_ptr<GameEventHandler>& eventhandler = nullptr,
-             const std::shared_ptr<ObjectManager>& objectmanager = nullptr);
+    GameView(QWidget* qt_parent = nullptr);
 
     /**
      * @brief Adds a tile to the game scene
@@ -80,9 +78,7 @@ private:
      */
     void setupFrameProperties();
 
-    const std::shared_ptr<GameEventHandler> EVENTHANDLER;
-    const std::shared_ptr<ObjectManager> OBJECTMANAGER;
-
+    // Allows direct manipulation of game scene
     GameScene* m_gs_ptr;
 
     // Used to calculate mouse delta for panning

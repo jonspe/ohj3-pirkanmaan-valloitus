@@ -56,7 +56,7 @@ MapWindow::MapWindow(QWidget *parent):
     m_event_handler = new_handler;
 
     m_ui->setupUi(this);
-    m_gameview = std::shared_ptr<GameView>(new GameView(nullptr, m_event_handler, m_object_manager));
+    m_gameview = std::shared_ptr<GameView>(new GameView);
     m_ui->horizontalLayout_2->insertWidget(0, m_gameview.get());
 
     connect(m_gameview.get(), &GameView::tilePressed, this, &MapWindow::tilePressed);
