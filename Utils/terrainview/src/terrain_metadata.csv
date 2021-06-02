@@ -1,0 +1,54 @@
+METADATA;;;;;COLOR MAPPING;;;;COST;;;;;;;YIELD;;;;;;;SPECIAL;RESTRICTIONS;INFO
+ID;X;Y;Type;Name;R;G;B;A;Gold;Food;Wood;Minerals;Energy;Production;Happiness;Gold;Food;Wood;Minerals;Energy;Production;Happiness;Effect;Build Restriction;Hover Info
+NONE;7;7;NONE;NONE;;0;0;;0;0;0;0;0;0;0;0;0;0;0;0;0;0;;;
+BUI_CITY_CENTER;0;6;FEA;City Center;;100;;;0;0;0;0;0;0;0;+10;+2;+2;+1;+20;+50;0;Production +10*workers, Gold +15*workers;;Your very own Finnish city!
+BUI_CITY_OFFICE;1;6;FEA;Office;;101;;;0;0;60;20;0;250;0;+40;0;0;0;-5;0;0;;BUI_CITY_CENTER;This is where the cool kids hang out after graduation.
+BUI_CITY_MARKET;4;6;FEA;Market;;102;;;0;0;50;0;0;200;0;+15;0;0;0;-5;0;0;Access to marketplace;BUI_CITY_CENTER;Lets you exchange gold for resources, and vice versa.
+BUI_CITY_THEATRE;2;6;FEA;Theatre;;103;;;0;0;80;0;0;250;0;-10;0;0;0;-5;0;+1;;BUI_CITY_CENTER;A place of culture.
+BUI_CITY_STADIUM;3;6;FEA;Stadium;;104;;;0;0;200;70;0;400;0;-25;0;0;0;-10;0;+2;;BUI_CITY_CENTER;Raise your citizens' spirit with some sports.
+BUI_CITY_PARK;5;6;FEA;Park;;105;;;0;0;30;0;0;100;0;-2;0;0;0;0;0;+1;;BUI_CITY_CENTER;Ain't nothing like a walk in a park.
+BUI_CITY_UNI;6;6;FEA;University;;106;;;0;0;150;50;0;300;0;-25;0;0;0;-10;0;0;Turn random worker educated 25% chance;BUI_CITY_CENTER;Meta
+BUI_RESIDENCE;6;5;FEA;Residence;;107;;;0;0;75;0;0;250;0;+5;0;0;0;-5;0;0;Gold +10% citywide, +Pop cap, Gold +5%*workers?;;Increase maximum population.
+BUI_FACTORY;1;4;FEA;Factory;;108;;;0;0;50;40;0;300;0;-4;0;0;0;-10;+30;-1;Production +20%;;Creates jobs, but gets repetitive.
+BUI_MINE;3;4;FEA;Mine;;109;;;0;0;30;0;0;125;0;0;0;0;0;-5;+15;0;;;I guess if you dig deep enough..
+BUI_MINE_STONE;4;4;FEA;Stone Mine;;110;;;0;0;30;0;0;125;0;+4;0;0;+4;-5;+15;0;;HEX_STONE;Not too efficient, but it helps.
+BUI_MINE_MINERAL;5;4;FEA;Mineral Mine;;111;;;0;0;30;0;0;125;0;+10;0;0;+10;-5;+15;0;;FEA_MINERALS;Jesus Christ Marie! They aren't rocks, they're minerals!
+BUI_MINE_GOLD;6;4;FEA;Gold Mine;;112;;;0;0;30;0;0;125;0;+70;0;+5;0;-5;+15;0;;FEA_GOLD;
+BUI_MINE_DIAMOND;7;4;FEA;Diamond Mine;;113;;;0;0;30;0;0;125;0;+100;0;+5;0;-5;+15;0;;FEA_DIAMONDS;Aww yeah, found myself some diamonds.
+BUI_TURBINE;0;4;FEA;Wind Turbine;;114;;;0;0;0;20;0;200;0;-5;0;+5;0;+25;0;+1;;HEX_GRASS, HEX_LAKE;Wind power!
+BUI_NUCLEAR_PLANT;0;5;FEA;Nuclear Plant;;115;;;0;0;100;100;0;400;0;-40;0;0;0;+100;0;-2;;;
+BUI_SOLAR_PLANT;2;4;FEA;Solar Farm;;116;;;0;0;20;5;0;150;0;0;0;0;0;+10;0;+1;;;
+BUI_BIO_PLANT;1;5;FEA;Bio Energy Plant;;117;;;0;0;75;20;0;300;0;-3;0;-10;0;+30;0;+1;;;
+BUI_LUMBER_CAMP;2;5;FEA;Lumber Camp;;118;;;0;0;20;0;0;100;0;-3;0;+15;0;-3;0;0;;FEA_FOREST;
+BUI_CATTLE_RANCH;3;5;FEA;Cattle Ranch;;119;;;0;0;35;0;0;150;0;-3;+10;0;0;-5;0;0;;FEA_CATTLE;
+BUI_WHEAT_FARM;4;5;FEA;Wheat Farm;;120;;;0;0;30;0;0;125;0;-2;+6;0;0;-2;0;0;;HEX_GRASS, HEX_FERTILE;
+BUI_FISHERY;5;5;FEA;Fishery;;121;;;0;0;30;0;0;125;0;-2;+5;0;0;-1;0;0;;HEX_WATER;
+BUI_MONOLITH;7;7;FEA;TUNI Monolith;;122;;;1000;0;400;200;0;800;0;0;0;0;0;0;0;0;Win the game;;
+DEC_GRASS1;0;3;FEA;;;1;;;;;;;;;;;;;;;;;;;
+DEC_GRASS2;1;3;FEA;;;2;;;;;;;;;;;;;;;;;;;
+DEC_GRASS3;2;3;FEA;;;3;;;;;;;;;;;;;;;;;;;
+DEC_DESERT1;3;3;FEA;;;4;;;;;;;;;;;;;;;;;;;
+DEC_DESERT2;4;3;FEA;;;5;;;;;;;;;;;;;;;;;;;
+DEC_DESERT3;5;3;FEA;;;6;;;;;;;;;;;;;;;;;;;
+DEC_SNOW1;6;3;FEA;;;7;;;;;;;;;;;;;;;;;;;
+DEC_SNOW2;7;3;FEA;;;8;;;;;;;;;;;;;;;;;;;
+HEX_GRASS;0;0;HEX;Grass;;;61;;0;0;0;0;0;0;0;0;+1;0;0;0;0;0;;;
+HEX_FERTILE;1;0;HEX;Fertile;;;81;;0;0;0;0;0;0;0;0;+3;0;0;0;0;0;;;
+HEX_STONE;2;0;HEX;Stone;;;21;;0;0;0;0;0;0;0;0;0;0;+1;0;+1;0;;;
+HEX_WATER;3;0;HEX;Lake;;;1;;0;0;0;0;0;0;0;0;+2;0;0;0;0;0;;;
+HEX_SAND;4;0;HEX;Sand;;;41;;0;0;0;0;0;0;0;0;0;0;+1;0;0;-1;;;
+HEX_SNOW;5;0;HEX;Snow;;;101;;;;;;;;;;;;;;;;;;
+FEA_GEYSIR;7;1;FEA;Geysir;;209;;;;;;;;;;;;;;;;;;;
+FEA_MOUNTAIN;0;2;FEA;Forest;;207;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_VOLCANO;1;2;FEA;Forest;;208;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_EVERGREEN;0;1;FEA;Forest;;200;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_EVERGREEN_SNOW;1;1;FEA;Forest;;201;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_BIRCH;2;1;FEA;Forest;;202;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_PALM;3;1;FEA;Forest;;203;;;0;0;0;0;0;0;0;0;0;+4;0;0;+1;0;;;
+FEA_DIAMOND;6;1;FEA;Diamonds;;204;;;0;0;0;0;0;0;0;+20;0;0;0;0;0;+1;;;
+FEA_GOLD;5;1;FEA;Gold;;210;;;0;0;0;0;0;0;0;+10;0;0;0;0;0;0;;;
+FEA_MINERAL;4;1;FEA;Minerals;;211;;;0;0;0;0;0;0;0;+2;0;0;+6;0;+2;0;;;
+FEA_FISH;5;2;FEA;Fish;;205;;;0;0;0;0;0;0;0;0;+3;0;0;0;0;0;;;
+FEA_CATTLE;2;2;FEA;Cattle;;206;;;0;0;0;0;0;0;0;0;+3;0;0;0;0;0;;;
+FEA_SHEEP;3;2;FEA;Sheep;;212;;;0;0;0;0;0;0;0;0;+3;0;0;0;0;0;;;
+FEA_DEER;4;2;FEA;Deer;;213;;;0;0;0;0;0;0;0;0;+3;0;0;0;0;0;;;
