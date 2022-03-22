@@ -11,3 +11,4 @@ If you have trouble running the game, please check the Troubleshooting section i
 
 ![](https://i.imgur.com/wCa06WM.png?raw=true)
 
+https://user-images.githubusercontent.com/45041362/159522761-c5e1e584-f2eb-4ef2-90a7-ae23de23e0d0.mp4
